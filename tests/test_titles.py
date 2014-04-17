@@ -46,7 +46,6 @@ class TestTitles(testtools.TestCase):
 
         proposed = 'Proposed change'
         self.assertIn(proposed, titles)
-        self.assertEqual(9, len(titles[proposed]))
         self.assertIn('Alternatives', titles[proposed])
         self.assertIn('Data model impact', titles[proposed])
         self.assertIn('REST API impact', titles[proposed])
