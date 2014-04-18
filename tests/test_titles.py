@@ -13,7 +13,21 @@
 import glob
 
 import docutils.core
+from docutils.parsers import rst
+from docutils.parsers.rst import directives
 import testtools
+
+
+class FakeDirective(rst.Directive):
+    has_content = True
+    def run(self):
+        return []
+
+
+directives.register_directive('seqdiag',  FakeDirective)
+directives.register_directive('blockdiag',  FakeDirective)
+directives.register_directive('nwdiag',  FakeDirective)
+directives.register_directive('actdiag',  FakeDirective)
 
 
 class TestTitles(testtools.TestCase):

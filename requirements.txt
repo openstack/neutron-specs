@@ -1,6 +1,14 @@
+actdiag
+blockdiag
 docutils==0.9.1
+nwdiag
 oslosphinx
 pbr>=0.6,<1.0
+seqdiag
 sphinx>=1.1.2,<1.2
+sphinxcontrib-actdiag
+sphinxcontrib-blockdiag
+sphinxcontrib-nwdiag
+sphinxcontrib-seqdiag
 testrepository>=0.0.18
 testtools>=0.9.34
