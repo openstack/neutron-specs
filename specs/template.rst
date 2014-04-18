@@ -159,7 +159,30 @@ Questions which need to be addressed by this section include:
 REST API impact
 ---------------
 
-Each API method which is either added or changed should have the following
+For each API resource to be implemented using Neutron's attribute map
+facility (see the neutron.api.v2.attributes), describe the resource
+collection and specify the name, type, and other essential details of
+each new or modified attribute. A table similar to the following may
+be used:
+
++----------+-------+---------+---------+------------+--------------+
+|Attribute |Type   |Access   |Default  |Validation/ |Description   |
+|Name      |       |         |Value    |Conversion  |              |
++==========+=======+=========+=========+============+==============+
+|id        |string |RO, all  |generated|N/A         |identity      |
+|          |(UUID) |         |         |            |              |
++----------+-------+---------+---------+------------+--------------+
+|name      |string |RW, all  |''       |string      |human-readable|
+|          |       |         |         |            |name          |
++----------+-------+---------+---------+------------+--------------+
+|color     |string |RW, admin|'red'    |'red',      |color         |
+|          |       |         |         |'yellow', or|indicating    |
+|          |       |         |         |'green'     |state         |
++----------+-------+---------+---------+------------+--------------+
+
+
+Each API method which is either added or changed that does not use
+Neutron's attribute map facility should have the following:
 
 * Specification for the method
 
