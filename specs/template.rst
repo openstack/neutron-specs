@@ -181,6 +181,17 @@ be used:
 +----------+-------+---------+---------+------------+--------------+
 
 
+Here is the other example of the table using csv-table
+
+
+.. csv-table:: CSVTable
+    :header: Attribute Name,Type,Access,Default Value,Validation Conversion,Description
+
+    id,string (UUID),"RO, all",generated,N/A,identity
+    name,string,"RW, all","''",string,human-readable name
+    color,string,"RW, admin",red,"'red', 'yellow' or 'green'",color indicating state
+
+
 Each API method which is either added or changed that does not use
 Neutron's attribute map facility should have the following:
 
