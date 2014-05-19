@@ -10,7 +10,11 @@ The layout of this repository is::
 
   specs/<release>/
 
-You can find an example spec in `doc/source/specs/template.rst`.
+You can find an example spec in `doc/source/specs/template.rst`. A
+skeleton that contains all the sections required for a spec
+file is located in `doc/source/specs/skeleton.rst` and can
+be copied, then filled in with the details of a new blueprint for
+convenience.
 
 Specifications are proposed for a given release by adding them to the
 `specs/<release>` directory and posting it for review.  The implementation
