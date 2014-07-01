@@ -303,14 +303,22 @@ Action
 ServiceWrapper
   * neutron_service - uuid of service or service_chain
 
-BridgeDomain
+L2Policy
   * endpoint_groups - list of EndpointGroup uuids
-  * routing_domain_id - uuid of the RoutingDomain
+  * l3_policy_id - uuid of the l3_policy
 
-RoutingDomain
-  * bridge_domains - list of BridgeDomain uuids
+L3Policy
+  * l2_policies - list of L2Policy uuids
   * ip_version - enum, v4 or v6
-  * ip_supernet - string, IPSubnet with mask
+  * ip_pool - string, IPSubnet with mask, used to pull subnets from if the
+    user creates an EPG without specifying a subnet
+  * default_subnet_prefix_length - int, used as the default subnet length if
+    the user creates an EPG without a subnet
+
+The way ip_pool and default_subnet_prefix_length work is as follows: When
+creating L3Policy a default ip_pool and default_subnet_prefix_length are
+created. If a user creates an EPG, a subnet will be pulled from ip_pool using
+default_subnet_prefix_length.
 
 Objects to support Mapping to existing Neutron resources
 
@@ -320,10 +328,10 @@ EndpointPortBinding (extends Endpoint)
 EndpointGroupNetworkBinding (extends EndpointGroup)
   * neutron_subnets - list of Neutron Subnet uuids
 
-BridgeDomainBinding (extends BridgeDomain)
+L2PolicyBinding (extends l2_policy)
   * neutron_network_id - reference to a Neutron network
 
-RoutingDomainBinding (extends RoutingDomain)
+L3PolicyBinding (extends l3_policy)
   * neutron_routers - list of Neutron Router uuids
 
 Appropriate foreign key constraints will be added to maintain the referential
@@ -356,8 +364,8 @@ The following new resources are being introduced:
   ACTIONS = 'actions'
   SELECTORS = 'selectors'
   POLICY_LABELS = 'policy_labels'
-  BRIDGE_DOMAINS = 'bridge_domains'
-  ROUTING_DOMAINS = 'routing_domains'
+  L2_POLICIES = 'l2_policies'
+  L3_POLICIES = 'l3_policies'
 
   RESOURCE_ATTRIBUTE_MAP = {
       ENDPOINTS: {
@@ -643,7 +651,7 @@ The following new resources are being introduced:
                    'validate': {'type:string': None},
                    'is_visible': True, 'required': True},
       },
-      BRIDGE_DOMAINS: {
+      L2_POLICIES: {
           'id': {'allow_post': False, 'allow_put': False,
                  'validate': {'type:uuid': None}, 'is_visible': True,
                  'primary_key': True},
@@ -665,7 +673,7 @@ The following new resources are being introduced:
                                 'default': None, 'is_visible': True,
                                 'required': True},
       },
-      ROUTING_DOMAINS: {
+      L3_POLICIES: {
           'id': {'allow_post': False, 'allow_put': False,
                  'validate': {'type:uuid': None}, 'is_visible': True,
                  'primary_key': True},
@@ -682,10 +690,17 @@ The following new resources are being introduced:
                          'convert_to': attr.convert_to_int,
                          'validate': {'type:values': [4, 6]},
                          'is_visible': True},
-          'ip_supernet': {'allow_post': True, 'allow_put': False,
+          'ip_pool': {'allow_post': True, 'allow_put': False,
                           'validate': {'type:subnet': None},
-                          'is_visible': True},
-          'bridge_domains': {'allow_post': False, 'allow_put': False,
+                          'default': '10.0.0.0/8', 'is_visible': True},
+          'default_subnet_prefix_length': {'allow_post': True, 'allow_put': True,
+                          'convert_to': attr.convert_to_int,
+                          'validate': {
+                              # ipv4 specific validation is
+                              # performed in the plugin code.
+                              'type:values': range(1, 127)},
+                          'default': 24, 'is_visible': True},
+          'l2_policies': {'allow_post': False, 'allow_put': False,
                              'validate': {'type:uuid_list': None},
                              'convert_to': attr.convert_none_to_empty_list,
                              'default': None, 'is_visible': True},
@@ -709,12 +724,12 @@ using attribute extension:
                               'convert_to': attr.convert_none_to_empty_list,
                               'default': None, 'is_visible': True},
       },
-      gpolicy.BRIDGE_DOMAINS: {
+      gpolicy.L2_POLICIES: {
           'neutron_network_id': {'allow_post': True, 'allow_put': False,
                                  'validate': {'type:uuid_or_none': None},
                                  'is_visible': True, 'default': None},
       },
-      gpolicy.ROUTING_DOMAINS: {
+      gpolicy.L3_POLICIES: {
           'neutron_routers': {'allow_post': True, 'allow_put': True,
                               'validate': {'type:uuid_list': None},
                               'convert_to': attr.convert_none_to_empty_list,
