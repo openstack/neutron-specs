@@ -95,6 +95,7 @@ addressed by this blueprint.
 1. Router object Data Model.
 
 ::
+
     +----------------+--------------+------+-----+---------+
     |     Field      |    Type      | Null | Key | Default |
     +----------------+--------------+------+-----+---------+
@@ -118,6 +119,7 @@ A new table for the service node enhanced L3 agent to
 track the SNAT service on each node.
 
 ::
+
     +------------------+--------------+------+-----+---------+
     | Field            | Type         | Null | Key | Default |
     +------------------+--------------+------+-----+---------+
@@ -133,6 +135,7 @@ REST API impact
 router-create    Create a router for a given tenant.
 
 ::
+
     router-create --name another_router --distributed=true
 
 Admin can only set this attribute. The tenants need not be aware about
@@ -141,6 +144,7 @@ this attribute in the router table. So it is not visible to the tenant.
 Request
 
 ::
+
     POST /v2.0/routers
     Accept: application/json
 
@@ -155,6 +159,7 @@ Request
 Response
 
 ::
+
     {
     "router":{
     "status":"ACTIVE",
@@ -172,12 +177,14 @@ router-show    Show information of a given router.
 Request
 
 ::
+
     GET /v2.0/routers/a9254bdb-2613-4a13-ac4c-adc581fba50d
     Accept: application/json
 
 Response
 
 ::
+
     {
     "routers":[{
     "status":"ACTIVE",
@@ -202,23 +209,27 @@ targeting only from centralized to distributed.
 Admin only context:
 
 ::
+
     neutron router-update router1 --distributed=True
 
 
 Admin only CLI commands:
 
 ::
+
     l3-agent-list-hosting-snat   List L3 agents hosting a snat service.
 
 This command will list the agent with the router-id and SNAT IP.
 
 ::
+
     l3-agent-snat-add            Associate a snat namespace to an L3 agent.
 
 This command will allow an admin to associate a SNAT namespace to an agent.
 This command will take the router ID as an argument.
 
 ::
+
     l3-agent-snat-remove         Remove snat association from an L3 agent.
 
 This command will allow an admin to remove or disassociate a SNAT service from
@@ -267,32 +278,34 @@ Other deployer impact
 
 Global Configuration to enable Distributed Virtual Router.
 
-#neutron.conf
+::
 
-[default]
-# To enable distributed routing this flag need to be enabled.
-# It can be either True or False.
-# If False it will work in a legacy mode.
-# If True it will work in a DVR mode.
+    #neutron.conf
 
-#router_distributed = True
+    [default]
+    # To enable distributed routing this flag need to be enabled.
+    # It can be either True or False.
+    # If False it will work in a legacy mode.
+    # If True it will work in a DVR mode.
 
-
-# ovs_neutron_plugin.ini
-
-# This flag need to be enabled for the L2 Agent to address
-# DVR rules
-
-#enable_distributed_routing = True
+    #router_distributed = True
 
 
-# l3_agent.ini
-#
-# This flag is required by the L3 Agent as well to run the L3
-# agent in a Distributed Mode.
-#
-#distributed_agent = True
-#
+    # ovs_neutron_plugin.ini
+
+    # This flag need to be enabled for the L2 Agent to address
+    # DVR rules
+
+    #enable_distributed_routing = True
+
+
+    # l3_agent.ini
+    #
+    # This flag is required by the L3 Agent as well to run the L3
+    # agent in a Distributed Mode.
+    #
+    #distributed_agent = True
+    #
 
 This will be disabled by default.
 
@@ -323,13 +336,18 @@ Assignee(s)
 -----------
 
 Primary assignee:
-  <swaminathan-vasudevan>
+
+* <swaminathan-vasudevan>
 
 Other contributors:
-  <rajeev-grover>
-  <mbirru>
-  <michael-smith6>
-  <vivekanandan-narasimhan>
+
+* <rajeev-grover>
+
+* <mbirru>
+
+* <michael-smith6>
+
+* <vivekanandan-narasimhan>
 
 Work Items
 ----------
