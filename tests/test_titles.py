@@ -52,8 +52,6 @@ class TestTitles(testtools.TestCase):
         return titles
 
     def _check_titles(self, titles):
-        self.assertEqual(7, len(titles))
-
         problem = 'Problem description'
         self.assertIn(problem, titles)
         self.assertEqual(0, len(titles[problem]))
@@ -91,6 +89,8 @@ class TestTitles(testtools.TestCase):
         refs = 'References'
         self.assertIn(refs, titles)
         self.assertEqual(0, len(titles[refs]))
+
+        self.assertEqual(7, len(titles))
 
     def test_template(self):
         files = glob.glob('specs/*.rst') + glob.glob('specs/*/*')
