@@ -46,5 +46,5 @@ confidence in the Jenkins result), please execute the following command::
   $ tox
 
 After running ``tox``, the documentation will be available for viewing in HTML
-format in the ``doc/build/`` directory. Please do not checkin the generated
+format in the ``doc/build/`` directory. Please do not check in the generated
 HTML files as a part of your commit.
