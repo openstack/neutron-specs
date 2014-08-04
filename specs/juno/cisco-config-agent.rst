@@ -17,7 +17,7 @@ configuring Cisco service VMs to implement network services. This agent is
 meant to be generic and intended to support multiple services. But initially it
 will cover only routing and NAT services in CSR1kv Service VM. The design of
 this agent is inspired by the current L3 agent which configures neutron routers
-in linux namespaces.
+in Linux namespaces.
 
 This blueprint depends on the blueprint:
 https://blueprints.launchpad.net/neutron/+spec/cisco-routing-service-vm
