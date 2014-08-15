@@ -27,8 +27,28 @@ monolithic plugin.
 Proposed change
 ===============
 
-The following changes can be considered as a solution to support extensions in
-mechanism driver:
+This proposal adds support to ML2 for extension drivers, which manage extended
+attributes on the neutron core resources implemented by the ML2 plugin:
+network, subnet and port.
+
+The extension drivers are completely orthogonal to mechanism drivers. An
+operator configures some set of extension drivers and configures some other set
+of mechanism drivers. The set of extension drivers configured determines what
+extended attributes are present on the core resources. These extension drivers
+manage setting, defaulting, updating and returning persistent values for these
+extended attributes. The values of these extended attributes are then available
+to all the configured mechanism drivers and they do not vary depending on which
+mechanism driver is using the extended attributes.
+If a mechanism driver understands an extension, it can enforce its semantics.
+If not, it just ignores those extended attributes.
+
+Each mechanism driver that requires a vendor-specific extension would have its
+own extension driver. There may also be "community" extension drivers, where
+several different mechanism drivers might be able to enforce the extension's
+semantics.
+
+What follows describe changes in ML2 to define extension drivers and provide
+support for extensions in ML2 mechanism drivers:
 
 1. Introduce ExtensionDriver API and ExtensionManager (similar to
 MechanismDriver and MechanismManager).
