@@ -1,6 +1,5 @@
 actdiag
 blockdiag
-docutils==0.9.1
 nwdiag
 oslosphinx
 pbr>=0.6,!=0.7,<1.0
