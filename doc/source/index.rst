@@ -19,6 +19,7 @@ Juno approved specs:
    :maxdepth: 1
 
    specs/juno/*
+   specs/juno-incubator/*
 
 ==================
 Indices and tables
