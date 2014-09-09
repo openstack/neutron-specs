@@ -3,7 +3,7 @@
 Adding support for host-routes and dns_nameservers options for Nuage Plugin
 ===========================================================================
 
-https://blueprints.launchpad.net/neutron/+spec/dhcp-host-routes-and-dns-support-for-nuage-plugin.rst
+https://blueprints.launchpad.net/neutron/+spec/dhcp-host-routes-and-dns-support-for-nuage-plugin
 
 Adding support for host-routes and dns_nameservers options via DHCP options
 for the Nuage Plugin
