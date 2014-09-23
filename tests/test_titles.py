@@ -52,21 +52,22 @@ class TestTitles(testtools.TestCase):
         return titles
 
     def _check_titles(self, titles):
-        problem = 'Problem description'
+        problem = 'Problem Description'
         self.assertIn(problem, titles)
         self.assertEqual(0, len(titles[problem]))
 
-        proposed = 'Proposed change'
+        proposed = 'Proposed Change'
         self.assertIn(proposed, titles)
-        self.assertIn('Alternatives', titles[proposed])
-        self.assertIn('Data model impact', titles[proposed])
-        self.assertIn('REST API impact', titles[proposed])
-        self.assertIn('Security impact', titles[proposed])
-        self.assertIn('Notifications impact', titles[proposed])
-        self.assertIn('Other end user impact', titles[proposed])
+        self.assertIn('Data Model Impact', titles[proposed])
+        self.assertIn('REST API Impact', titles[proposed])
+        self.assertIn('Security Impact', titles[proposed])
+        self.assertIn('Notifications Impact', titles[proposed])
+        self.assertIn('Other End User Impact', titles[proposed])
         self.assertIn('Performance Impact', titles[proposed])
-        self.assertIn('Other deployer impact', titles[proposed])
-        self.assertIn('Developer impact', titles[proposed])
+        self.assertIn('Other Deployer Impact', titles[proposed])
+        self.assertIn('Developer Impact', titles[proposed])
+        self.assertIn('Community Impact', titles[proposed])
+        self.assertIn('Alternatives', titles[proposed])
 
         impl = 'Implementation'
         self.assertIn(impl, titles)
@@ -80,11 +81,16 @@ class TestTitles(testtools.TestCase):
 
         testing = 'Testing'
         self.assertIn(testing, titles)
-        self.assertEqual(0, len(titles[testing]))
+        self.assertIn('Tempest Tests', titles[testing])
+        self.assertIn('Functional Tests', titles[testing])
+        self.assertIn('API Tests', titles[testing])
+        self.assertEqual(3, len(titles[testing]))
 
         docs = 'Documentation Impact'
         self.assertIn(docs, titles)
-        self.assertEqual(0, len(titles[docs]))
+        self.assertIn('User Documentation', titles[docs])
+        self.assertIn('Developer Documentation', titles[docs])
+        self.assertEqual(2, len(titles[docs]))
 
         refs = 'References'
         self.assertIn(refs, titles)
@@ -93,7 +99,7 @@ class TestTitles(testtools.TestCase):
         self.assertEqual(7, len(titles))
 
     def test_template(self):
-        files = glob.glob('specs/*.rst') + glob.glob('specs/*/*')
+        files = glob.glob('specs/*.rst') + glob.glob('specs/kilo/*')
         for filename in files:
             self.assertTrue(filename.endswith(".rst"),
                             "spec's file must uses 'rst' extension.")

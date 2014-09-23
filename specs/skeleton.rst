@@ -9,35 +9,31 @@ Title of your blueprint
 ==========================================
 
 
-Problem description
+Problem Description
 ===================
 
 
-Proposed change
+Proposed Change
 ===============
 
 
-Alternatives
-------------
-
-
-Data model impact
+Data Model Impact
 -----------------
 
 
-REST API impact
+REST API Impact
 ---------------
 
 
-Security impact
+Security Impact
 ---------------
 
 
-Notifications impact
+Notifications Impact
 --------------------
 
 
-Other end user impact
+Other End User Impact
 ---------------------
 
 
@@ -45,12 +41,20 @@ Performance Impact
 ------------------
 
 
-Other deployer impact
+Other Deployer Impact
 ---------------------
 
 
-Developer impact
+Developer Impact
 ----------------
+
+
+Community Impact
+----------------
+
+
+Alternatives
+------------
 
 
 Implementation
@@ -71,9 +75,27 @@ Dependencies
 Testing
 =======
 
+Tempest Tests
+-------------
+
+
+Functional Tests
+----------------
+
+
+API Tests
+---------
+
 
 Documentation Impact
 ====================
+
+User Documentation
+------------------
+
+
+Developer Documentation
+-----------------------
 
 
 References
