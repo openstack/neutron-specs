@@ -12,6 +12,7 @@ Juno approved specs:
 
    specs/juno/*
    specs/juno-incubator/*
+   specs/kilo/*
 
 ==================
 Indices and tables
