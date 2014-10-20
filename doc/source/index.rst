@@ -4,15 +4,32 @@
 Neutron Project Specifications
 ==============================
 
-Juno approved specs:
+Kilo approved specs
+===================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/kilo/*
+
+Juno approved specs
+===================
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
    specs/juno/*
+
+Neutron Incubator
+-----------------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
    specs/juno-incubator/*
-   specs/kilo/*
 
 ==================
 Indices and tables
