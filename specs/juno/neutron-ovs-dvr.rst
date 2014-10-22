@@ -129,6 +129,74 @@ track the SNAT service on each node.
     | l3_agent_id      | string(36)   | YES  | MUL | NULL    |
     +------------------+--------------+------+-----+---------+
 
+3. ML2 DVR interface binding data model.
+
+::
+    +-------------------+--------------+------+-----+---------+
+    | Field             | Type         | Null | Key | Default |
+    +-------------------+--------------+------+-----+---------+
+    | port_id           | string(36)   | NO   | PRI |         |
+    | host              | string(255)  | NO   | PRI |         |
+    | router_id         | string(36)   | YES  |     | NULL    |
+    | vif_type          | string(64)   | YES  |     | NULL    |
+    | vif_details       | string(4095) | YES  |     | NULL    |
+    | vnic_type         | string(64)   | YES  |     | NULL    |
+    | profile           | string(36)   | YES  |     | NULL    |
+    | cap_port_filter   | boolean      | YES  |     | NULL    |
+    | driver            | string(64)   | YES  |     | NULL    |
+    | segment           | string(36)   | YES  |     | NULL    |
+    | status            | string(16)   | YES  |     | NULL    |
+    +-------------------+--------------+------+-----+---------+
+
+A new table that is used to hold port bindings for DVR router
+interfaces only.
+This is similar to the portbindings table, but this table will hold
+bindings only for dvr router interfaces.
+
+The original portbindings table will also hold one-binding row
+for a dvr router interface, but that won’t hold binding information.
+That binding row is held there, only to ensure transparency of dvr presence
+to the tenants themselves.
+
+Some of the significant fields in the above are:
+port_id - This refers to the port id of the DVR Router interface for which
+this binding is applied to. The port-id will refer to id field
+of the port table.
+host - This holds the host on which the DVR interface is bound.
+router_id - This field indicates for which router interface, this
+binding belongs.
+status - This field represents the status of the dvr interface port on the
+host, which is represented by this binding.
+
+The status field value of the single-binding row for dvr router
+interface in the original portbindings table will now be an ORed result
+of the above status field of all such bindings available in the above
+table for dvr router interfaces.
+
+4. ML2 DVR Unique MAC Address Table:
+
+::
+    +-------------------+--------------+------+-----+---------+
+    | Field             | Type         | Null | Key | Default |
+    +-------------------+--------------+------+-----+---------+
+    | host              | string(255)  | NO   | PRI |         |
+    | mac_address       | string(32)   | NO   |     | NULL    |
+    +-------------------+--------------+------+-----+---------+
+
+A new table that is used to hold Unique DVR Base mac assigned to OVS L2
+agent that is running in DVR Mode.
+
+For any given host where an OVS L2 Agent is running, only one MAC Address
+from the DVR Base Mac pool is allocated to that OVS L2 Agent. This
+allocation rpc cycle, completes during init() of the OVS L2 Agent.
+
+In order to make OVS L2 Agent run in DVR Mode, enable_distributed_routing
+flag must be set to True in the [agent] section of ml2 ini file (ml2_conf.ini).
+
+Similarly, the DVR Base Mac Address which represents start of the pool, need
+to be defined in neutron.conf
+
+
 REST API impact
 ---------------
 
