@@ -22,6 +22,16 @@ Juno approved specs
 
    specs/juno/*
 
+API specs
+=========
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/api/*
+   
+
 Neutron Incubator
 -----------------
 
