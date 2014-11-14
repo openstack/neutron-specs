@@ -15,12 +15,12 @@ Problem Description
 ===================
 
 - ofagent uses bridge name (eg. "br-int") to specify the bridge to control.
-  it's OVS-dependant.
+  it's OVS-dependent.
 
 - ofagent automatically set up the bridge on startup.
   (i.e. add-br, set br protocols, set-controller, etc)
   there are little point to perform it every time an agent starts up.
-  on-time setup during deployment is enough.  also, it's OVS-dependant.
+  one-time setup during deployment is enough.  also, it's OVS-dependent.
 
 Proposed Change
 ===============
