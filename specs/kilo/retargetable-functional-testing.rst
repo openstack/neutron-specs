@@ -16,7 +16,7 @@ This blueprint describes the rational for adding support for
 retargetable functional testing to the Neutron test suite.
 
 
-Problem description
+Problem Description
 ===================
 
 The current Neutron unit test suite contains a large number of tests
@@ -33,10 +33,10 @@ project.  This results in a rough doubling of the cost of testing a
 given API with no increase in effectiveness.
 
 The fact that formal API testing is left to Tempest has the added cost
-of delaying some test additions until after a feature has been merged. 
+of delaying some test additions until after a feature has been merged.
 
 
-Proposed change
+Proposed Change
 ===============
 
 The goal is to introduce the concept of a 'retargetable' functional
@@ -48,6 +48,8 @@ tests could be written and run directly against the plugin API (taking
 less time than the previous REST-targeting tests) , and then be
 configured to run against a live deployment with minimal effort.
 
+Ultimately, this change enables the effort of moving functional tests
+out of Tempest and into Neutron.
 
 Alternatives
 ------------
@@ -55,31 +57,31 @@ Alternatives
 None
 
 
-Data model impact
+Data Model Impact
 -----------------
 
 None
 
 
-REST API impact
+REST API Impact
 ---------------
 
 None
 
 
-Security impact
+Security Impact
 ---------------
 
 None
 
 
-Notifications impact
+Notifications Impact
 --------------------
 
 None
 
 
-Other end user impact
+Other End User Impact
 ---------------------
 
 None
@@ -90,22 +92,28 @@ Performance Impact
 
 None
 
+IPv6 Impact
+-----------
 
-Other deployer impact
+None
+
+Other Deployer Impact
 ---------------------
 
 None
 
 
-Developer impact
+Developer Impact
 ----------------
 
 Developers and reviewers will have to be educated as to this new
 strategy for implementing API tests.  It will no longer be acceptable
-to accept API changes without corresponding test additions, and there
-will need to be a procedure to copy API tests into Tempest once a
-given API has stabilized or tests have been modified in a
-backwards-compatible way.
+to allow API changes without corresponding test additions.
+
+Community Impact
+----------------
+
+None
 
 
 Implementation
@@ -115,7 +123,7 @@ Assignee(s)
 -----------
 
 Primary assignee:
-  maru
+  Maru Newby
 
 
 Work Items
@@ -125,35 +133,57 @@ Work Items
     concept of writing tests to an abstraction that can support
     targeting both the plugin api and the tempest rest client.
 
- 2. Define a procedure for transfering responsibility for stablized
-    API tests to Tempest.
-
+ 2. Define a procedure for ensuring that tests for stable APIs are not
+    changed in the same changeset as the APIs themselves are changed to
+    minimize the potential for backwards-incompatible API changes.
 
 Dependencies
 ============
 
-The testscenarios library, already listed in the
-openstack/requirements repo, will become a test dependency of Neutron
-as a result of this spec being implemented:
-
-https://pypi.python.org/pypi/testscenarios/
-
+None.
 
 Testing
 =======
 
-None
+Tempest Tests
+-------------
 
+Tests that were usually targeting Tempest can now be directly contributed
+to Neutron. However there is a distinction between those that required
+a fully fledged environment (like the scenario tests that spin up VM's and
+test connectivity), and the ones that are purely targeting the Neutron API's.
+The scenario tests will continue to stay in Tempest.
+
+API Tests
+---------
+
+API tests will be contributed directly to Neutron, so that they can be
+validated by the Neutron API job (https://review.openstack.org/82226).
+
+Functional Tests
+----------------
+
+Functional tests will be contributed directly to Neutron, so that they can
+be validated by the Neutron functional job (https://review.openstack.org/66967).
 
 
 Documentation Impact
 ====================
 
-None
+User Documentation
+------------------
 
+The end user is not impacted.
+
+Developer Documentation
+-----------------------
+
+The codebase should suffice in demonstrating what the approach to be
+following is like, however, in-tree developer documentation on how to
+maintain the functional api tests should also be contributed.
 
 References
 ==========
 
-Etherpad for summit session arguing for project-maintained API tests:
-https://etherpad.openstack.org/p/juno-qa-functional-api
+* https://etherpad.openstack.org/p/kilo-crossproject-move-func-tests-to-projects
+* https://etherpad.openstack.org/p/juno-qa-functional-api
