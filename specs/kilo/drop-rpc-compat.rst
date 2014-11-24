@@ -148,6 +148,11 @@ Negligible.   In theory, this is removing a compatibility layer so there should
 be less code, but the overall performance impact of removing the layer is
 negligible in the broader scope of things.
 
+IPv6 Impact
+-----------
+
+None
+
 Other Deployer Impact
 ---------------------
 

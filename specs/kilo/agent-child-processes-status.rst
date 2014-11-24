@@ -159,6 +159,12 @@ Polling isn't ideal, but the alternatives aren't either, and
 we need a solution for this problem, specially for HA environments.
 
 
+IPv6 Impact
+-----------
+
+No effect on IPv6 expected here.
+
+
 Other Deployer Impact
 ---------------------
 

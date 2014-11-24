@@ -74,6 +74,11 @@ Performance Impact
 ------------------
 None
 
+IPv6 Impact
+-----------
+
+None
+
 Other Deployer Impact
 ---------------------
 In addition to the core cisco provider segment control plane code being ported

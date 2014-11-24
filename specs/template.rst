@@ -210,6 +210,19 @@ Examples of things to consider here include:
 * Will the change include any locking, and if so what considerations are there on
   holding the lock?
 
+IPv6 Impact
+-----------
+
+Describe if this change will have an effect on IPv6 in Neutron. You should also
+document here how your change will work with the existing IPv6 infrastructure
+in Neutron.
+
+* Does this change work with IPv6?
+
+* Does this change require Neutron changes to facilitate working with IPv6?
+
+* Describe how this change will work when deployed with IPv6 tenant networks.
+
 Other Deployer Impact
 ---------------------
 

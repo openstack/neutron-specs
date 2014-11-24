@@ -84,6 +84,11 @@ Performance Impact
 
 None.
 
+IPv6 Impact
+-----------
+
+None.
+
 Other Deployer Impact
 ---------------------
 

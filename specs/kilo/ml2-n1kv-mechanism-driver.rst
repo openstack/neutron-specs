@@ -134,6 +134,11 @@ Performance Impact
 The performance of Cisco N1KV ML2 mechanism driver will depend on the
 responsiveness of the VSM.
 
+IPv6 Impact
+-----------
+
+None.
+
 Other Deployer Impact
 ---------------------
 

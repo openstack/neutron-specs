@@ -64,6 +64,7 @@ class TestTitles(testtools.TestCase):
         self.assertIn('Notifications Impact', titles[proposed])
         self.assertIn('Other End User Impact', titles[proposed])
         self.assertIn('Performance Impact', titles[proposed])
+        self.assertIn('IPv6 Impact', titles[proposed])
         self.assertIn('Other Deployer Impact', titles[proposed])
         self.assertIn('Developer Impact', titles[proposed])
         self.assertIn('Community Impact', titles[proposed])

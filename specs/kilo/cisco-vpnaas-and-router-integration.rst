@@ -104,6 +104,12 @@ Wall clock time to create a VPN connection improves, as the Neutron commands
 will take all needed actions (no manual INI file changes needed).
 
 
+IPv6 Impact
+-----------
+
+This is expected to work in an IPv6 environment.
+
+
 Other Deployer Impact
 ---------------------
 
