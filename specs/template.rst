@@ -168,11 +168,14 @@ consider include:
   of this include launching subprocesses for each connection, or entity
   expansion attacks in XML.
 
-For more detailed guidance, please see the OpenStack Security Guidelines as
-a reference (https://wiki.openstack.org/wiki/Security/Guidelines).  These
-guidelines are a work in progress and are designed to help you identify
-security best practices.  For further information, feel free to reach out
-to the OpenStack Security Group at openstack-security@lists.openstack.org.
+For more detailed guidance, please see the OpenStack Security Guidelines
+[#security_guidelines]_ as a reference.  These guidelines are a work in
+progress and are designed to help you identify security best practices.
+For further information, feel free to reach out to the OpenStack Security
+Group at openstack-security@lists.openstack.org.
+
+.. [#security_guidelines] OpenStack Security Guidelines
+   https://wiki.openstack.org/wiki/Security/Guidelines
 
 Notifications Impact
 --------------------
