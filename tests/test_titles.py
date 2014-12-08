@@ -11,23 +11,10 @@
 # under the License.
 
 import glob
+import re
 
 import docutils.core
-from docutils.parsers import rst
-from docutils.parsers.rst import directives
 import testtools
-
-
-class FakeDirective(rst.Directive):
-    has_content = True
-    def run(self):
-        return []
-
-
-directives.register_directive('seqdiag',  FakeDirective)
-directives.register_directive('blockdiag',  FakeDirective)
-directives.register_directive('nwdiag',  FakeDirective)
-directives.register_directive('actdiag',  FakeDirective)
 
 
 class TestTitles(testtools.TestCase):
@@ -47,65 +34,87 @@ class TestTitles(testtools.TestCase):
         titles = {}
         for node in spec:
             if node.tagname == 'section':
+                # Note subsection subtitles are thrown away
                 section = self._get_title(node)
                 titles[section['name']] = section['subtitles']
         return titles
 
-    def _check_titles(self, titles):
-        problem = 'Problem Description'
-        self.assertIn(problem, titles)
-        self.assertEqual(0, len(titles[problem]))
+    def _check_titles(self, filename, expect, actual):
+        missing_sections = [x for x in expect if x not in actual]
+        extra_sections = [x for x in actual if x not in expect]
 
-        proposed = 'Proposed Change'
-        self.assertIn(proposed, titles)
-        self.assertIn('Data Model Impact', titles[proposed])
-        self.assertIn('REST API Impact', titles[proposed])
-        self.assertIn('Security Impact', titles[proposed])
-        self.assertIn('Notifications Impact', titles[proposed])
-        self.assertIn('Other End User Impact', titles[proposed])
-        self.assertIn('Performance Impact', titles[proposed])
-        self.assertIn('IPv6 Impact', titles[proposed])
-        self.assertIn('Other Deployer Impact', titles[proposed])
-        self.assertIn('Developer Impact', titles[proposed])
-        self.assertIn('Community Impact', titles[proposed])
-        self.assertIn('Alternatives', titles[proposed])
+        msgs = []
+        if missing_sections:
+            msgs.append("Missing sections: %s" % missing_sections)
+        if extra_sections:
+            msgs.append("Extra sections: %s" % extra_sections)
 
-        impl = 'Implementation'
-        self.assertIn(impl, titles)
-        self.assertEqual(2, len(titles[impl]))
-        self.assertIn('Assignee(s)', titles[impl])
-        self.assertIn('Work Items', titles[impl])
+        for section in expect.keys():
+            missing_subsections = [x for x in expect[section]
+                                   if x not in actual[section]]
+            # extra subsections are allowed
+            if len(missing_subsections) > 0:
+                msgs.append("Section '%s' is missing subsections: %s"
+                            % (section, missing_subsections))
 
-        deps = 'Dependencies'
-        self.assertIn(deps, titles)
-        self.assertEqual(0, len(titles[deps]))
+        if len(msgs) > 0:
+            self.fail("While checking '%s':\n  %s"
+                      % (filename, "\n  ".join(msgs)))
 
-        testing = 'Testing'
-        self.assertIn(testing, titles)
-        self.assertIn('Tempest Tests', titles[testing])
-        self.assertIn('Functional Tests', titles[testing])
-        self.assertIn('API Tests', titles[testing])
-        self.assertEqual(3, len(titles[testing]))
+    def _check_lines_wrapping(self, tpl, raw):
+        for i, line in enumerate(raw.split("\n")):
+            if "http://" in line or "https://" in line:
+                continue
+            self.assertTrue(
+                len(line) < 80,
+                msg="%s:%d: Line limited to a maximum of 79 characters." %
+                (tpl, i+1))
 
-        docs = 'Documentation Impact'
-        self.assertIn(docs, titles)
-        self.assertIn('User Documentation', titles[docs])
-        self.assertIn('Developer Documentation', titles[docs])
-        self.assertEqual(2, len(titles[docs]))
+    def _check_no_cr(self, tpl, raw):
+        matches = re.findall('\r', raw)
+        self.assertEqual(
+            len(matches), 0,
+            "Found %s literal carriage returns in file %s" %
+            (len(matches), tpl))
 
-        refs = 'References'
-        self.assertIn(refs, titles)
-        self.assertEqual(0, len(titles[refs]))
 
-        self.assertEqual(7, len(titles))
+    def _check_trailing_spaces(self, tpl, raw):
+        for i, line in enumerate(raw.split("\n")):
+            trailing_spaces = re.findall(" +$", line)
+            self.assertEqual(len(trailing_spaces), 0,
+                    "Found trailing spaces on line %s of %s" % (i + 1, tpl))
 
     def test_template(self):
-        files = glob.glob('specs/*.rst') + glob.glob('specs/kilo/*')
-        for filename in files:
-            self.assertTrue(filename.endswith(".rst"),
-                            "spec's file must uses 'rst' extension.")
-            with open(filename) as f:
-                data = f.read()
-            spec = docutils.core.publish_doctree(data)
-            titles = self._get_titles(spec)
-            self._check_titles(titles)
+        releases = [x.split('/')[1] for x in glob.glob('specs/*/')]
+        for release in releases:
+            if release[0] < 'k':
+                # Don't bother enforcement for specs before Kilo.
+                continue
+            try:
+                # Support release-specific template.
+                with open("specs/%s-template.rst" % release) as f:
+                    template = f.read()
+            except IOError:
+                # Base template if release template not found.
+                with open("specs/template.rst") as f:
+                    template = f.read()
+            spec = docutils.core.publish_doctree(template)
+            template_titles = self._get_titles(spec)
+
+            files = glob.glob("specs/%s/*" % release)
+            for filename in files:
+                self.assertTrue(filename.endswith(".rst"),
+                                "spec's file must uses 'rst' extension.")
+                with open(filename) as f:
+                    data = f.read()
+
+                spec = docutils.core.publish_doctree(data)
+                titles = self._get_titles(spec)
+                self._check_titles(filename, template_titles, titles)
+                # TODO(russellb) Enable this eventually, but it will probably
+                # require fixes to existing specs.  Alternatively, it could be
+                # turned on for a new release (like L) before any L specs are
+                # merged to avoid unnecessary churn.
+                #self._check_lines_wrapping(filename, data)
+                self._check_no_cr(filename, data)
+                self._check_trailing_spaces(filename, data)

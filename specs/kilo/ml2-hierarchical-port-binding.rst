@@ -174,7 +174,7 @@ properties:
 
       @abc.abstractproperty
       def binding_levels(self):
-      
+
       @abc.abstractproperty
       def original_binding_levels(self):
 
