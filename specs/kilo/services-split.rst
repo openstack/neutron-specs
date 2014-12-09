@@ -82,6 +82,9 @@ program will remain unchanged.
 
 * Third-party CIs must point at the relevant repo.
 
+* In Kilo, the four repos will play nicely together on master, but not
+  between any other versions/branches.
+
 Kilo-1 (to occur during neutron meetup, 12/8)
 ---------------------------------------------
 
