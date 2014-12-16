@@ -8,7 +8,7 @@
 Replace home grown WSGI layer with Pecan
 ==========================================
 
-https://blueprints.launchpad.net/neutron/+spec/pecan-switch
+https://blueprints.launchpad.net/neutron/+spec/wsgi-pecan-switch
 
 This document describes a plan to replace the current home-grown WSGI
 framework, including REST controllers, with a solution entirely based
