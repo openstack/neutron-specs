@@ -65,10 +65,18 @@ along with the included reference IPAM implementation.
 A subnet pool can be shared or not shared.  Only admins can create shared pool.
 
 A quota mechanism will be added for shared pools.  Quotas will be expressed in
-terms of absolute number of IP addresses. The resource quotas are applied to is
-not the SubnetPool, but rather IP addresses.  As such, the current quota engine
-is not able to perform this operation so management and enforcement should occur
-in a custom fashion.
+terms of the number of minimum atomically allocatable address units.  To keep
+the math simple, the unit size will be hard-coded at /32 for IPv4 and /64 for
+IPv6.  Counting the total number of addresses with IPv6 will make things
+cumbersome since even an unsigned 64 bit integer is not sufficient to express
+numbers this large.  It would also require extra complexity around presentation
+in order to present these numbers to a user in a way that makes any sense at
+all.  The implementation will share code between IP versions.  The only
+difference will be the prefix size constant.
+
+The resource quotas are applied to is not the SubnetPool, but rather IP
+addresses.  As such, the current quota engine is not able to perform this
+operation so management and enforcement should occur in a custom fashion.
 
 Operators may want to charge for allocations (hopefully not with IPv6) but the
 mechanism by which they can do this is beyond this bp's scope.
