@@ -8,6 +8,8 @@
 Neutron PyDev debugger support
 ==========================================
 
+https://blueprints.launchpad.net/neutron/+spec/pydev-debugger-support
+
 
 Problem Description
 ===================
