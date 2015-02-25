@@ -361,10 +361,18 @@ all drivers requiring it).  (Note that the segment MTU is determined
 from config and *not* by probing interfaces, as multiple interfaces
 can be involved in a network segment.)
 
-Additionally, the format of the bridge_mappings attribute is changed
-to accommodate an optional MTU (which, when absent, defaults to 1500):
+Additionally, a new attribute, physnet_mtus, will be added to the
+ML2 configuration to accommodate an optional per-physical network
+MTU setting.  Any physical networks without a corresponding
+physnet_mtus setting will cause the use of the global segment_mtu
+value in MTU calculations for that physical network (if the
+segment_mtu is unset then no calculation takes place).
 
-bridge_mappings = physnet1:br-eth1,1500  # indicating a 1500 MTU L2 domain
+Example:
+  physnet_mtus = physnet1:1550, physnet2:1500
+
+Or, to set MTU for physnet2 and leave physnet1 as default:
+  physnet_mtus = physnet2:1550
 
 This can be used to declare the MTU of physical networks, including
 the external network and those used for provider networks.
@@ -536,7 +544,7 @@ Phase I:
 
 Confirm that VLAN, VXLAN, GRE, OVS and Linuxbridge drivers are
 correctly calculating their MTU from the inputs - the configuration
-parameters path_mtu, segment_mtu and bridge_mappings
+parameters path_mtu, segment_mtu and physnet_mtus
 
 Confirm that, using the above drivers, ML2 correcly calculates the MTU
 to use for a variety of network types, including virtual, provider and
