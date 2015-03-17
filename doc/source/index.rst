@@ -15,6 +15,15 @@ Neutron Project Priorities
 Neutron Project Specifications
 ==============================
 
+Liberty approved specs
+======================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/liberty/*
+
 Kilo approved specs
 ===================
 
