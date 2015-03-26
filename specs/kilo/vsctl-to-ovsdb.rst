@@ -8,6 +8,7 @@
 Use OVSDB instead of calling ovs-vsctl
 ======================================
 
+https://blueprints.launchpad.net/neutron/+spec/vsctl-to-ovsdb
 
 Problem Description
 ===================

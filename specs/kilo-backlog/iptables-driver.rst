@@ -8,6 +8,8 @@
 New iptables firewall driver
 ============================
 
+https://blueprints.launchpad.net/neutron/+spec/new-iptables-driver
+
 The goal of this spec is to implement new iptables firewall driver which will
 be more maintainable, readable and testable with better OOP design.
 The functionality of driver is preserved and can achieve the same configuration
