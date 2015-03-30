@@ -10,7 +10,7 @@ Extra DHCP Options for IPv4 and IPv6
 
 Include the URL of your launchpad blueprint:
 
-https://blueprints.launchpad.net/neutron/+spec/extra-dhcp-opts-ipv4-ipv6.rst
+https://blueprints.launchpad.net/neutron/+spec/extra-dhcp-opts-ipv4-ipv6
 
 Problem Description
 ===================

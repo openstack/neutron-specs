@@ -8,6 +8,7 @@
 Conntrack zones support
 ==========================================
 
+https://blueprints.launchpad.net/neutron/+spec/conntrack-in-security-group
 
 Problem Description
 ===================

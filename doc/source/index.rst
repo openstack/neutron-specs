@@ -33,6 +33,15 @@ Kilo approved specs
 
    specs/kilo/*
 
+Kilo backlog specs
+===================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/kilo-backlog/*
+
 Juno approved specs
 ===================
 
