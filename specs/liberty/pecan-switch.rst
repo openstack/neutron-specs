@@ -14,9 +14,9 @@ This document describes a plan to replace the current home-grown WSGI
 framework, including REST controllers, with a solution entirely based
 on the Pecan framework [1]_
 
-The specification discussed in this document assumes that the REST controllers
-will dispatch calls to the plugin in a different way, leveraging a new
-interface which is thoroughly discussed in [2]_
+The specification discussed in this document can make use of the V3
+plugin specification, though it is no longer assumed to be dependent
+on that specification. See [2]_ for more details.
 
 Problem Description
 ===================
@@ -78,11 +78,9 @@ This means that we expect the following for the Kilo release:
 
 3) The Pecan REST controller will simply take care of serializing responses
    and deserializing requests into appropriate transfer objects describing
-   API resources. However, the REST layer will no longer be responsible for
-   authorization and quota enforcement. These operations will be handled by
-   the new plugin layer discussed in the spec [2]_. For the sake of this
-   document it is enough to say that these operations won't be performed by
-   the plugin implementation.
+   API resources. Until the V3 plugin layer referenced here [2]_ is merged,
+   REST layer will continue to be responsible for authorization and quota
+   enforcement.
    Request validation will occur in the REST API layer. The goal is to
    specify constraints using JSON schema. At the time of writing this spec it
    has not yet been analyzed whether it is possible to express all the
@@ -220,12 +218,13 @@ Assignee(s)
 -----------
 
 Primary assignee:
-  Mark McClain (markmcclain)
   Kevin Benton (kevinbenton)
+  Brandon Logan (blogan)
 
 Other contributors:
   Sean Collins (sccal68) [developer docs]
   Salvatore Orlando (salv-orlando) [reserve dev]
+  Mark McClain (markmcclain)
 
 Work Items
 ----------
@@ -245,7 +244,8 @@ Work Items
 Dependencies
 ============
 
-* New plugin interface specification [2]_
+While not a direct dependency, the V3 plugin interface [2]_ is listed in the
+case it is proposed again for Liberty.
 
 Testing
 =======
