@@ -32,12 +32,30 @@ Instead of invoking ovs-ofctl each times, use OpenFlow python library
 ("Ryu" [#ryu]_) to program OVS.
 This approach was taken for ofagent [#ofagent]_ and proved to work.
 
+Plan:
+
+    1. Turn the existing code which uses ovs-ofctl into a driver
+       [#ovs_agent_ovs_ofctl_driver]_
+
+    2. Introduce Ryu-based driver [#ovs_agent_ryu_driver]_ as a
+       non-default option.
+
+    3. Maintain both of drivers for a while.  (one release cycle?)
+       It would need Experimental/non-voting jenkins jobs to cover
+       the non-default driver.
+       Looking the result of the jobs, once the Ryu-based driver
+       gets reasonably stable, consider to switch the default.
+
+    4. Deprecate ovs-ofctl driver later
+
 Implementation details:
 
 * OpenFlow version
 
-    * OVS agent currently uses OpenFlow 1.0.  This blueprint proposes to
-      make OVS agent switch to OpenFlow 1.3.
+    * OVS agent currently uses OpenFlow 1.0.
+      The new Ryu-based driver will use OpenFlow 1.3 for reasons mentioned
+      below.  ovs-ofctl based driver will keep using OpenFlow 1.0 with
+      the exactly same flows as it currently uses.
 
     * OpenFlow 1.3 provides some features possibly useful for OVS agent.
       For example, ofagent uses metadata to implement "local vlan" isolation.
@@ -51,6 +69,9 @@ Implementation details:
       Open vSwitch v2.0.0 introduced OpenFlow 1.3 support and
       Open vSwitch v2.3.0 enabled it by default.
 
+    * OVS-agent itself configures the switch to use the appropriate OpenFlow
+      version.  There's no need for extra operator investigations.
+
 * Open vSwitch version in distributions:
 
     * Ubuntu 14.04 LTS has Open vSwitch v2.0.1 [#ovs_ubuntu_package]_.
@@ -61,16 +82,31 @@ Implementation details:
 
     * Fedora 20 has Open vSwitch 2.3.0.
 
+* XenAPI:
+
+    * XenAPI Integration needs updates.
+
+    * Currently OVS agent uses a special rootwrap [#xen_rootwrap]_
+      [#xenapi_readme]_ to proxy ovs-ofctl/ovs-vsctl requests from
+      neutron node to dom0.  This proposal replaces the use of ovs-ofctl.
+      This proposal doesn't change ovs-vsctl part.
+
+    * As we can assume IP reachability between neutron node and dom0
+      [#xenapi_meeting_log]_ , a simple set-controller to teach OVS the
+      IP address of the corresponding neutron node (thus the embedded
+      OpenFlow controller) should be enough.
+
+    * OVS-agent will have a new option to specify the address and port to
+      listen for OpenFlow connections.
+
 * Nicira extensions (NX)
 
     * Currently OVS agent uses Nicira extensions for OpenFlow 1.0 in
       a several places.  Even with OpenFlow 1.3, some of them still
       need the extensions.
-      As Ryu ofproto library has only limited support of Nicira extensions,
-      they need to be implemented there.
 
     * The following is a list of Nicira extensions used by OVS agent.
-      It might not be exhaustive.
+      Ryu>=3.18 supports all of them.
 
         * Learn action
 
@@ -164,11 +200,12 @@ Security Impact
 ---------------
 
 A local user on the node would be able to connect to the OpenFlow port
-on which the agent listening and try to confuse the agent.
+on which the agent listening and try to confuse the agent.  It isn't
+a problem as the local management network is considered safe, though.
 
 The OpenFlow channel can be protected using TLS if desirable.
 Both of Open vSwitch and Ryu support TLS [#ryu_tls]_.
-In that case, we likely need to introduce some agent options to specify certs.
+In that case, we need to introduce some agent options to specify certs.
 
 Notifications Impact
 --------------------
@@ -197,11 +234,14 @@ Ryu SDN Framework will be required for OVS agent to work:
 
 * The latest version can be pulled via pip.
 
+* Ryu and its (non-optional) required packages are mostly pure-python
+  [#ryu_req]_.  A few exceptions like eventlet are already covered by
+  Neutron itself.
+
 * Debian and Ubuntu have official packages too
   [#ryu_debian_package]_ [#ryu_ubuntu_package]_.
   However, Ryu version newer than the packages will likely be necessary
-  for the forthcoming Nicira extension support mentioned in
-  "Work Items" section.
+  for the Nicira extension support mentioned in "Proposed Changes" section.
 
 * It isn't packaged for Fedora Rawhide yet.
 
@@ -231,29 +271,12 @@ Other contributors:
 Work Items
 ----------
 
-In addition to items in "Proposed Change" section,
-
-Work items for Ryu developers:
-
-* Improve Ryu ofproto library to support necessary Nicira extensions
-  used by OVS agent.  Alternatively we can avoid using Nicira extensions
-  as done for ofagent.
-
-Open questions:
-
-* XenAPI support needs more research and consideration.  Currently it
-  uses a special rootwrap [#xen_rootwrap]_ [#xenapi_readme]_ to proxy
-  ovs-ofctl/ovs-vsctl requests to dom0.  The method is incompatible with
-  this proposal.
-
-  An idea is to create a small program which runs with the xen
-  rootwrap and proxies OpenFlow channel between domains.
+See "Proposed Change" section.
 
 Dependencies
 ============
 
-As mentioned in "Work Items" section, Ryu ofproto library might need
-improvements.  Ryu team will do that if this blueprint is approved.
+none
 
 Testing
 =======
@@ -261,6 +284,8 @@ Testing
 Update and improve the existing tests if necessary.
 
 Ryu SDN Framework will be required for gate jobs.
+
+Experimental/non-voting jobs for the new driver will be needed.
 
 Tempest Tests
 -------------
@@ -271,6 +296,10 @@ Functional Tests
 ----------------
 
 Update and improve the existing tests if necessary.
+
+There's an on-going effort for functional tests for drivers
+[#ovs_agent_ofctl_functional_tests]_ .
+Suggestions are welcome.
 
 API Tests
 ---------
@@ -283,12 +312,27 @@ Documentation Impact
 User Documentation
 ------------------
 
-none
+A new option to specify address/port to listen for OpenFlow connections
+needs to be documented.  It will be used by XenAPI integration.
+
+If we want to support other transports like TLS, more options will be
+needed:
+
+* The option to specify the transport
+
+* Transport specific parameters.  E.g. certs for TLS
 
 Developer Documentation
 -----------------------
 
-none
+It's nice to have a documentation on how to debug OpenFlow flows.
+Some notes:
+
+* Even after switching to the proposed Ryu-based driver, you can
+  keep using ovs-ofctl command etc for debugging purposes as of today.
+
+* Ryu has a functionality to JSON-serialize OpenFlow messages
+  [#ryu_to_jsondict]_ .  It might be useful for logging purposes.
 
 References
 ==========
@@ -322,3 +366,15 @@ References
 .. [#xen_rootwrap] https://github.com/openstack/neutron/blob/stable/juno/bin/neutron-rootwrap-xen-dom0
 
 .. [#xenapi_readme] https://github.com/openstack/neutron/blob/stable/juno/neutron/plugins/openvswitch/agent/xenapi/README
+
+.. [#ovs_agent_ovs_ofctl_driver] https://review.openstack.org/#/c/160245/
+
+.. [#ovs_agent_ryu_driver] https://review.openstack.org/#/c/153946/
+
+.. [#ovs_agent_ofctl_functional_tests] https://review.openstack.org/#/c/164584/
+
+.. [#ryu_req] https://github.com/osrg/ryu/blob/master/tools/pip-requires
+
+.. [#xenapi_meeting_log] http://eavesdrop.openstack.org/meetings/xenapi/2015/xenapi.2015-02-04-15.00.log.html
+
+.. [#ryu_to_jsondict] http://ryu.readthedocs.org/en/latest/ofproto_base.html#ryu.ofproto.ofproto_parser.MsgBase.to_jsondict
