@@ -30,7 +30,8 @@ The L2 agent presents several points that can be improved to boost performance a
 scalability. This blueprint tackles the following areas: RPC, device processing and the
 OVSDB monitor. Every point will be analized in detail in the next
 section.
-Orthogonal to this blueprint, there's an ongoing effort to use OVS Python lib instead of
+Orthogonal to this blueprint, there's a spec that was completed in Kilo  to use OVS
+Python lib instead of
 the CLI [#]_ .
 
 .. [#] https://blueprints.launchpad.net/neutron/+spec/vsctl-to-ovsdb
@@ -224,6 +225,9 @@ Other contributors:
 
 Work Items
 ----------
+
+(The following items have already patches upstream but no
+ code was merged during the previous release)
 
 #. Functional testing of the agent
 #. RPC improvements
