@@ -923,7 +923,7 @@ References
 * [6]  https://github.com/openstack-dev/devstack/tree/master/lib/neutron_plugins
 * [7]  https://github.com/openstack-dev/devstack/tree/master/lib/neutron_thirdparty
 * [8]  https://review.openstack.org/#/c/136835/
-* [9]  http://ci.openstack.org/third_party.html
+* [9]  http://docs.openstack.org/infra/system-config/third_party.html
 * [10] https://review.openstack.org/#/c/137054
 * [11] http://specs.openstack.org/openstack-infra/infra-specs/specs/puppet-modules.html
 * [12] https://review.openstack.org/#/c/136091/
