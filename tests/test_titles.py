@@ -40,8 +40,17 @@ class TestTitles(testtools.TestCase):
         return titles
 
     def _check_titles(self, filename, expect, actual):
+        # TODO(dougwig): old style specs get a pass
+        old = [
+            'Dependencies',
+            'Documentation Impact',
+            'Implementation',
+            'Testing',
+        ]
+        old += expect
+
         missing_sections = [x for x in expect if x not in actual]
-        extra_sections = [x for x in actual if x not in expect]
+        extra_sections = [x for x in actual if x not in old]
 
         msgs = []
         if missing_sections:
