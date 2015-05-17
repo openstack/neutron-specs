@@ -112,15 +112,20 @@ server (in order to prevent a rogue requester from depleting available
 prefixes), and the identity of the PD server needs to be authenticated
 by the PD requesters. This is described in Section 3.6 of RFC3769 [1]_.
 
-The PD Client functionality would be provided by one of several open-source
+The PD Client functionality could be provided by one of several open-source
 utilities that support PD client, for example:
 
 * WIDE DHCPv6 (dhcp6c)
   License: BSD
 * dibbler (http://klub.com.pl/dhcpv6/)
-  License: GNU GPL (should be evaluated to see if appropriate for OpenStack)
+  License: GNU GPL
 
-The PD client would be running in the Neutron router namespace whenever a
+For the initial implementation we have chosen to use dibbler, as it has some
+important features missing in other clients which make it suitable for this
+use case. A plugin framework will be included to allow the addition of other
+client options in the future.
+
+A new dibbler-client will be started in the Neutron router namespace whenever a
 subnet attached to that router requires prefix delegation.
 
 Detecting When a Prefix has Been Allocated
@@ -131,13 +136,9 @@ example, Neutron needs to update the IP allocation database with the gateway
 IP address that has just been assigned to the internal router port when the
 prefix delegation client is allocated a prefix.
 
-The WIDE DHCPv6 client supports the configuration of a custom script that
-gets executed whenever a prefix allocation has been made. Such a custom
-script can provide the necessary hook.
-
-If another prefix delegation client is used, then a polling script will
-need to be spawned to detect when the internal router interface has been
-configured with an IP address from the allocated prefix.
+Dibbler supports the configuration of a custom script that gets executed
+whenever a prefix allocation has been made. Such a custom script can provide
+the necessary hook.
 
 Workflow
 --------
@@ -158,12 +159,11 @@ Workflow
     (because of the configuration described in the Initial Setup section),
     allocation for the default IPv6 allocation pool needs to be done
     through prefix delegation. The subnet pool ID for this subnet
-    is populated with a special uuid that has been generated to indicate
-    that prefix delegation is required for this subnet.
-  * User/tenant creates a Neutron router.
+    is populated with a special constant to indicate that prefix delegation is
+    required for this subnet.
+  * User/tenant creates a Neutron router (if one does not already exist).
   * User/tenant attaches the IPv6 subnet to the Neutron router. This causes
-    a PD delegation client application to get spawned in the Neutron router
-    space.
+    a PD client application to get spawned in the Neutron router space.
   * For a SLAAC/DHCP-stateless subnet, the RADVD configuration is modified
     with a "::/64" entry for the new router interface, and RADVD is signalled
     to reconfigure itself. This new configuration indicates to RADVD that it
@@ -177,7 +177,8 @@ Workflow
     when an IPv6 address has been configured on the internal router interface.
   * The configuration of the PD delegation client is modified to initiate
     a PD request for the new router interface, and the PD delegation
-    client is signalled to reconfigure itself.
+    client is signalled to reconfigure itself, or initialise a new instance
+    of itself where dynamic reconfiguration is not available.
   * The PD delegating server receives the PD request, selects an available
     prefix from its block of prefixes, and sends back a
     PD response back to the PD delegation client, indicating the prefix
@@ -234,17 +235,17 @@ should be allocated from a default allocation pool configured for that IP
 family. When prefix delegation is configured (see "Initial Setup" above),
 however, it is understood that the allocation of IPv6 prefixes in this case
 should be done through prefix delegation. In this case, the subnet pool ID
-is populated with special uuid that has been generated to mark subnets as
-requiring prefix delegation.
+is populated with special constant to mark subnets as requiring prefix
+delegation.
 
 As described in the "Allocation of a Prefix" section, the prefix allocation
 process will then get triggered after a subnet that is marked for prefix
 delegation (i.e. subnet pool ID is populated with the special prefix
-delegation uuid) is attached to a router.
+delegation constant) is attached to a router.
 
 While the subnet is awaiting assignment of a prefix via prefix delegation,
 the response for the subnet-list and subnet-show API/CLI will list the cidr
-and allocation_pools for the subnet as unassigned.
+and allocation_pools for the subnet using a temporary ::/64 prefix.
 
 Security Impact
 ---------------
@@ -344,7 +345,6 @@ Other contributors:
 Work Items
 ----------
 
-* Choose PD client application.
 * Implement PD client configuration.
 * Coding/UT for subnet-create and router-interface-add
 * Coding/UT for subnet-delete and router-interface-delete
