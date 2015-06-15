@@ -70,9 +70,9 @@ default policies.json provided with neutron.
 Data Model Impact
 -----------------
 
-The model is consist of two main parts, policies, and rules, so rules
-can be composed over policies. Even if that can look overcomplicated
-as a start, it will allow the feature to be easily extended without changes
+The model consist of two main parts, policies, and rules. Policies are
+composed of rules. Even if that can look overcomplicated as a start,
+it will allow the feature to be easily extended without changes
 to object relationships (QoSPolicy <-> Port / QoSPolicy <-> Network) in the
 future.
 
@@ -143,7 +143,7 @@ The QoSBandwidthLimitRule model would look like:
 
 Future work beyond this spec
 ----------------------------
-Traffic classification: traffic classificators which can be attached to QoS
+Traffic classification: traffic classifier which can be attached to QoS
 rules, so the bandwidth limitations or specific marks are handled only on
 certain types of traffic.
 
@@ -156,7 +156,7 @@ Example workflow with TC::
      neutron qos-rule-create <rule-type> \
                              <policy-name-or-id> \
                              [.. rule parameters ..] \
-                             --traffic-classificator <tc-id>
+                             --traffic-classifier <tc-id>
 
 We believe traffic classifiers should be something to be shared with other
 pieces of software in neutron (tap as a service, service chaining, etc..).
@@ -430,6 +430,10 @@ attach port/net to policy::
     neutron port-update <port-id> --qos-policy <policy-name-or-id>
     neutron net-update <net-name-or-id> --qos-policy <policy-name-or-id>
 
+NOTE: based on the initial implementation, regular tenants may be able to use
+policies marked as ``Shared`` without any ``policy.json`` modification. Later
+in time the RBAC implementation may allow more granular control.
+
 
 detach port/net from policy::
 
@@ -441,7 +445,11 @@ Performance Impact
 
 * In some QoS drivers, additional messaging calls will be created that the
   L2 agents in the cluster will use to query QoS information when
-  creating networks and ports.
+  creating networks and ports. Although those message flows should be optimized
+  to avoid scale issues, and we should look into common methods and messages
+  to propagate this kind of information related to ports and network resources.
+
+
 
 IPv6 Impact
 -----------
@@ -468,6 +476,13 @@ Alternatives
    most basic ones, since instances wouldn't be able to mark external
    segmentation packets to prioritize traffic at L2/L3 level.
    Also the tenants could not be trusted to do the right thing.
+
+ - Nova flavors support for QoS [5]_ allows bandwidth limiting settings via
+   the libvirt interface on the VM tap. This is enough for basic BW limiting
+   on the VMs, but other QoS rules are not supported, and this also lacks
+   support for service port QoS. User may need to stick to one approach or
+   the other. This needs to be documented.
+
 
 Community Impact
 ----------------
@@ -548,7 +563,8 @@ User Documentation
 Developer Documentation
 -----------------------
 
-TBD
+* Design documentation.
+* Documentation about how to add new rule types.
 
 References
 ==========
@@ -556,4 +572,4 @@ References
 .. [2] https://review.openstack.org/#/c/132661/
 .. [3] https://lwn.net/Articles/640101/
 .. [4] http://specs.openstack.org/openstack/neutron-specs/specs/liberty/neutron-flavor-framework-templates.html
-
+.. [5] https://wiki.openstack.org/wiki/InstanceResourceQuota#Bandwidth_limits
