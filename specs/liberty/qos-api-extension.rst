@@ -189,8 +189,6 @@ Proposed attribute::
                        'validate': {'type:uuid': None},
                        'is_visible': True,
                        'primary_key': True},
-                'qos_policy_id': {'allow_post': True, 'allow_put': False,
-                                      'is_visible': True, 'required_by_policy': True},
                 'type': {'allow_post': True, 'allow_put': True,
                          'is_visible': True, 'default': '',
                          'validate': {'type:values':
@@ -198,7 +196,7 @@ Proposed attribute::
         }
 
         RESOURCE_ATTRIBUTE_MAP = {
-            'qos_policies': {
+            'policies': {
                 'id': {'allow_post': False, 'allow_put': False,
                        'validate': {'type:uuid': None},
                        'is_visible': True,
@@ -215,21 +213,26 @@ Proposed attribute::
                 'tenant_id': {'allow_post': True, 'allow_put': False,
                               'required_by_policy': True,
                               'is_visible': True},
-            },
-            'qos_bandwidthlimit_rule':
-                dict(QOS_RULE_COMMON_FIELDS,
-                     **{
-                       'max_kbps': {'allow_post': True, 'allow_put': True,
-                                    'is_visible': True, 'default': None,
-                                    'validate': {'type:integer', None}},
-                       'max_burst_kbps': {
-                                    'allow_post': True, 'allow_put': True,
-                                    'is_visible': True, 'default': 0,
-                                    'validate': {'type:integer', None}},
-                     })
             }
-
-        QOS = "qos_policies"
+           }
+        SUB_RESOURCE_ATTRIBUTE_MAP = {
+           'bandwidth_limit_rules':{
+                'parent': {'collection_name': 'policies',
+                           'member_name': 'policy'},
+                'parameters': {
+                        dict(QOS_RULE_COMMON_FIELDS,
+                             **{
+                               'max_kbps': {'allow_post': True, 'allow_put': True,
+                                            'is_visible': True, 'default': None,
+                                            'validate': {'type:integer', None}},
+                               'max_burst_kbps': {
+                                            'allow_post': True, 'allow_put': True,
+                                            'is_visible': True, 'default': 0,
+                                            'validate': {'type:integer', None}},
+                             })
+                }
+        }
+        QOS = "qos_policy_id"
 
         EXTENDED_ATTRIBUTES_2_0 = {
             'ports': {QOS: {'allow_post': True,
@@ -248,9 +251,9 @@ Sample request/responses:
 
 Create Policy Request::
 
-        POST /v2.0/qos-policies
+        POST /v2.0/qos/policies/
         {
-            "qos_policy": {
+            "policy": {
                 "name": "10Mbit",
                 "description": "This policy limits the ports to 10Mbit max.",
                 "shared": "False"
@@ -259,7 +262,7 @@ Create Policy Request::
 
         Response:
         {
-           "qos_policy": {
+           "policy": {
                "name": "10Mbit",
                "description": "This policy limits the ports to 10Mbit max.",
                "id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
@@ -271,30 +274,29 @@ Create Policy Request::
 
 List available rule types::
 
-        GET /v2.0/qos-rule-types
+        GET /v2.0/qos/rule-types
 
         Response:
         {
-           "qos_rule_types": ["bandwidth_limit", ...]
+           "rule_types": ["bandwidth_limit", ...]
         }
 
 
 Create Rule Request::
 
-        POST /v2.0/qos-rules/bandwidth-limit/
+        POST /v2.0/qos/policies/46ebaec0-0570-43ac-82f6-60d2b03168c4/bandwidth-limit-rules/
         {
-           "bandwidth_limit": {
-              "qos_policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
-              "max_kbps": "10000",
+            "bandwidth_limit": {
+            "max_kbps": "10000",
             }
-         }
+        }
 
 
         Response:
         {
             "bandwidth_limit":{
                 "id": "5f126d84-551a-4dcf-bb01-0e9c0df0c793",
-                "qos_policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
+                "policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
                 "max_kbps": "10000",
                 "max_burst_kbps": "0",
             }
@@ -303,20 +305,20 @@ Create Rule Request::
 
 Show specific policy::
 
-        GET /v2.0/qos-policies/46ebaec0-0570-43ac-82f6-60d2b03168c4
+        GET /v2.0/qos/policies/46ebaec0-0570-43ac-82f6-60d2b03168c4
         Accept: application/json
 
         Response:
         {
-            "qos_policy": {
+            "policy": {
                 "tenant_id": "8d4c70a21fed4aeba121a1a429ba0d04",
                 "id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
                 "name": "10Mbit",
                 "description": "This policy limits the ports to 10Mbit max.",
-                "shared": False
+                "shared": False,
                 "bandwidth_limit_rules": [{
                     "id": "5f126d84-551a-4dcf-bb01-0e9c0df0c793",
-                    "qos_policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
+                    "policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
                     "max_kbps": "10000",
                     "max_burst_kbps": "0",
                 }]
@@ -326,11 +328,11 @@ Show specific policy::
 
 List Request::
 
-        GET /v2.0/qos-policies
+        GET /v2.0/qos/policies
 
         Response:
         {
-           “qos_policies”:
+           “policies”:
                [
                     {
                        "tenant_id": "8d4c70a21fed4aeba121a1a429ba0d04",
@@ -340,7 +342,7 @@ List Request::
                        "shared": False,
                        "bandwidth_limit_rules": [{
                           "id": "5f126d84-551a-4dcf-bb01-0e9c0df0c793",
-                          "qos_policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
+                          "policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
                           "max_kbps": "10000",
                           "max_burst_kbps": "0",
                        }]
@@ -393,7 +395,7 @@ policy manipulation::
 
 policy rules manipulation::
 
-   neutron qos-rule-create <policy-name-or-id> --type bandwidth_limit \
+    neutron qos-rule-create <policy-name-or-id> --type bandwidth_limit \
                            --max_kbps x [--max_burst_kbps y]
 
     neutron qos-rule-list   <policy-name-or-id>
@@ -505,6 +507,7 @@ Assignee(s)
 * vikram
 * Moshe Levi
 * Mathieu Rohon
+* gampel
 
 Work Items
 ----------
