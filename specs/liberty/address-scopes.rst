@@ -68,9 +68,10 @@ from different tenants.  Once a subnet pool has been associated, it can only be
 updated by the address scope owner.  If this owner is not the subnet pool owner
 then it must be an admin.
 
-A SubnetPool which is not associated with an AddressScope will be treated as if
-it were alone in its own address scope although no explicit address scope will
-be created for it.
+A SubnetPool which is not associated with an AddressScope will be treated the
+same as subnets which were not created from any pool from an address scope
+point of view.  The reason for this is to preserve the behavior introduced in
+Kilo where address scopes do not exist.
 
 In the reference implementation of the L3 plugin, Neutron routers will be aware
 of address scopes.  It will use multiple routing tables and policy routing --
