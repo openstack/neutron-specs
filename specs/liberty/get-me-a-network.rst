@@ -101,12 +101,13 @@ and DHCP server configured.
 
 NOTE: This method will not be implemented as part of this specification.
 
-4. Neutron could be changed to auto-allocate resources
+4. Change Neutron to auto-allocate resources
 
 Neutron could be changed to automatically allocate a network, subnet
 and router when Nova calls it when booting a VM. This code does not
-exist today, and would require a separate design document outlining
-how this could be done.
+exist today, but given this was the primary reason for this spec,
+will be proposed as part of devref documentation when landing this
+feature.
 
 Pros:
 
@@ -118,15 +119,17 @@ More complicated. Still requires administrator to define default
 values or resources to be used to allocate the network. Possible
 race conditions if many simultaneous calls are made.
 
-NOTE: This method will not be implemented as part of this specification.
-
 
 Proposed Change
 ===============
 
 Document how a deployer can create a shared private network and connect
 it to their physical network. Most of this is in the example above.
-We will also document how a provider network can be created.
+We will also document how a provider network can be created. This will
+cover options 1 and 2 above.
+
+For option 4, detailed implementation will be done with devref
+documentation in-tree as part of the change.
 
 
 Future Work
