@@ -115,8 +115,8 @@ Flavor
 Service Profile
   id: uuid
   description: text
-  entry_point: string
-  metadata: string(json encoded dict)
+  driver: string
+  metainfo: string(json encoded dict)
   enabled: boolean
 
 The existing provider attribute will be changed to service_profile_id and used
@@ -177,10 +177,10 @@ SERVICE_PROFILES (/service_profiles):
 |description      |string |RO, all  |''       |string      |human-readable|
 |                 |       |RW, admin|         |            |description   |
 +-----------------+-------+---------+---------+------------+--------------+
-|entry_point      |string |RO, all  |''       |string      |python module |
+|driver           |string |RO, all  |''       |string      |python module |
 |                 |       |RW, admin|         |            |path to driver|
 +-----------------+-------+---------+---------+------------+--------------+
-|metadata         |string |RO, all  |''       |json string |meta data     |
+|metainfo         |string |RO, all  |''       |json string |meta data     |
 |                 |       |RW, admin|         |            |              |
 +-----------------+-------+---------+---------+------------+--------------+
 |enabled          |bool   |RO, all  |true     |bool        |toggle        |
@@ -311,5 +311,3 @@ in the Networking API description.
 References
 ==========
 * Juno spec gerrit review - https://review.openstack.org/#/c/102723/
-
-
