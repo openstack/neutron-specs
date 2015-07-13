@@ -150,6 +150,13 @@ that could be used to filter networks by priority. This would have API and
 CLI impact, and affect both the Nova and Neutron code. This work would
 need to specified in another document.
 
+Gerrit Topic
+------------
+
+To enable reviewers to find offered patches implimenting the agreed upon
+work the gerrit topic `get-me-a-network`_ will be used.
+
+.. _get-me-a-network: https://review.openstack.org/#/q/topic:get-me-a-network+-status:abandoned,n,z
 
 References
 ==========
