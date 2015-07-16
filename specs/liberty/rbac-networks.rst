@@ -17,8 +17,9 @@ of the all-or-nothing choice we have now. This will enable many more network
 management workflows encountered in enterprise/private-cloud deployments.
 
 This will be achieved through a new 'role-based access control' table with
-entries that contain an object UUID, an object type, a tenant UUID and an
-action. In this generic format, it should be relatively easy to extend
+entries that contain an object UUID, an object type, a target tenant, an
+action and a tenant ID representing the owner of the policy.
+In this generic format, it should be relatively easy to extend
 role-based access control to other Neutron objects and actions.
 
 
@@ -63,7 +64,7 @@ specification. This specification only impacts which users are allowed to
 attach to networks - not how they attach or what happens afterwards.
 
 To keep things simple, this will be a whitelist-only model to begin with.
-i.e. the permission column can't be a negative that states a certain tenant
+i.e. the action column can't be a negative that states a certain tenant
 can't do something.
 
 Tenants will be able to delete ports on networks they own even if the port does
@@ -88,13 +89,14 @@ that's the only object being introduced into RBAC right now. This information
 is redundant since the object ID is unique; however, this will allow us to have
 relationship tables for each type we want to support. These allow the cleaning up
 of RBAC entries on an object deletion to be left to the database CASCADE
-functionality.
+functionality. The object type isn't stored in the database, it's used to
+determine which table to use.
 
-The tenant ID will be the tenant (a.k.a. project) ID to which the RBAC entry
+The target tenant will be the tenant (a.k.a. project) ID to which the RBAC entry
 is granting permission to perform an action on the target object. This entry
 may also be an asterisk to represent that it applies to all tenants.
 
-Finally, the action will describe what the tenant can do with the object.
+The action will describe what the tenant can do with the object.
 For the sake of this specification, we will only have one action to start,
 which will be something like 'access_as_shared' to indicate that the tenant
 can access it like it would a shared network. This could then easily be
@@ -102,18 +104,19 @@ extended in the future to include something like 'access_as_external' to
 provide RBAC for external networks as well. Actions will be discoverable
 for each type via the API.
 
+Finally, each RBAC entry will also have a tenant ID that indicates the tenant
+that created the policy itself. This will normally be the same tenant as the
+object being shared, but it might not be in the case of admin-created policies
+on other tenant's networks.
+
 
 DB Tables
 ---------
 
-There will be a primary RBAC table that contains an internal-only RBAC entry
-primary key and the tenant_id and action columns from the API. Another
-table will be created for each supported object type which will have a
-foreign key relationship to the object's table as well as the RBAC table.
-Each entry in that table will contain an object ID and RBAC primary key.
-
-The unique constraint will be across all of the API fields. (i.e. Each tenant
-could have multiple entries per object with different actions).
+Each object type that RBAC applies to will get its own RBAC table.
+The unique constraint will only be across all of the API fields. (i.e. Each
+tenant could have multiple entries per object with different actions).
+So for this spec there will just be one new networkrbacs table.
 
 The 'shared' column will be removed from the networks table and that will be
 replaced with a query to the new table for the presence of the '*' for that
@@ -124,36 +127,43 @@ network with the 'access_as_shared' action.
 REST API Impact
 ---------------
 
-These RBAC entries will be enabled at a new API endpoint (e.g. '/rbac').
+These RBAC entries will be enabled at a new API endpoint ('/rbac-policies').
 In order to create an entry for an object, the tenant must be the owner
 of that object.
 
 In order to create an entry with a wildcard membership
-tenants, the request will have to be performed in an admin context
-as well. This is done to prevent tenants from polluting every other
+tenants, the request will have to be performed in an admin context by
+default but can be enabled for all tenants via policy.json.
+This is done to prevent tenants from polluting every other
 tenant's network list by creating wildcard entries.
 
 In the future we can revisit to add a 'reshare' action or something similar if
 we encounter a use case where the object owner wants to give the ability to
 another tenant to share the object to more tenants.
 
-+-----------+-------+---------+---------+------------+----------------+
-|Attribute  |Type   |Access   |Default  |Validation/ |Description     |
-|Name       |       |         |Value    |Conversion  |                |
-+===========+=======+=========+=========+============+================+
-|object_id  |string |RW, admin|N/A      |object      |object          |
-|           |(UUID) |         |         |exists      |affected by ACL |
-+-----------+-------+---------+---------+------------+----------------+
-|object_type|string |RW, admin|N/A      |string      |type of object  |
-|           |       |         |         |            |                |
-+-----------+-------+---------+---------+------------+----------------+
-|tenant_id  |string |RW, admin|*        |string      |tenant ID the   |
-|           |       |         |         |            |entry affects.  |
-|           |       |         |         |            |* for all       |
-+-----------+-------+---------+---------+------------+----------------+
-|action     |string |RW, admin|N/A      |string      |allowed tenant  |
-|           |       |         |         |            |action on object|
-+-----------+-------+---------+---------+------------+----------------+
++-------------+-------+---------+---------+------------+----------------+
+|Attribute    |Type   |Access   |Default  |Validation/ |Description     |
+|Name         |       |         |Value    |Conversion  |                |
++=============+=======+=========+=========+============+================+
+|id           |string |R        | auto    |            |id of ACL entry |
+|             |(UUID) |         |         |            |                |
++-------------+-------+---------+---------+------------+----------------+
+|tenant_id    |string |R        | auto    |            |owner of ACL    |
+|             |(UUID) |         |         |            |entry           |
++-------------+-------+---------+---------+------------+----------------+
+|object_id    |string |RW       |N/A      |object      |object          |
+|             |(UUID) |         |         |exists      |affected by ACL |
++-------------+-------+---------+---------+------------+----------------+
+|object_type  |string |RW       |N/A      |type has    |type of object  |
+|             |       |         |         |rbac table  |                |
++-------------+-------+---------+---------+------------+----------------+
+|target_tenant|string |RWU      |*        |string      |tenant ID the   |
+|             |       |         |         |            |entry affects.  |
+|             |       |         |         |            |* for all       |
++-------------+-------+---------+---------+------------+----------------+
+|action       |string |RW       |N/A      |in actions  |allowed tenant  |
+|             |       |         |         |for object  |action on object|
++-------------+-------+---------+---------+------------+----------------+
 
 
 
@@ -161,16 +171,20 @@ Example Entries
 ---------------
 
 A legacy shared network:
-object_id = <some_net_id>
-object_type = network
-tenant_id = *
-action = 'access_as_shared'
+* object_id = <some_net_id>
+* object_type = network
+* target_tenant = *
+* action = 'access_as_shared'
+* id = <uuid>  # auto generated
+* tenant_id = <uuid-of-policy-creator>  # generated by API
 
 A network shared to a specific tenant:
-object_id = <some_net_id>
-object_type = network
-tenant_id = <some_tenant_id>
-action = 'access_as_shared'
+* object_id = <some_net_id>
+* object_type = network
+* target_tenant = <some_tenant_id>
+* action = 'access_as_shared'
+* id = <uuid>  # auto generated
+* tenant_id = <uuid-of-policy-creator>  # generated by API
 
 
 Security Impact
@@ -202,29 +216,32 @@ Other End User Impact
 ---------------------
 New CLI workflow for setting these permissions:
 
-* neutron rbac create <net-uuid|net-name> --type network --tenant-id <tenant-uuid> --action access_as_shared
+* neutron rbac-create <net-uuid|net-name> --type network --target-tenant <tenant-uuid> --action access_as_shared
 
 Update:
-* neutron rbac update <rbac-uuid> --action access_as_external
+* neutron rbac-update <rbac-uuid> --target-tenant <other-tenant-uuid>
 
 List entries:
 
-* neutron rbac list <object-id> --type <object-type>
+* neutron rbac-list
+
+Show entry:
+
+* neutron rbac-show <object-id>
 
 Deleting:
 
-* neutron rbac delete <rbac-uuid>
+* neutron rbac-delete <rbac-uuid>
 
 List available actions:
 
-* neutron rbac list-actions <object-type>
+* neutron rbac-list-actions <object-type>
 
 There should be no impact to the regular global shared network workflow. The
 new API usage will only be required for fine-grained entries.
 
 From the perspective of a tenant that has a network shared to it, the network
-will show up as 'shared' just like a globally shared network would. Is this
-okay or should we distinguish them?
+will show up as 'shared' just like a globally shared network would.
 
 
 Performance Impact
