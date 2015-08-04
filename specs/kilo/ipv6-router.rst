@@ -105,7 +105,7 @@ None
 IPv6 Impact
 -----------
 
-This specification specifies the changes in suport of IPv6 router.
+This specification specifies the changes to support IPv6 router.
 
 Other Deployer Impact
 ---------------------
@@ -132,7 +132,7 @@ Alternatives
 In the IPv6 only case, it's possible to create a fake ipv6 subnet and use
 it to create the gateway port.
 
-In an IPv6 only router, the neutron public network doesn't acutally contain any
+In an IPv6 only router, the neutron public network doesn't actually contain any
 useful information currently. But removing it would require API change. In
 addition, it may be useful in the future to partition the public network into
 smaller broadcast domains.
@@ -183,15 +183,15 @@ properly in IPv4 only, IPv6 only and dual stack environment.
 Functional Tests
 ----------------
 
-Funational tests are needed to ensure the gateway port is properly created in
+Functional tests are needed to ensure the gateway port is properly created in
 IPv4 only, IPv6 only and dual stack cases.
 
 API Tests
 ---------
 
 Existing unit tests for the router APIs may need to be updated to
-reflect the change. New unit tests may be needed to test the API semactics
-change.
+reflect the change. New unit tests may be needed to test the API semantic
+changes.
 
 Documentation Impact
 ====================
@@ -204,7 +204,7 @@ User guide to neutron router needs to be updated
 Developer Documentation
 -----------------------
 
-API semantics changes need to be documented.
+API semantic changes need to be documented.
 
 References
 ==========

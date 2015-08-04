@@ -29,7 +29,7 @@ As we propose them, QoS policies could be applied:
                applied get the policy applied to them.
 
 * Per port: The specific port gets the policy applied, when the port had any
-            network policy that one is overriden.
+            network policy that one is overridden.
 
 Problem Description
 ===================
@@ -168,7 +168,7 @@ More rule types:
 nova-scheduling)
 
 Access control to QoS policy could be performed by a generalized
-RBAC suport. Evaluate quota controlling the different types policies.
+RBAC support. Evaluate quota controlling the different types policies.
 
 
 Other QoS work:
@@ -491,8 +491,8 @@ Community Impact
 
 Community, specially telcos and operators has been looking for a way to
 introduce QoS capabilities into neutron managed SDNs. For some use
-cases priorization and low jitter is fundamental to some types of applications
-for example voice over IP, or video streaming.
+cases prioritization and low jitter is fundamental to some types of
+applications for example voice over IP, or video streaming.
 
 Implementation
 ==============
