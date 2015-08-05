@@ -6,8 +6,10 @@
  http://creativecommons.org/licenses/by/3.0/legalcode
 
 ====================================
-Get me a Network
+Get Me A Network
 ====================================
+
+https://blueprints.launchpad.net/neutron/+spec/get-me-a-network
 
 In some cloud deployments using Neutron, there is a need for each tenant
 to configure resources, like a network, subnet and router, before they
