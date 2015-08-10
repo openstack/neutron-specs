@@ -62,10 +62,9 @@ updating resource, so only Read operation in CRUD is provided.
 REST API Impact
 ---------------
 
-Created_at and updated_at will be returned when users issue resource retrieving
-requests.
-
-Resources list API will accept new query string parameter change_since. Users
+Created_at and updated_at will be exposed to users via extension API. If plugin
+supports, they are returned when users issue resource retrieving requests.
+Also, resources list API accepts new query string parameter change_since. Users
 can pass timestamp of ISO 8601 format to the list API uri to retrieve resources
 operated since a specific time.
 
@@ -73,7 +72,7 @@ Take port as an example, the request uri looks like this:
 
 .. code::
 
-  GET /v2.0/ports?change_since=2015-07-31T00:00:00
+  GET /v2.0/ports?changed_since=2015-07-31T00:00:00
 
 and response:
 
@@ -123,6 +122,12 @@ Neutron python client may add help to inform users the new filter. Neutron
 python client supports dynamic assigning search fields so it is easy for it to
 support this new filter. Also Neutron python client needs to add the two new
 fields when displaying resource information.
+
+Take port as an example, the command looks like:
+
+::
+
+  neutron port-list --changed-since 2015-07-31T00:00:00
 
 Performance Impact
 ------------------
