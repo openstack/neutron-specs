@@ -111,4 +111,4 @@ References
 http://docs.openstack.org/api/openstack-network/2.0/content/security_groups.html
 
 [2] Security Groups Operations Admin Guide
-http://docs.openstack.org/admin-guide-cloud/content/securitygroup_workflow.html
+http://docs.openstack.org/admin-guide-cloud/networking_adv-features.html#security-groups
