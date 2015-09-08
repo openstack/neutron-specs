@@ -15,6 +15,15 @@ Neutron Project Priorities
 Neutron Project Specifications
 ==============================
 
+Mitaka approved specs
+=====================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/mitaka/*
+
 Liberty approved specs
 ======================
 
