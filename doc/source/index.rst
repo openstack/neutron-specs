@@ -33,6 +33,15 @@ Kilo approved specs
 
    specs/kilo/*
 
+Liberty backlog specs
+=====================
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/liberty-backlog/*
+
 Kilo backlog specs
 ===================
 
