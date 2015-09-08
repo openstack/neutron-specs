@@ -189,10 +189,9 @@ Proposed attribute::
                        'validate': {'type:uuid': None},
                        'is_visible': True,
                        'primary_key': True},
-                'type': {'allow_post': True, 'allow_put': True,
-                         'is_visible': True, 'default': '',
-                         'validate': {'type:values':
-                         [constants.TYPE_QOS_BANDWIDTHLIMIT]}},
+                'tenant_id': {'allow_post': True, 'allow_put': False,
+                              'required_by_policy': True,
+                              'is_visible': True},
         }
 
         RESOURCE_ATTRIBUTE_MAP = {
@@ -213,8 +212,14 @@ Proposed attribute::
                 'tenant_id': {'allow_post': True, 'allow_put': False,
                               'required_by_policy': True,
                               'is_visible': True},
+                'rules': {'allow_post': False, 'allow_put': False,
+                          'is_visible': True},
+            },
+            'rule_types': {
+                 'type': {'allow_post': False, 'allow_put': False,
+                          'is_visible': True},
             }
-           }
+        }
         SUB_RESOURCE_ATTRIBUTE_MAP = {
            'bandwidth_limit_rules':{
                 'parent': {'collection_name': 'policies',
@@ -278,15 +283,15 @@ List available rule types::
 
         Response:
         {
-           "rule_types": ["bandwidth_limit", ...]
+           "rule_types": [{"type": "bandwidth_limit"}]
         }
 
 
 Create Rule Request::
 
-        POST /v2.0/qos/policies/46ebaec0-0570-43ac-82f6-60d2b03168c4/bandwidth-limit-rules/
+        POST /v2.0/qos/policies/46ebaec0-0570-43ac-82f6-60d2b03168c4/bandwidth_limit_rules/
         {
-            "bandwidth_limit": {
+            "bandwidth_limit_rule": {
             "max_kbps": "10000",
             }
         }
@@ -294,7 +299,7 @@ Create Rule Request::
 
         Response:
         {
-            "bandwidth_limit":{
+            "bandwidth_limit_rule":{
                 "id": "5f126d84-551a-4dcf-bb01-0e9c0df0c793",
                 "policy_id": "46ebaec0-0570-43ac-82f6-60d2b03168c4",
                 "max_kbps": "10000",
@@ -379,7 +384,8 @@ Other End User Impact
 ---------------------
 
 Additional methods will be added to python-neutronclient to create,
-list, update, and delete QoS policies and rules
+list, update, and delete QoS policies and rules.
+Dedicated CLI command will be added to create and update each QoS rule type.
 
 policy manipulation::
 
@@ -395,27 +401,25 @@ policy manipulation::
 
 policy rules manipulation::
 
-    neutron qos-rule-create <policy-name-or-id> --type bandwidth_limit \
+    neutron qos-bandwidth-limit-rule-create <policy-name-or-id> \
                            --max_kbps x [--max_burst_kbps y]
-
-    neutron qos-rule-list   <policy-name-or-id>
-    neutron qos-rule-delete <rule-id>
-    neutron qos-rule-update <rule-id> --type bandwidth_limit \
-                                      --max_kbps ... \
-                                       [--max_burst_kbps ...]
-    neutron qos-rule-show   <rule-id>
+    neutron qos-bandwidth-limit-rule-update <rule-id> <policy-name-or-id> \
+                           --max_kbps x [--max_burst_kbps y]
+    neutron qos-bandwidth-limit-rule-list   <policy-name-or-id>
+    neutron qos-bandwidth-limit-rule-delete <rule-id> <policy-name-or-id>
+    neutron qos-bandwidth-limit-rule-show   <rule-id> <policy-name-or-id>
 
     +-------------------+---------------------------------+
     | Field             | Value                           |
     +-------------------+---------------------------------+
     | id                | <rule-id>                       |
-    | rule_type         | bandwidth_limit                 |
+    | type              | bandwidth_limit                 |
     | description       | 10 Mbps limit                   |
     | max_kbps          | 10000                           |
     | max_burst_kbps    | 0                               |
     +-------------------+---------------------------------+
 
-    neutron qos-policy-rules-available
+    neutron qos-available-rule-types
 
     +-----------------------+
     | QoS policy rule types |
