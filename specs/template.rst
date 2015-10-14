@@ -27,8 +27,10 @@ Problem Description
 
 A detailed description of the problem:
 
-* For a new feature this should be use cases. Ensure you are clear about the
-  actors in each use case: End User vs Deployer
+* For a new feature this should be a list of use cases. Ensure that you are clear
+  about the actors in each use case: End User vs Deployer. Ensure that you identify
+  which area of the core is being affected; for something completely new, it
+  should be clear why you are considering it being part of the core.
 
 * For a major reworking of something existing it would describe the
   problems in that feature that are being addressed.
