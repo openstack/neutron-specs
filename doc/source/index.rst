@@ -1,16 +1,5 @@
 .. neutron-specs documentation master file
 
-==========================
-Neutron Project Priorities
-==========================
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   priorities/*
-
-
 ==============================
 Neutron Project Specifications
 ==============================
