@@ -97,7 +97,8 @@ class TestTitles(testtools.TestCase):
         releases = [x.split('/')[1] for x in glob.glob('specs/*/')]
         for release in releases:
             if release[0] < 'k':
-                # Don't bother enforcement for specs before Kilo.
+                # Don't bother enforcement for specs before Kilo,
+                # or that belong to 'archive' and 'backlog'
                 continue
             try:
                 # Support release-specific template.

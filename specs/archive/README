@@ -1,0 +1,3 @@
+If X is the current release, this contains any spec that did not
+complete in X-2 (or older), and was not moved forward. Ideally
+this directory would be empty.

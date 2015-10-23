@@ -4,8 +4,8 @@
 Neutron Project Specifications
 ==============================
 
-Mitaka approved specs
-=====================
+Mitaka
+======
 
 .. toctree::
    :glob:
@@ -13,8 +13,8 @@ Mitaka approved specs
 
    specs/mitaka/*
 
-Liberty approved specs
-======================
+Liberty
+=======
 
 .. toctree::
    :glob:
@@ -22,8 +22,8 @@ Liberty approved specs
 
    specs/liberty/*
 
-Kilo approved specs
-===================
+Kilo
+====
 
 .. toctree::
    :glob:
@@ -31,26 +31,8 @@ Kilo approved specs
 
    specs/kilo/*
 
-Liberty backlog specs
-=====================
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/liberty-backlog/*
-
-Kilo backlog specs
-===================
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/kilo-backlog/*
-
-Juno approved specs
-===================
+Juno
+====
 
 .. toctree::
    :glob:
@@ -58,24 +40,14 @@ Juno approved specs
 
    specs/juno/*
 
-API specs
-=========
+Backlog
+=======
 
 .. toctree::
    :glob:
    :maxdepth: 1
 
-   specs/api/*
-   
-
-Neutron Incubator
------------------
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/juno-incubator/*
+   specs/backlog/**
 
 ==================
 Indices and tables

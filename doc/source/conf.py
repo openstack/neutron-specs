@@ -77,6 +77,7 @@ exclude_patterns = [
     '**/example.rst',
     '**/template.rst',
     '**/skeleton.rst',
+    '**/archive',
 ]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
