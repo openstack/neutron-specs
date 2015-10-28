@@ -39,9 +39,6 @@ The requirements driving this change are:
   current interface is what we want to support, or if it needs to change. And
   for each module, it will likely need strict interface tests.
 - At the end of the "split" process, there is no co-gate.
-
-Longer-term requirements, likely not in Liberty:
-
 - A library in pypi.
 - Addition of this library to the global requirements list.
 - A versioned reference to the library in various projects requirements.txt.
@@ -54,12 +51,8 @@ code and neutron core (servers, agents, plugins, drivers.) Part of creating
 neutron-lib would involve creating rigid interface tests for exposed
 library methods.
 
-This library will initially live in neutron/lib/ and neutron/tests/lib/,
-and have a stricter set of review requirements around backwards
-incompatible changes.
-
-At some point in the future, at the discretion of the PTL, this library
-may split into a separate repo for the purposes of publishing it to pypi.
+This library will live in the new repo neutron-lib, and will be published
+to pypi.
 
 This would *not* be a mechanical split, but rather each piece of code
 moved into the library would need to satisfy several criteria:
