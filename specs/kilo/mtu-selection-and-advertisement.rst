@@ -55,7 +55,7 @@ segment *must* pass packets of the agreed size.
 
 Also, note that L3 mechanisms for path MTU discovery *only* take place
 for packets passing through a L3 element such as a router.  They do
-*not* take place for traffic transiting an L2 segment, whidh means
+*not* take place for traffic transiting an L2 segment, which means
 that large packets are dropped without the sender finding out.  This
 leads to inconsistent behaviour with different transfer types:
 typically, bulk transfers of data do not work but some connections
