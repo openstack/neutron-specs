@@ -8,6 +8,11 @@ Mitaka
 ======
 
 .. toctree::
+   :maxdepth: 1
+
+   Postmortem documentation <specs/mitaka/postmortem/postmortem>
+
+.. toctree::
    :glob:
    :maxdepth: 1
 

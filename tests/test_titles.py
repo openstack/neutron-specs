@@ -16,6 +16,8 @@ import re
 import docutils.core
 import testtools
 
+TO_BE_IGNORED = "postmortem"
+
 
 class TestTitles(testtools.TestCase):
     def _get_title(self, section_tree):
@@ -113,6 +115,8 @@ class TestTitles(testtools.TestCase):
 
             files = glob.glob("specs/%s/*" % release)
             for filename in files:
+                if TO_BE_IGNORED in filename:
+                    continue
                 self.assertTrue(filename.endswith(".rst"),
                                 "spec's file must uses 'rst' extension.")
                 with open(filename) as f:

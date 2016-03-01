@@ -76,7 +76,7 @@ copyright = u'%s, OpenStack Neutron Team' % datetime.date.today().year
 exclude_patterns = [
     '_build',
     '**/example.rst',
-    '**/template.rst',
+    '**/*template.rst',
     '**/skeleton.rst',
     '**/archive',
 ]
