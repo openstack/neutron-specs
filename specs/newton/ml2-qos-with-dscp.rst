@@ -240,7 +240,7 @@ will be updated for this feature.
 Developer Documentation
 -----------------------
 
-Existing 'QoS devref document
+Existing `QoS devref document
 <https://github.com/openstack/neutron/blob/master/doc/source/devref/quality_of_service.rst>`_
 will be updated for this feature.
 
@@ -248,7 +248,7 @@ will be updated for this feature.
 API Documentation
 -----------------
 
-We will update `the QoS API documentation
+Existing `QoS API documentation
 <https://review.openstack.org/#/c/226834/>`_ will be updated for this feature.
 
 
