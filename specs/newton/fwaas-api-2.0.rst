@@ -86,11 +86,11 @@ enhancements:
       destinations in firewall rules. This reduces or eliminates the
       need to specify IP addresses for east/west traffic flows in
       firewall rules. For example, when Firewall Group A is used as the
-      destination firewall group id in a rule within a policy in Firewall
-      Group B, we care only about the ports associated with Firewall
-      Group A. When a packet arrives, it is matched if its destination
-      ip address matches an IP address of one the ports in Firewall
-      Group A.
+      source firewall group id in a rule within an ingress policy in
+      Firewall Group B, we care only about the ports associated with
+      Firewall Group A. When a packet arrives, it is matched if its
+      source ip address matches an IP address of one the ports in
+      Firewall Group A.
 
     * Adds indirections through address group and service group that
       allow groups of addresses and groups of L4 ports to be specified
@@ -203,7 +203,7 @@ REST API Impact
 ---------------
 
 Firewall Address Groups
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 +-------------------+---------+-------+------+---------------------------------------+
 | Attribute         | Type    | Req   | CRUD | Description                           |
@@ -230,7 +230,7 @@ Firewall Address Groups
 |
 
 Firewall Rules
-~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 
 Note that as with FWaaS 1.0, in FWaaS 2.0 firewall rules always use stateful connection
 tracking.
@@ -241,7 +241,7 @@ tracking.
 | id                     | uuid-str   | N/A | R    | Unique identifier for the firewall    |
 |                        |            |     |      | rule object.                          |
 +------------------------+------------+-----+------+---------------------------------------+
-| project_id             | uuid-str   | Yes | CRU  | Owner of the firewall rule. Only      |
+| project_id             | uuid-str   | Yes | CR   | Owner of the firewall rule. Only      |
 |                        |            |     |      | admin users can specify a project     |
 |                        |            |     |      | identifier other than their own.      |
 +------------------------+------------+-----+------+---------------------------------------+
@@ -326,10 +326,12 @@ destination_ip_address, destination_address_group_id, and destination
 _firewall_group_id, with respect to the destination IP address in the
 packet.
 
+Note: A rule may specify non-null values for either service_group_id,
+or any combination of protocol, source_port, and destination_port.
 |
 
 Firewall policies
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~
 
 +----------------+------------+-----+------+-----------------------------------------+
 | Attribute      | Type       | Req | CRUD | Description                             |
@@ -369,7 +371,7 @@ Firewall policies
 |
 
 Firewall groups
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 Firewall Groups (similar to Security Groups) are the central construct
 of the FWaaS 2.0 API. They serve two purposes:
@@ -391,7 +393,7 @@ of the FWaaS 2.0 API. They serve two purposes:
 
 Similar to Security Groups, for each project, one Firewall Group named
 "default" will be created automatically. This default Firewall Group
-will be applied to all new VM ports within that project, unless it is
+will be associate with all new VM ports within that project, unless it is
 explicitly disassociated from the new VM port. This provides a way for a
 tenant network admin to define a tenant wide firewall policy that
 applies to all VM ports, except when explicitly provisioned otherwise.
@@ -1694,7 +1696,7 @@ The following are the backend database tables for the REST API proposed above.
 | id                     | uuid-str   | N/A | R    | Unique identifier for the firewall    |
 |                        |            |     |      | rule object.                          |
 +------------------------+------------+-----+------+---------------------------------------+
-| project_id             | uuid-str   | Yes | CRU  | Owner of the firewall rule. Only      |
+| project_id             | uuid-str   | Yes | CR   | Owner of the firewall rule. Only      |
 |                        |            |     |      | admin users can specify a project     |
 |                        |            |     |      | identifier other than their own.      |
 +------------------------+------------+-----+------+---------------------------------------+
@@ -1906,7 +1908,7 @@ port. Refer "Stratum" section in [3] for further details.
 Security Impact
 ---------------
 
-* **TBD**
+TBD.
 
 Notifications Impact
 --------------------
@@ -1961,14 +1963,14 @@ Implementation
 Assignee(s)
 -----------
 
-Primary assignee:
-* Sean M. Collins
-
-Other contributors:
 * Aishwarya Thangappa
+* Chandan Dutta Chowdhury
 * German Eichberger
 * James Ardent
 * Mickey Spiegel
+* Nate Johnston
+* Sarath Chandra Mekala
+* Shweta Padubidri
 * Sridhar Kandaswamy
 
 Work Items
