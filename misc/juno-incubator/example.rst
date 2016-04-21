@@ -1,1 +1,1 @@
-../template.rst
+../../specs/template.rst
