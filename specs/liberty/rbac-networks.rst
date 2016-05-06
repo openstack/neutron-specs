@@ -56,7 +56,7 @@ controlled by RBAC.
 
 The logic surrounding shared networks will then be re-written to leverage the
 new RBAC code as the first implementation. The current 'shared' attribute on
-the network will be mapped into a wilcard entry in the new table to preserve
+the network will be mapped into a wildcard entry in the new table to preserve
 backwards compatibility (more details below).
 
 The forwarding semantics and ownership of objects will not be impacted by this
