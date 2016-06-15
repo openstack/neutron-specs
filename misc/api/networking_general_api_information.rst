@@ -220,8 +220,8 @@ pagination is enabled, the Networking API v2.0 will emulate the
 pagination behavior so that users can expect the same behavior
 regardless of the particular plug-in running in the background.
 
-Unfortunately OpenStack Networking does not expose any mechanism to tell
-user if pagination is supported by particular plug-in or enabled.
+To determine if pagination is supported, a user can check whether the
+'pagination' extension API is available.
 
 **Example Network collection, first page: JSON request**
 
@@ -430,8 +430,8 @@ is enabled, the Networking API v2.0 emulates the sorting behavior so
 that users can expect the same behavior regardless of the particular
 plug-in that runs in the background.
 
-Unfortunately OpenStack Networking does provide a mechanism to tell
-users if specific plug-ins support or have enabled sorting.
+To determine if sorting is supported, a user can check whether the
+'sorting' extension API is available.
 
 Extensions
 ----------
