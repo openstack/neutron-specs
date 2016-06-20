@@ -57,6 +57,7 @@ below is not meant to be a template to fill in, but rather a jumpstart on the
 sorts of areas to consider in your proposed change description.
 
 * Am I going to see new CLI commands?
+  * Is OpenStack CLI covered in addition to neutronclient?
 * How do you intend to support or affect aspects like:
   * Address Management, e.g. IPv6, DHCP
   * Routing, e.g. DVR/HA
