@@ -145,14 +145,14 @@ another tenant to share the object to more tenants.
 |Attribute    |Type   |Access   |Default  |Validation/ |Description     |
 |Name         |       |         |Value    |Conversion  |                |
 +=============+=======+=========+=========+============+================+
-|id           |string |R        | auto    |            |id of ACL entry |
+|id           |string |R        | auto    |            |id of RBAC entry|
 |             |(UUID) |         |         |            |                |
 +-------------+-------+---------+---------+------------+----------------+
-|tenant_id    |string |R        | auto    |            |owner of ACL    |
+|tenant_id    |string |R        | auto    |            |owner of RBAC   |
 |             |(UUID) |         |         |            |entry           |
 +-------------+-------+---------+---------+------------+----------------+
 |object_id    |string |RW       |N/A      |object      |object          |
-|             |(UUID) |         |         |exists      |affected by ACL |
+|             |(UUID) |         |         |exists      |affected by RBAC|
 +-------------+-------+---------+---------+------------+----------------+
 |object_type  |string |RW       |N/A      |type has    |type of object  |
 |             |       |         |         |rbac table  |                |
@@ -296,7 +296,7 @@ Work Items
 ----------
 * Add the DB model, REST API changes, UTs to the Neutron server
 * Adjust existing 'shared' attribute to use rbac and add migration script
-* Update the client to CRUD the ACLs
+* Update the client to CRUD the RBACs
 * Add API tests
 
 
@@ -325,8 +325,8 @@ at the API layer without impacting the dataplane.
 API Tests
 ---------
 
-* Excercise basic CRUD of ACL entries
-* Make sure networks are revealed and hidden as ACL entries are changed
+* Excercise basic CRUD of RBAC entries
+* Make sure networks are revealed and hidden as RBAC entries are changed
 * Delete port of another tenant from tenant with shared network
 
 
