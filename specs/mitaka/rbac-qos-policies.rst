@@ -47,14 +47,17 @@ QosPolicyRBAC Table structure:
 | Attribute     | Type   | Access | Default   | Validation/ | Description      |
 | Name          |        |        | Value     | Conversion  |                  |
 +===============+========+========+===========+=============+==================+
-| id            | string | R      | generated | N/A         | id of ACL entry  |
+| id            | string | R      | generated | N/A         | id of RBAC entry |
 |               | (UUID) |        |           |             |                  |
 +---------------+--------+--------+-----------+-------------+------------------+
-| tenant_id     | string | R      | auto      | N/A         | owner of ACL     |
+| tenant_id     | string | R      | auto      | N/A         | owner of RBAC    |
 |               | (UUID) |        |           |             | entry            |
 +---------------+--------+--------+-----------+-------------+------------------+
 | object_id     | string | RW     | N/A       | object      | object           |
-|               | (UUID) |        |           | exists      | affected by ACL  |
+|               | (UUID) |        |           | exists      | affected by RBAC |
++---------------+--------+--------+-----------+-------------+------------------+
+| object_type   | string | RW     | N/A       | type has    | type of object   |
+|               |        |        |           | RBAC table  |                  |
 +---------------+--------+--------+-----------+-------------+------------------+
 | target_tenant | string | RWU    | *         | string      | tenant ID the    |
 |               |        |        |           |             | entry affects.   |
@@ -181,7 +184,7 @@ Work Items
 ----------
 * Add the DB model.
 * Adjust existing 'shared' attribute to use rbac and add migration script.
-* Update the client to CRUD the new ACLs type.
+* Update the client to CRUD the new RBACs type.
 * Add UTs to Neutron server.
 * Add API tests.
 
@@ -210,8 +213,8 @@ at the API layer without impacting the dataplane.
 
 API Tests
 ---------
-* Excercise basic CRUD of ACL entries.
-* Make sure qos policies are revealed and hidden as ACL entries are changed
+* Excercise basic CRUD of RBAC entries.
+* Make sure qos policies are revealed and hidden as RBAC entries are changed
 
 
 Documentation Impact
