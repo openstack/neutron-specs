@@ -139,11 +139,8 @@ This attribute should be user visible to set that expectation.  The
 implementation will not depend on this value, it is merely user facing.
 
 This value will be read-only and derived from the current state of Segments
-within the Network.  The value will be true for a single segment network and
-false otherwise.
-
-.. NOTE An alternative is to set the value to false if any subnets on the
-   network are attached directly to a segment, true otherwise.
+within the Network.  The value will be false if subnets on the network are
+attached directly to segments.  It will be true otherwise.
 
 Other plugins will be free to implement this according to their need.  For
 example, Calico may just hard-code this to false and be done.  Plugins that
