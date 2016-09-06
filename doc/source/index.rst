@@ -4,6 +4,15 @@
 Neutron Project Specifications
 ==============================
 
+Ocata
+=====
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/ocata/*
+
 Newton
 ======
 
