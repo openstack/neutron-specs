@@ -77,6 +77,15 @@ Backlog
 
    specs/backlog/**
 
+Stadium
+=======
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/stadium/*
+
 ==================
 Indices and tables
 ==================

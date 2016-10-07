@@ -16,7 +16,8 @@ import re
 import docutils.core
 import testtools
 
-TO_BE_IGNORED = "postmortem"
+POSTMORTEM = "postmortem"
+STADIUM = "stadium"
 
 
 class TestTitles(testtools.TestCase):
@@ -115,7 +116,7 @@ class TestTitles(testtools.TestCase):
 
             files = glob.glob("specs/%s/*" % release)
             for filename in files:
-                if TO_BE_IGNORED in filename:
+                if POSTMORTEM in filename or STADIUM in filename:
                     continue
                 self.assertTrue(filename.endswith(".rst"),
                                 "spec's file must uses 'rst' extension.")
