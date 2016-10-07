@@ -84,7 +84,7 @@ Stadium
    :glob:
    :maxdepth: 1
 
-   specs/stadium/*
+   specs/stadium/**
 
 ==================
 Indices and tables
