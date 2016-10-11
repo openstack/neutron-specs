@@ -65,5 +65,6 @@ Possible values to assign to these items are:
 
  * Completed (as planned).
  * Incomplete (planned, but failed to complete to be considered functional).
+ * In progress (actively worked now at the time of writing).
  * Optional (not planned, but left for future planning).
  * Not applicable.

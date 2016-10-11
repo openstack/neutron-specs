@@ -17,6 +17,11 @@ Newton
 ======
 
 .. toctree::
+   :maxdepth: 1
+
+   Postmortem documentation <specs/newton/postmortem/postmortem>
+
+.. toctree::
    :glob:
    :maxdepth: 1
 
