@@ -22,7 +22,7 @@ Neutron integration
 * N1. Does the project integrate/use neutron-lib?
 
   Yes. Of the total ~200 neutron related imports, neutron-lib is imported
-  roughly ~20% of of the time. The project has a periodic job against
+  roughly ~20% of the time. The project has a periodic job against
   master neutron-lib changes.
 
   * http://status.openstack.org/openstack-health/#/job/periodic-networking-midonet-py35-with-neutron-lib-master
