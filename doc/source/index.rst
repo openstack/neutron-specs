@@ -17,6 +17,11 @@ Ocata
 =====
 
 .. toctree::
+   :maxdepth: 1
+
+   Postmortem documentation <specs/ocata/postmortem/postmortem>
+
+.. toctree::
    :glob:
    :maxdepth: 1
 
