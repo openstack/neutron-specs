@@ -24,7 +24,7 @@ Proposed change
 ===============
 
 The driver will implement the interfaces in the lbaas abstract_driver, using
-axAPI verison 2.1, a JSON HTTP interface for configuring A10 appliances.  The
+axAPI version 2.1, a JSON HTTP interface for configuring A10 appliances.  The
 currently implemented methods are:
 
 * create_vip
