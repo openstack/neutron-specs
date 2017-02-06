@@ -8,8 +8,8 @@
 (Placeholder Spec)
 ==================
 
-This file is just a placeholder for Ocata specs directory.
-It will be removed soon after some spec for Ocata is merged.
+This file is just a placeholder for the specs directory.
+It will be removed soon after some spec is merged.
 
 The latest spec template is found at ``specs/template.rst``
 in the ``neutron-specs`` repository.

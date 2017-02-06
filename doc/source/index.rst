@@ -4,14 +4,21 @@
 Neutron Project Specifications
 ==============================
 
+Pike
+====
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/pike/*
+
 Ocata
 =====
 
 .. toctree::
    :glob:
    :maxdepth: 1
-
-   specs/ocata/*
 
 Newton
 ======
