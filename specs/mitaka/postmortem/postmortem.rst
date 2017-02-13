@@ -334,7 +334,7 @@ Automatically generate etc/neutron.conf file
 
 * References:
 
-  * http://docs.openstack.org/draft/config-reference/networking/sample-configuration-files.html
+  * http://docs.openstack.org/draft/config-reference/networking/samples/
   * http://docs.openstack.org/developer/neutron/devref/contribute.html#configuration-files
 
 Router Extension for Dynamic Routing Using BGP
