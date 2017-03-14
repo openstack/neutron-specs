@@ -4,9 +4,9 @@
 
  http://creativecommons.org/licenses/by/3.0/legalcode
 
-==============
-Stadium health
-==============
+======================
+Ocata - Stadium health
+======================
 
 For details about criteria please check Stadium documents.
 
