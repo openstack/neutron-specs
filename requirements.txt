@@ -1,14 +1,14 @@
 actdiag
 blockdiag
 nwdiag
-oslosphinx
-pbr>=0.6,!=0.7,<1.0
+oslosphinx>=4.7.0 # Apache-2.0
+pbr>=2.0.0 # Apache-2.0
 seqdiag
-sphinx>=1.1.2,<1.2
+sphinx>=1.5.1 # BSD
 sphinxcontrib-actdiag
-sphinxcontrib-blockdiag
+sphinxcontrib-blockdiag # BSD
 sphinxcontrib-nwdiag
-sphinxcontrib-seqdiag
-testrepository>=0.0.18
-testtools>=0.9.34
+sphinxcontrib-seqdiag # BSD
+testrepository>=0.0.18 # Apache-2.0/BSD
+testtools>=1.4.0 # MIT
 yasfb>=0.5.1

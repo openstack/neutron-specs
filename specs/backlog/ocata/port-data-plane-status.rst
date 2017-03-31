@@ -150,7 +150,7 @@ Examples
 
 Updating port data plane status to down:
 
-.. code-block:: json
+.. code-block:: none
 
    PUT /v2.0/ports/<port-uuid>
    Accept: application/json
