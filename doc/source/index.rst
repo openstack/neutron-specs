@@ -96,7 +96,25 @@ Stadium
    :glob:
    :maxdepth: 1
 
-   specs/stadium/**
+   specs/stadium/*
+
+Pike
+----
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/stadium/pike/*
+
+Ocata
+-----
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/stadium/ocata/*
 
 ==================
 Indices and tables
