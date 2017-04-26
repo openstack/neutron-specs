@@ -234,7 +234,7 @@ Important key features of list bindings:
 Show Binding
 ~~~~~~~~~~~~
 
-GET /v2.0/ports/​{port_id}​/bindings/{host_id}
+GET /v2.0/ports/{port_id}/bindings/{host_id}
 
 ..  list-table:: Response Parameters
     :header-rows: 1
@@ -367,9 +367,9 @@ Important key features of update/create binding:
 * If a binding being added already exists, a 4xx will be returned.
 
 * A compute port can only have 1 active binding at a time. This is not an
-  enforcement by Neutron, but a result of the operation surrounding PortBinding.
-  This feature expands the capability of having multiple bindings, but will
-  only allow for 1 active binding for compute ports.
+  enforcement by Neutron, but a result of the operation surrounding
+  PortBinding. This feature expands the capability of having multiple bindings,
+  but will only allow for 1 active binding for compute ports.
 
 * At this time, creation of a binding will be limited to compute ports.
 
@@ -421,7 +421,7 @@ see :ref:`show_binding`
                 "ovs_hybrid_plug": true
                 },
             "vnic_type": 'NORMAL',
-            "profile": {"foo":"bar"},
+            "profile": {"foo": "bar"},
             "status": "active"
         }
     }
@@ -469,7 +469,7 @@ Important key features of activate binding:
 Delete Binding
 ~~~~~~~~~~~~~~
 
-DELETE /v2.0/ports/​{port_id}​/bindings/{host_id}
+DELETE /v2.0/ports/{port_id}/bindings/{host_id}
 
 This operation does not accept a request body and does not return a response
 body.
@@ -569,14 +569,15 @@ Status Usage
 
 The status column in PortBinding will store an additional state 'inactive'
 where the current states are 'active' and 'down'.  Neutron-lib will
-only require the addition of PORT_STATUS_INACTIVE.
+only require the addition of PORT_BINDING_STATUS_ACTIVE and
+PORT_BINDING_STATUS_INACTIVE.
 
 ::
 
     from neutron_lib import constants as const
 
-    const.PORT_STATUS_ACTIVE
-    const.PORT_STATUS_INACTIVE
+    const.PORT_BINDING_STATUS_ACTIVE
+    const.PORT_BINDING_STATUS_INACTIVE
 
 Create/Update/Delete Port
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -779,12 +780,7 @@ Assignee(s)
 -----------
 
 Primary assignee:
-
-* `Anindita Das <https://launchpad.net/~anindita-das>`_
-
-Other contributors:
-
-* `Brian Stajkowski <https://launchpad.net/~brian-stajkowski>`_
+* `Jakub Libosvar <https://launchpad.net/~libosvar>`_
 
 Please add your name here and attend the `ML2 Subteam Meeting
 <https://wiki.openstack.org/wiki/Meetings/Neutron-ML2-Subteam>`_ if you'd
