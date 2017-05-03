@@ -134,11 +134,6 @@ modification of rules will be handled by the QoS plugin alone
 consuming the validate_policy_for_port function that will be provided
 by the implementation.
 
-Notes
------
-QoS "notification" driver is certainly an unfortunate name for the interface and
-may need to be changed into something more sensible in the future.
-
 References
 ==========
 [1] https://bugs.launchpad.net/neutron/+bug/1586056
