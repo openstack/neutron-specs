@@ -4,7 +4,7 @@ nwdiag
 oslosphinx>=4.7.0 # Apache-2.0
 pbr>=2.0.0,!=2.1.0 # Apache-2.0
 seqdiag
-sphinx>=1.5.1 # BSD
+sphinx>=1.5.1,!=1.6.1  # BSD
 sphinxcontrib-actdiag
 sphinxcontrib-blockdiag # BSD
 sphinxcontrib-nwdiag
