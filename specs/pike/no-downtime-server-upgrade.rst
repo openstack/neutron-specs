@@ -101,8 +101,17 @@ implement any needed *data* migration rules in a single place, in a
 corresponding object class, isolating consuming code from all the complexities
 of the migration/conversion process.
 
+Since in-object translation of data is lazy, at the point of next major upgrade
+some resources may still have their database records not transitioned to a new
+format. To facilitate next major upgrade, `a new neutron-db-manage CLI command
+(migrate-data) <https://review.openstack.org/#/c/432494/>`_ will be implemented
+that can be executed by operators before proceeding with the upgrade. The
+command will migrate any remaining data models to a new format. The command
+will run data migration scripts exposed via a stevedore namespace, for external
+subprojects to be able to make use of it.
+
 Even with persistence facade, some work on migration mechanism and techniques
-is expected. For the start, an Ocata feature that would need a schema/data
+is expected. For the start, a Pike feature that would need a schema/data
 migration change will be identified and used as a ``guinea pig`` to explore the
 proposal practicalities.
 
@@ -116,13 +125,13 @@ data used by X and X+1 located in the old schema is migrated), which guarantees
 that whenever the deployer upgrades to X+2 (from X+1), the server instance
 running behind won't hit the data/code being affected by the schema migration.
 At this point, even seemingly unsafe operations like dropping tables or columns
-become safe to execute while neutron-server instances are online. For Ocata,
-there should be no new ``contract`` alembic scripts at all. Those may show up
-again in later releases.
+become safe to execute while neutron-server instances are online. For Ocata and
+later, there should be no new ``contract`` alembic scripts at all. Those may
+show up again in later releases.
 
-To achieve the goal for Newton to Ocata upgrades, we should guarantee that all
-patches will follow decided path during Ocata. This will be achieved by both
-automation as well as social means.
+To achieve the goal for Newton to Ocata and later upgrades, we should guarantee
+that all patches will follow decided path during Ocata and later. This will be
+achieved by both automation as well as social means.
 
 For the former, we introduce a `functional test
 <https://review.openstack.org/#/c/400239/>`_ that fails on attempt to execute
