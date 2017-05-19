@@ -1,3 +1,7 @@
+# NOTE(armax): requirements to the specs repo is kept out of sync
+# with g-r on purpose, as g-r is just for projects affecting the
+# integrated gate. Any sync must happen manually as recommended by
+# the openstack release team.
 actdiag
 blockdiag
 nwdiag
