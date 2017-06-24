@@ -41,6 +41,18 @@ Request example::
 
 The response is a dict with details for the supported rule type for each of the
 enabled backends.
+
+As parameter values can be returned:
+
+* list of supported values if driver uses "type:values" validator from
+  neutron-lib to validate this parameter
+* dict with 'start' and 'end' value if driver uses "type:range" validator from
+  neutron-lib to validate this parameter. Both 'start' and 'end' values are
+  inclusive in the range.
+
+QoS rule types uses only "type:values" and "type:range" validators currently and
+only those validators are supported by this spec.
+
 This call should be available only for users with admin rights to not expose
 details about cloud infra to regular users.
 
@@ -55,14 +67,23 @@ Response example::
                     "supported_parameters": [
                         {
                             "parameter_name": "max_kbps",
-                            "parameter_values": "*"
+                            "parameter_type": "range",
+                            "parameter_values": {
+                                "start": 0,
+                                "end": 1000
+                            }
                         },
                         {
                             "parameter_name": "max_burst_kbps",
-                            "parameter_values": "*"
+                            "parameter_type": "range",
+                            "parameter_values": {
+                                "start": 0,
+                                "end": 1000
+                            }
                         },
                         {
                             "parameter_name": "direction",
+                            "parameter_type": "choices",
                             "parameter_values": ["ingress", "egress"]
                         }
                     ]
@@ -72,14 +93,23 @@ Response example::
                     "supported_parameters": [
                         {
                             "parameter_name": "max_kbps",
-                            "parameter_values": "*"
+                            "parameter_type": "range",
+                            "parameter_values": {
+                                "start": 0,
+                                "end": 1000
+                            }
                         },
                         {
                             "parameter_name": "max_burst_kbps",
-                            "parameter_values": "*"
+                            "parameter_type": "range",
+                            "parameter_values": {
+                                "start": 0,
+                                "end": 1000
+                            }
                         },
                         {
                             "parameter_name": "direction",
+                            "parameter_type": "choices",
                             "parameter_values": ["egress"]
                         }
                     ]
