@@ -4,6 +4,15 @@
 Neutron Project Specifications
 ==============================
 
+Queens
+======
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/queens/*
+
 Pike
 ====
 
