@@ -121,5 +121,5 @@ Response example::
 
 References
 ==========
-[1] http://specs.openstack.org/openstack/neutron-specs/pike/qos-improved-validation-mechanism-rules.html
+[1] :doc:`qos-improved-validation-mechanism-rules`
 [2] https://review.openstack.org/#/c/461257
