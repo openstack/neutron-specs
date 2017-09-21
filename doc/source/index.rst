@@ -107,6 +107,15 @@ Stadium
 
    specs/stadium/*
 
+Queens
+------
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   specs/stadium/queens/*
+
 Pike
 ----
 
