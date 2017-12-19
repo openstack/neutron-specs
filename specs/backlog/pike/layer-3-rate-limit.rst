@@ -355,9 +355,9 @@ References
 
 .. [2] `Linux HTB Queuing <http://www.linuxjournal.com/article/7562>`_
 
-.. [3] `[WIP] Floating IP rate limit <https://review.openstack.org/#/c/424466/>`_
+Related Information
+-------------------
 
-.. [4] `[WIP] Router gateway rate limit (abandoned) <https://review.openstack.org/#/c/424468/>`_
-
-.. [5] `[WIP] Adding L3 rate limit TC lib <https://review.openstack.org/#/c/453458/>`_
-
+- `Floating IP rate limit <https://review.openstack.org/#/c/424466/>`_
+- `Router gateway rate limit (abandoned) <https://review.openstack.org/#/c/424468/>`_
+- `Adding L3 rate limit TC lib <https://review.openstack.org/#/c/453458/>`_

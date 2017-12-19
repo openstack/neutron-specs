@@ -483,7 +483,7 @@ Alternatives
    segmentation packets to prioritize traffic at L2/L3 level.
    Also the tenants could not be trusted to do the right thing.
 
- - Nova flavors support for QoS [5]_ allows bandwidth limiting settings via
+ - Nova flavors support for QoS [2]_ allows bandwidth limiting settings via
    the libvirt interface on the VM tap. This is enough for basic BW limiting
    on the VMs, but other QoS rules are not supported, and this also lacks
    support for service port QoS. User may need to stick to one approach or
@@ -576,7 +576,11 @@ Developer Documentation
 References
 ==========
 .. [1] ML2/OVS spec: https://review.openstack.org/#/c/182349/
-.. [2] https://review.openstack.org/#/c/132661/
-.. [3] https://lwn.net/Articles/640101/
-.. [4] http://specs.openstack.org/openstack/neutron-specs/specs/liberty/neutron-flavor-framework-templates.html
-.. [5] https://wiki.openstack.org/wiki/InstanceResourceQuota#Bandwidth_limits
+.. [2] https://wiki.openstack.org/wiki/InstanceResourceQuota#Bandwidth_limits
+
+Related Information
+-------------------
+
+-  https://review.openstack.org/#/c/132661/
+-  https://lwn.net/Articles/640101/
+-  http://specs.openstack.org/openstack/neutron-specs/specs/liberty/neutron-flavor-framework-templates.html

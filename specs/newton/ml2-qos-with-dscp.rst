@@ -255,6 +255,9 @@ Existing `QoS API documentation
 References
 ==========
 
-.. [#qos_api_spec] https://review.openstack.org/#/c/88599/
-.. [#qos_devref] https://github.com/openstack/neutron/blob/master/doc/source/devref/quality_of_service.rst
-.. [#qos_api_doc] https://review.openstack.org/#/c/226834/
+-  `QoS API spec
+   <https://review.openstack.org/#/c/88599/>`_
+-  `QoS devref
+   <https://github.com/openstack/neutron/blob/master/doc/source/devref/quality_of_service.rst>`_
+-  `QoS API doc
+   <https://review.openstack.org/#/c/226834/>`_

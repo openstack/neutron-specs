@@ -232,12 +232,14 @@ None
 References
 ==========
 
-.. [nfv-unaddressed-interface] NFV unaddressed interfaces
-  https://review.openstack.org/#/c/97715/
-
 .. [nova-l2-net-without-subnet]
   Creating Neutron L2 networks (without subnets) doesn't work as expected
   https://bugs.launchpad.net/nova/+bug/1039665
 
-.. Make libvirt use the new network model datastructures
-  https://review.openstack.org/#/c/11923/
+Related Information
+-------------------
+
+-  Make libvirt use the new network model datastructures
+   https://review.openstack.org/#/c/11923/
+-  NFV unaddressed interfaces
+   https://review.openstack.org/#/c/97715/

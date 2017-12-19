@@ -350,4 +350,8 @@ References
 .. [3] https://github.com/openstack/python-don
 .. [4] https://github.com/openstack/vmware-nsx/blob/master/vmware_nsx/shell/admin/README.rst
 .. [5] https://wiki.openstack.org/wiki/Nova_VM_Diagnostics
-.. [6] https://bugs.launchpad.net/neutron/+bug/1563538
+
+Related Information
+-------------------
+
+- https://bugs.launchpad.net/neutron/+bug/1563538

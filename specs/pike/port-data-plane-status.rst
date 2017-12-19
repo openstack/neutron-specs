@@ -20,14 +20,14 @@ that end.
 Problem Description
 ===================
 
-An initial description of the problem was introduced in bug #159801 [1_]. This
+An initial description of the problem was introduced in bug #159801 [1]_. This
 spec focuses on capturing one (main) part of the problem there described, i.e.
 extending Neutron's REST API to cover the scenario of allowing external tools
 to report network failures to Neutron. Out of scope of this spec are works to
 enable port status changes to be received and managed by mechanism drivers.
 
-This spec provides the plumbing to address bug #1575146 [2_] in subsequent
-work. Specifically, and argued by the Neutron driver team in [3_]:
+This spec provides the plumbing to address bug #1575146 [2]_ in subsequent
+work. Specifically, and argued by the Neutron driver team in [3]_:
 
  * Neutron should not shut down the port completely upon detection of underlay
    network failure; connectivity between instances on the same node may still
@@ -98,13 +98,13 @@ One possible workflow is:
      switch-over to a standby instance.
 
 
-A similar workflow was presented at the OpenStack Summit Barcelona keynote demo [6_].
+A similar workflow was presented at the OpenStack Summit Barcelona keynote demo [4]_.
 
 
 Proposed Change
 ===============
 
-A couple of possible approaches were proposed in [1_] (comment #3). This spec
+A couple of possible approaches were proposed in [1]_ (comment #3). This spec
 proposes tackling the problem via a new extension API to the port resource.
 The extension adds a new attribute ``data_plane_status`` to represent the
 status of the underlay data plane. This attribute is to be managed by entities outside
@@ -184,11 +184,13 @@ References
 .. [3] Neutron Drivers meeting, July 21, 2016
    http://eavesdrop.openstack.org/meetings/neutron_drivers/2016/neutron_drivers.2016-07-21-22.00.html
 
-.. [4] Neutron v2 API
-   https://wiki.openstack.org/wiki/Neutron/APIv2-specification
-
-.. [5] Neutron: resource status & admin state up
-   https://docs.google.com/presentation/d/1-cex849lLsmRsZ302lqkwvXbexhe6cwuCZ2JSE8Rp2s
-
-.. [6] Demo: OpenStack and OPNFV - Keeping Your Mobile Phone Calls Connected
+.. [4] Demo: OpenStack and OPNFV - Keeping Your Mobile Phone Calls Connected
    https://www.youtube.com/watch?v=Dvh8q5m9Ahk
+
+Related Information
+-------------------
+
+-  Neutron v2 API
+   https://wiki.openstack.org/wiki/Neutron/APIv2-specification
+-  Neutron: resource status & admin state up
+   https://docs.google.com/presentation/d/1-cex849lLsmRsZ302lqkwvXbexhe6cwuCZ2JSE8Rp2s

@@ -35,9 +35,14 @@ extensions = ['sphinx.ext.autodoc',
               'sphinxcontrib.actdiag',
               'sphinxcontrib.seqdiag',
               'sphinxcontrib.nwdiag',
-              'oslosphinx',
               'yasfb',
+              'openstackdocstheme'
              ]
+
+# config for openstackdocstheme
+repository_name = 'openstack/neutron-specs'
+bug_project = 'neutron'
+bug_tag = ''
 
 # Feed configuration for yasfb
 feed_base_url = 'http://specs.openstack.org/openstack/neutron-specs'
@@ -105,7 +110,7 @@ modindex_common_prefix = ['neutron-specs.']
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'nature'
+html_theme = 'openstackdocs'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

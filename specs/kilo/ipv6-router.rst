@@ -209,6 +209,10 @@ API semantic changes need to be documented.
 References
 ==========
 
-.. [REFAC_L3]  `Kilo refactoring and restructuring the l3 agent <https://review.openstack.org/#/c/131535/>`_
 .. [IPV6_ADDR] `IP Version 6 Addressing Architecture <https://tools.ietf.org/html/rfc4291>`_
 .. [IPV6_FIP]  `IPv6 Floating IP Support <https://review.openstack.org/#/c/139731/>`_
+
+Related Information
+-------------------
+
+- `Kilo refactoring and restructuring the l3 agent <https://review.openstack.org/#/c/131535/>`_

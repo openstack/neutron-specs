@@ -17,7 +17,7 @@ Problem Description
 ===================
 
 Currently, in neutron QoS policies cannot be shared across subsets of tenants. This proposal
-talks about using RBAC [1] for QoS policies and making them shareable across tenants.
+talks about using RBAC [1]_ for QoS policies and making them shareable across tenants.
 
 
 Proposed Change
@@ -39,7 +39,7 @@ tenant's network).
 Data Model Impact
 -----------------
 
-Add a model of RBAC for qos policy, Using the existing RBAC for Data model as reference [2].
+Add a model of RBAC for qos policy, Using the existing RBAC for Data model as reference [2]_.
 
 QosPolicyRBAC Table structure:
 
@@ -223,7 +223,7 @@ Documentation Impact
 User Documentation
 ------------------
 
-The workflow for adding RBAC for qos policy entries will need to be added to [3].
+The workflow for adding RBAC for qos policy entries will need to be added to [3]_.
 
 
 References

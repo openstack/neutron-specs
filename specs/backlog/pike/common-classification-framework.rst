@@ -18,25 +18,26 @@ Different Neutron projects, services, features and related projects have
 different traffic classifiers or classification APIs.
 They differ on both syntax and semantics. A few examples are:
 
-- Security group rules [6]
-- openstack/neutron-fwaas [7]
-- openstack/networking-sfc (Flow Classifier) [8]
-- openstack/neutron-classifier [2]
-- openstack/networking-bgpvpn [12]
-- openstack/tap-as-a-service [13]
-- Neutron QoS [10]
+- Security group rules [6]_
+- openstack/neutron-fwaas [7]_
+- openstack/networking-sfc (Flow Classifier) [8]_
+- openstack/neutron-classifier [2]_
+- openstack/networking-bgpvpn [12]_
+- openstack/tap-as-a-service [13]_
+- Neutron QoS [10]_
 
 Furthermore, there are other projects with classification APIs, such as
-openstack/group-based-policy [9] and it's possible that more will want
+openstack/group-based-policy [9]_ and it's possible that more will want
 to support classifications in their own APIs, further reinventing the wheel
 and fragmenting the language used in the OpenStack ecosystem when it comes
 to defining traffic classifications.
 
 This spec introduces the Neutron Common Classification Framework (CCF),
-a culmination of previous efforts: Common Classifier [0],
-openstack/neutron-classifier [2] and Common Flow Classifier [11].
+a culmination of previous efforts: Common Classifier [1]_,
+openstack/neutron-classifier [2]_ and
+Common Flow Classifier [11]_.
 
-The previous spec for this RFE is archived at [0].
+The previous spec for this RFE is archived at [1]_.
 
 
 Proposed Change
@@ -122,7 +123,7 @@ Though out of scope, this is a summary of changes needed in Consuming Services:
   must be made consistently with the changes made to their own APIs and/or
   classification-fetching code.
 
-The diagram at [5] shows the relationship between Users, the Common
+The diagram at [5]_ shows the relationship between Users, the Common
 Common Classification Framework and the Consuming Services.
 
 
@@ -134,11 +135,12 @@ Types, will allow future types to be added and agreed in the future, while
 keeping the remaining ones intact. Existing types can of course be updated,
 thanks to versioning. Thus, this approach follows a modular, rather than
 a monolithic way of defining classifications. Looking at the existing
-neutron-classifier project [2], which was decided as the repo to keep the
-Common Classifier [3] (during the Tokyo Summit 2015), there are hints of an
-architecture like the one proposed here, as can be seen in [4]. As such, this
-framework is partially based on the neutron-classifier with the major
-difference that it presents a REST API for Users to define classifications.
+neutron-classifier project [2]_, which was decided as the repo to keep
+the Common Classifier [3]_ (during the Tokyo Summit 2015), there are
+hints of an architecture like the one proposed here, as can be seen
+in [4]_. As such, this framework is partially based on the
+neutron-classifier with the major difference that it presents a REST API for
+Users to define classifications.
 
 Before delving into further detail in regards to the data model, API and how
 classifications can be used by interested Neutron subprojects, a few points
@@ -170,7 +172,7 @@ need to be clarified:
 - From the Consuming Service's point of view, Classifications can only be read,
   not created or deleted. They need to have been previously
   created using the User-facing Classifications API.
-  Figure [5] attempts to illustrate this.
+  Figure [5]_ attempts to illustrate this.
 
 The initial model of the CCF will includes the following Classification Types:
 Ethernet, IPv4, IPv6, TCP and UDP, which when combined are sufficient
@@ -590,7 +592,7 @@ Possible alternatives to the data model and REST API presented are:
 Implementation
 ==============
 
-Work has started as an initial Proof of Concept, available at [14].
+Work has started as an initial Proof of Concept, available at [14]_.
 After an initial merge on the neutron-classifier repository, work will
 continue towards the goals outlined in this spec.
 
@@ -621,8 +623,7 @@ Work Items
 References
 ==========
 
-.. [0] Add common classifier resource (neutron-specs): https://review.openstack.org/#/c/190463/
-.. [1] Data Model: http://i.imgur.com/MPuOAvv.png
+.. [1] Add common classifier resource (neutron-specs): https://review.openstack.org/#/c/190463/
 .. [2] The neutron-classifier project: http://git.openstack.org/cgit/openstack/neutron-classifier
 .. [3] The original and current RFE to bring a common classifier to Neutron: https://bugs.launchpad.net/neutron/+bug/1476527
 .. [4] neutron-classifier inspiration: https://github.com/openstack/neutron-classifier/blob/10b2eb3127f4809e52e3cf1627c34228bca80101/neutron_classifier/common/constants.py#L17
@@ -636,3 +637,9 @@ References
 .. [12] openstack/networking-bgpvpn API reference: https://docs.openstack.org/developer/networking-bgpvpn/api.html#bgpvpn-resource
 .. [13] openstack/tap-as-a-service API reference: https://github.com/openstack/tap-as-a-service/blob/master/API_REFERENCE.rst
 .. [14] Latest CCF PoC: https://review.openstack.org/#/c/445577/
+
+Related Information
+-------------------
+
+-  Data Model:
+   http://i.imgur.com/MPuOAvv.png

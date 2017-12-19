@@ -350,13 +350,6 @@ References
 .. [port_security_extension_db] port security extension db part
    http://git.openstack.org/cgit/openstack/neutron/tree/neutron/db/portsecurity_db.py
 
-.. [ml2_extension_driver] Support for extensions in ML2 Mechanism Drivers
-   * spec review: https://review.openstack.org/#/c/89208/
-   * etherpad: https://etherpad.openstack.org/p/ML2_MD_extensions
-
-.. [modular_l2_agent] Modular L2 agent
-   spec review: https://review.openstack.org/#/c/99187/
-
 .. [router_plugin_cisco]
    Describes design of router service plugin for Cisco devices
    https://review.openstack.org/#/c/91071/
@@ -364,43 +357,50 @@ References
 .. [vyatta_l3_plugin] Design Spec For Brocade Vyatta L3 Plugin
    https://review.openstack.org/#/c/101052/
 
-.. [dvr] Neturon Distributed Virtual Router for OVS
-   https://blueprints.launchpad.net/neutron/+spec/neutron-ovs-dvr
-
-.. [ovs_firewall_driver]
-   Open vSwitch-based Security Groups: Open vSwitch Implementation of
-   FirewallDriver
-   https://blueprints.launchpad.net/neutron/+spec/ovs-firewall-driver
-   https://review.openstack.org/#/c/89712/
-
 .. [port_security_base_class] Port Security API base class
    https://blueprints.launchpad.net/neutron/+spec/port-security-api-base-class
 
 .. [quantum_port_security] Quantum Port Security
    https://docs.google.com/document/d/18trYtq3wb0eJK2CapktN415FRIVasr7UkTpWn9mLq5M/edit?pli=1
 
-.. [ml2_extensions] Support for extensions in ML2 Mechanism Drivers
-   https://blueprints.launchpad.net/neutron/+spec/neutron-ml2-mechanismdriver-extensions
-
-.. [port_security_ml2] Add Port Security Implementation in ML2 Plugin
-   duplicated proposal. consolidated to this one.
-   * blueprint https://blueprints.launchpad.net/neutron/+spec/port-security-ml2
-   * spec review https://review.openstack.org/#/c/106222/
-
-.. [nfv_unaddressed_interfaces]
-   NFV unaddressed interfaces
-   * blueprint https://blueprints.launchpad.net/neutron/+spec/nfv-unaddressed-interfaces
-   * spec review https://review.openstack.org/#/c/97715/
-
-.. [port_security_ml2_patch] Add portsecurity extension support
-   patch for ovs firewall driver
-   https://review.openstack.org/#/c/126552/
-
-.. [related_bugs]
-   related bugs: creating network without subnet and port without subnet
-   * https://bugs.launchpad.net/bugs/1039665
-   * https://bugs.launchpad.net/bugs/1175464
-
 .. [bug1274034]
    Neutron firewall anti-spoofing does not prevent ARP poisoning
    https://bugs.launchpad.net/neutron/+bug/1274034
+
+Related Information
+-------------------
+
+-  Support for extensions in ML2 Mechanism Drivers
+
+   spec review: https://review.openstack.org/#/c/89208/
+
+   etherpad: https://etherpad.openstack.org/p/ML2_MD_extensions
+-  Modular L2 agent
+
+   spec review: https://review.openstack.org/#/c/99187/
+-  Neturon Distributed Virtual Router for OVS
+   https://blueprints.launchpad.net/neutron/+spec/neutron-ovs-dvr
+-  Open vSwitch-based Security Groups: Open vSwitch Implementation of
+   FirewallDriver
+   https://blueprints.launchpad.net/neutron/+spec/ovs-firewall-driver
+   https://review.openstack.org/#/c/89712/
+-  Support for extensions in ML2 Mechanism Drivers
+   https://blueprints.launchpad.net/neutron/+spec/neutron-ml2-mechanismdriver-extensions
+-  Add Port Security Implementation in ML2 Plugin
+   duplicated proposal. consolidated to this one.
+
+   blueprint https://blueprints.launchpad.net/neutron/+spec/port-security-ml2
+
+   spec review https://review.openstack.org/#/c/106222/
+-  NFV unaddressed interfaces
+
+   blueprint https://blueprints.launchpad.net/neutron/+spec/nfv-unaddressed-interfaces
+
+   spec review https://review.openstack.org/#/c/97715/
+-  Add portsecurity extension support
+   patch for ovs firewall driver
+   https://review.openstack.org/#/c/126552/
+-  related bugs: creating network without subnet and port without subnet
+   https://bugs.launchpad.net/bugs/1039665
+
+   https://bugs.launchpad.net/bugs/1175464

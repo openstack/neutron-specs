@@ -37,7 +37,7 @@ pool of routable prefixes.
 
 Note that it would be possible to have a PD server application that is
 managed by Neutron that is running within a Neutron router namespace, and
-that is configured using the IPAM Subnet Allocation API [4]_. This
+that is configured using the IPAM Subnet Allocation API [3]_. This
 support is out the scope of this blueprint, and will be covered in a
 separate blueprint.
 
@@ -146,7 +146,7 @@ Workflow
 * Initial Setup
 
   * Admin configures the default_ipv6_subnet_pool configuration setting
-    (described in the IPAM Subnet Allocation specification, [4]_)
+    (described in the IPAM Subnet Allocation specification, [3]_)
     in the neutron.conf configuration file to indicate that prefix
     delegation should be used for the default subnet pool.
 
@@ -154,7 +154,7 @@ Workflow
 
   * User/tenant creates an IPv6 subnet while supplying neither an address
     pool nor a prefix. Normally, this indicates to the subnet pool allocation
-    infrastructure [4]_ that the prefix should be automatically
+    infrastructure [3]_ that the prefix should be automatically
     allocated from the default IPv6 allocation pool. However, in this case
     (because of the configuration described in the Initial Setup section),
     allocation for the default IPv6 allocation pool needs to be done
@@ -227,7 +227,7 @@ Data Model Impact
 REST API Impact
 ---------------
 
-As described in the Subnet Pool Allocation specification [4]_, the
+As described in the Subnet Pool Allocation specification [3]_, the
 subnet create API will need to allow for the absence of both subnet
 prefix and subnet pool ID. Normally, this indicates to Neutron (and the
 subnet pool allocation infrastructure) that the prefix for this subnet
@@ -309,7 +309,7 @@ Community Impact
 ----------------
 
 This feature is complementary to the IPAM Subnet Allocation feature
-[4]_. This implementation could be expanded in the future to support
+[3]_. This implementation could be expanded in the future to support
 an internal (Neutron-managed) PD server, and thereby used as part of the
 underlying implementation for the IPv6 portion of the IPAM Subnet
 Allocation.
@@ -357,7 +357,7 @@ Dependencies
 
 The change in behavior for the subnet create API described in this proposal
 will need to build off changes in that API that will be made for IPAM
-Subnet Allocation [4]_.
+Subnet Allocation [3]_.
 
 
 Testing
@@ -431,18 +431,15 @@ References
    Protocol (DHCP) version 6
    <http://tools.ietf.org/html/rfc3633>`_
 
-.. [3] RFC 4862: `IPv6 Stateless Address Autoconfiguration
-   <http://tools.ietf.org/html/rfc4862>`_
-
-.. [4] Neutron Blueprint: `Add support for subnet allocation
+.. [3] Neutron Blueprint: `Add support for subnet allocation
    <https://blueprints.launchpad.net/neutron/+spec/subnet-allocation>`_
 
-.. [5] RFC 4862: `IPv6 Stateless Address Autoconfiguration
-   <http://tools.ietf.org/html/rfc4862>`_
+Related Information
+-------------------
 
-.. [6] RFC 4861: `Neighbor Discovery for IP version 6 (IPv6)
-   <https://datatracker.ietf.org/doc/rfc4861>`_
-
-.. [7] RFC 4291: `IP Version 6 Addressing Architecture
-   <http://tools.ietf.org/html/rfc4291>`_
-
+- RFC 4862: `IPv6 Stateless Address Autoconfiguration
+  <http://tools.ietf.org/html/rfc4862>`_
+- RFC 4861: `Neighbor Discovery for IP version 6 (IPv6)
+  <https://datatracker.ietf.org/doc/rfc4861>`_
+- RFC 4291: `IP Version 6 Addressing Architecture
+  <http://tools.ietf.org/html/rfc4291>`_

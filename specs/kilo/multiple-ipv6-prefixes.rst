@@ -71,7 +71,7 @@ Problem Description
     SLAAC vs. DHCPv6 stateful/stateless address mode when the subnet is
     created by setting the "ipv6_ra_mode" and "ipv6_address_mode" attributes
     in a subnet-create API call. These attributes were added with the
-    blueprint listed in [Ref-5]_. Attribute values are described in [Ref-7]_.
+    blueprint listed in [Ref-4]_. Attribute values are described in [Ref-5]_.
 
     For the purposes of this design specification, the term "SLAAC-enabled"
     subnets will be used to refer to subnets that are configured for either
@@ -455,18 +455,19 @@ References
 .. [Ref-3] RFC 4861: `Neighbor Discovery for IP version 6 (IPv6)
    <https://datatracker.ietf.org/doc/rfc4861>`_
 
-.. [Ref-4] DevStack Blueprint: `Add IPv6 support
-   <https://blueprints.launchpad.net/devstack/+spec/ipv6-support>`_
-
-.. [Ref-5] Neutron Blueprint: `Two Attributes Proposal to Control IPv6 RA
+.. [Ref-4] Neutron Blueprint: `Two Attributes Proposal to Control IPv6 RA
    Announcement and Address Assignment
    <https://blueprints.launchpad.net/neutron/+spec/ipv6-two-attributes>`_
 
-.. [Ref-6] Neutron Blueprint: `Provider Networking - upstream SLAAC support
-   <https://blueprints.launchpad.net/neutron/+spec/ipv6-provider-nets-slaac>`_
-
-.. [Ref-7] `OpenStack Neutron IPv6 Address Mode Attributes Table
+.. [Ref-5] `OpenStack Neutron IPv6 Address Mode Attributes Table
    <https://www.dropbox.com/s/9bojvv9vywsz8sd/IPv6%20Two%20Modes%20v3.0.pdf>`_
 
-.. [Ref-8] RFC 4291: `IP Version 6 Addressing Architecture
+Related Information
+-------------------
+
+-  DevStack Blueprint: `Add IPv6 support
+   <https://blueprints.launchpad.net/devstack/+spec/ipv6-support>`_
+-  Neutron Blueprint: `Provider Networking - upstream SLAAC support
+   <https://blueprints.launchpad.net/neutron/+spec/ipv6-provider-nets-slaac>`_
+-  RFC 4291: `IP Version 6 Addressing Architecture
    <http://tools.ietf.org/html/rfc4291>`_

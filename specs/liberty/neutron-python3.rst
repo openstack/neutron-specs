@@ -15,7 +15,7 @@ Problem Description
 ===================
 Neutron currently only works with Python 2.x. As some OpenStack projects now
 work with Python 3 (most of the Python clients, some of the oslo libraries...),
-and since OpenStack should move to Python 3 [1], Neutron shall be ported to
+and since OpenStack should move to Python 3 [1]_, Neutron shall be ported to
 Python 3.4.
 
 
@@ -167,7 +167,7 @@ None
 Developer Documentation
 -----------------------
 Developers might be interested in reading the official Python 3 page on the
-Openstack wiki [2]. It shows the current progress and details some common
+Openstack wiki [2]_. It shows the current progress and details some common
 issues that arise when porting code to Python 3.
 
 

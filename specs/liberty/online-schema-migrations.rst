@@ -645,21 +645,15 @@ Usage of autogenerate along with expand/contract workflow can be documented.
 References
 ==========
 
-.. [#] Alembic's Branching Model
- http://alembic.readthedocs.org/en/latest/branches.html
-
-.. [#] Online Schema Migrations in Nova
- http://specs.openstack.org/openstack/nova-specs/specs/liberty/approved/online-schema-changes.html
-
-
-.. [#] Nova's Overall Online Upgrade approach
- http://docs.openstack.org/developer/nova/devref/upgrade.html
-
-.. [#] Operations as Objects
- https://bitbucket.org/zzzeek/alembic/issue/302/operations-as-objects
-
-.. [#] Extensible Revision / Autogenerate strategies
- https://bitbucket.org/zzzeek/alembic/issue/301/extensible-revision-autogenerate
-
-.. [#] Neutron patch to rearrange migration directory into subtrees
- https://review.openstack.org/194198
+- Alembic's Branching Model
+  http://alembic.readthedocs.org/en/latest/branches.html
+- Online Schema Migrations in Nova
+  http://specs.openstack.org/openstack/nova-specs/specs/liberty/approved/online-schema-changes.html
+- Nova's Overall Online Upgrade approach
+  http://docs.openstack.org/developer/nova/devref/upgrade.html
+- Operations as Objects
+  https://bitbucket.org/zzzeek/alembic/issue/302/operations-as-objects
+- Extensible Revision / Autogenerate strategies
+  https://bitbucket.org/zzzeek/alembic/issue/301/extensible-revision-autogenerate
+- Neutron patch to rearrange migration directory into subtrees
+  https://review.openstack.org/194198
