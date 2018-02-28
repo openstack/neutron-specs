@@ -37,14 +37,14 @@ that artifacts in the periodic output shows at least one successful run.
 Assessment
 ++++++++++
 
-  * networking-bagpipe: OK.
-  * networking-odl: OK.
-  * networking-bgpvpn: OK.
-  * networking-midonet: OK.
-  * neutron-dynamic-routing: OK.
-  * neutron-fwaas: OK.
-  * networking-ovn: OK.
-  * networking-sfc: OK.
+* networking-bagpipe: OK.
+* networking-odl: OK.
+* networking-bgpvpn: OK.
+* networking-midonet: OK.
+* neutron-dynamic-routing: OK.
+* neutron-fwaas: OK.
+* networking-ovn: OK.
+* networking-sfc: OK.
 
 .. _Docs:
 
@@ -67,14 +67,14 @@ notes for the latest release (Newton). Check for a working link to API reference
 Assessment
 ++++++++++
 
-  * networking-bagpipe: OK.
-  * networking-odl: OK.
-  * networking-bgpvpn: needs API documentation.
-  * networking-midonet: needs API documentation.
-  * neutron-dynamic-routing: needs API documentation.
-  * neutron-fwaas: OK.
-  * networking-ovn: OK.
-  * networking-sfc: needs API documentation.
+* networking-bagpipe: OK.
+* networking-odl: OK.
+* networking-bgpvpn: needs API documentation.
+* networking-midonet: needs API documentation.
+* neutron-dynamic-routing: needs API documentation.
+* neutron-fwaas: OK.
+* networking-ovn: OK.
+* networking-sfc: needs API documentation.
 
 .. _CI:
 
@@ -98,14 +98,14 @@ gating tempest tests. Check for scenario tests. Check for DB migration tests.
 Assessment
 ++++++++++
 
-  * networking-bagpipe: OK.
-  * networking-odl: OK.
-  * networking-bgpvpn: OK.
-  * networking-midonet: OK.
-  * neutron-dynamic-routing: needs scenario tests. Needs DB/sync validation.
-  * neutron-fwaas: OK.
-  * networking-ovn: OK.
-  * networking-sfc: OK.
+* networking-bagpipe: OK.
+* networking-odl: OK.
+* networking-bgpvpn: OK.
+* networking-midonet: OK.
+* neutron-dynamic-routing: needs scenario tests. Needs DB/sync validation.
+* neutron-fwaas: OK.
+* networking-ovn: OK.
+* networking-sfc: OK.
 
 .. _Release:
 
@@ -131,14 +131,14 @@ upper-constraints.
 Assessment
 ++++++++++
 
-  * networking-bagpipe: OK.
-  * networking-odl: OK.
-  * networking-bgpvpn: OK.
-  * networking-midonet: OK.
-  * neutron-dynamic-routing: OK.
-  * neutron-fwaas: OK.
-  * networking-ovn: OK.
-  * networking-sfc: OK.
+* networking-bagpipe: OK.
+* networking-odl: OK.
+* networking-bgpvpn: OK.
+* networking-midonet: OK.
+* neutron-dynamic-routing: OK.
+* neutron-fwaas: OK.
+* networking-ovn: OK.
+* networking-sfc: OK.
 
 .. _Maintenance:
 
@@ -159,14 +159,14 @@ to the right branch.
 Assessment
 ++++++++++
 
-  * networking-bagpipe: OK.
-  * networking-odl: OK.
-  * networking-bgpvpn: OK.
-  * networking-midonet: OK.
-  * neutron-dynamic-routing: OK.
-  * neutron-fwaas: OK.
-  * networking-ovn: OK.
-  * networking-sfc: OK.
+* networking-bagpipe: OK.
+* networking-odl: OK.
+* networking-bgpvpn: OK.
+* networking-midonet: OK.
+* neutron-dynamic-routing: OK.
+* neutron-fwaas: OK.
+* networking-ovn: OK.
+* networking-sfc: OK.
 
 .. _CLI:
 
@@ -186,14 +186,14 @@ Check for presence of OSC bindings in python-neutronclient.
 Assessment
 ++++++++++
 
-  * networking-bagpipe: N/A.
-  * networking-odl: N/A.
-  * networking-bgpvpn: needs porting to python-neutronclient.
-  * networking-midonet: needs porting to python-neutronclient.
-  * neutron-dynamic-routing: needs porting to python-neutronclient.
-  * neutron-fwaas: OK.
-  * networking-ovn: N/A.
-  * networking-sfc: needs porting to python-neutronclient.
+* networking-bagpipe: N/A.
+* networking-odl: N/A.
+* networking-bgpvpn: needs porting to python-neutronclient.
+* networking-midonet: needs porting to python-neutronclient.
+* neutron-dynamic-routing: needs porting to python-neutronclient.
+* neutron-fwaas: OK.
+* networking-ovn: N/A.
+* networking-sfc: needs porting to python-neutronclient.
 
 Summary
 =======
@@ -227,6 +227,15 @@ Summary
 +-------------------------------------------------------------------+---------------+---------------+---------------+---------------+---------------+---------------+
 
 (*) To re-apply for inclusion in Pike or future releases.
+
+Scorecards
+==========
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   *
 
 How Reconcile API and client bindings
 =====================================
