@@ -4,8 +4,8 @@
 
  http://creativecommons.org/licenses/by/3.0/legalcode
 
-Postmortem documentation
-========================
+Newton Postmortem documentation
+===============================
 
 .. contents::
 

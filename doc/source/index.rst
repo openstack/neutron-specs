@@ -4,147 +4,40 @@
 Neutron Project Specifications
 ==============================
 
-Rocky
-=====
+Specifications and RFEs
+=======================
+
+.. toctree::
+   :maxdepth: 2
+
+   specs/rocky/index
+   specs/queens/index
+   specs/pike/index
+   specs/ocata/index
+   specs/newton/index
+   specs/mitaka/index
+   specs/liberty/index
+   specs/kilo/index
+   specs/juno/index
+
+Backlogs
+========
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
-   specs/rocky/*
+   specs/backlog/index
 
-Queens
-======
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/queens/*
-
-Pike
-====
+Stadium Health
+==============
 
 .. toctree::
    :glob:
-   :maxdepth: 1
+   :maxdepth: 2
 
-   specs/pike/*
+   specs/stadium/index
 
-Ocata
-=====
-
-.. toctree::
-   :maxdepth: 1
-
-   Postmortem documentation <specs/ocata/postmortem/postmortem>
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-Newton
-======
-
-.. toctree::
-   :maxdepth: 1
-
-   Postmortem documentation <specs/newton/postmortem/postmortem>
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/newton/*
-
-Mitaka
-======
-
-.. toctree::
-   :maxdepth: 1
-
-   Postmortem documentation <specs/mitaka/postmortem/postmortem>
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/mitaka/*
-
-Liberty
-=======
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/liberty/*
-
-Kilo
-====
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/kilo/*
-
-Juno
-====
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/juno/*
-
-Backlog
-=======
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/backlog/**
-
-Stadium
-=======
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/stadium/*
-
-Queens
-------
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/stadium/queens/*
-
-Pike
-----
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/stadium/pike/*
-
-Ocata
------
-
-.. toctree::
-   :glob:
-   :maxdepth: 1
-
-   specs/stadium/ocata/*
-
-==================
-Indices and tables
-==================
+.. rubric:: Indices and tables
 
 * :ref:`search`

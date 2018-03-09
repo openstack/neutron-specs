@@ -4,28 +4,37 @@
 
  http://creativecommons.org/licenses/by/3.0/legalcode
 
-=====================
-Pike - Stadium health
-=====================
+=======================
+Queens - Stadium health
+=======================
 
-.. _IntegrationP:
+.. _IntegrationQ:
 
-.. _DocsP:
+.. _DocsQ:
 
-.. _CIP:
+.. _CIQ:
 
-.. _ReleaseP:
+.. _ReleaseQ:
 
-.. _MaintenanceP:
+.. _MaintenanceQ:
 
-.. _CLIP:
+.. _CLIQ:
 
 
 Summary
 =======
 
 +-------------------------------------------------------------------+---------------+---------------+---------------+---------------+---------------+---------------+
-| Project                                                           | IntegrationP_ | DocsP_        | CIP_          | ReleaseP_     | MaintenanceP_ | CLIP_         |
+| Project                                                           | IntegrationQ_ | DocsQ_        | CIQ_          | ReleaseQ_     | MaintenanceQ_ | CLIQ_         |
 +===================================================================+===============+===============+===============+===============+===============+===============+
-| `placeholder <./pike/placeholder.html>`_                          | TBD           | TBD           | TBD           | TBD           | TBD           | TBD           |
+| `placeholder <./queens/placeholder.html>`_                        | TBD           | TBD           | TBD           | TBD           | TBD           | TBD           |
 +-------------------------------------------------------------------+---------------+---------------+---------------+---------------+---------------+---------------+
+
+Scorecards
+==========
+
+.. toctree::
+   :glob:
+   :maxdepth: 1
+
+   *
