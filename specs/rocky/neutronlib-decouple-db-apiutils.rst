@@ -4,9 +4,9 @@
 
  http://creativecommons.org/licenses/by/3.0/legalcode
 
-==================================================
-Decoupling database imports/access for neutron-lib
-==================================================
+==================================================================
+Decoupling database API & Utilities imports/access for neutron-lib
+==================================================================
 
 This work is not related to an enhancement request and therefore doesn't have
 a RFE. Rather the intent herein is to discuss how we decouple ``neutron.db``
@@ -23,7 +23,7 @@ categories:
 As the database access patterns span a wide range of logic/code, a set of specs
 will be proposed each focusing on a single access pattern.
 
-This spec specifically address the Database API & Utilities access.
+This spec specifically addresses the Database API & Utilities access.
 
 For current neutron-lib related blueprints, see [1]_ and [2]_.
 

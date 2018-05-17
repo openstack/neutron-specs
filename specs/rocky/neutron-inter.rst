@@ -72,7 +72,7 @@ resource on a Neutron instance will refer to both a local resource (e.g.
 Router A) and a remote resource (OpenStack B:Router B), and will have the
 semantic that connectivity is desired between the two.
 
-This resource will be part of two sort of API calls:
+This resource will be part of two sorts of API calls:
 
 A. calls between the user having the connectivity need and each Neutron
    instance involved; the role of these calls is to let the need for
@@ -131,7 +131,7 @@ B. API calls between a Neutron instance and another Neutron instance; the role
 Note that the order between A1/A2/B1/B2 can vary, but the result is
 unchanged: at least one of the two Neutron instances will eventually confirm
 that the interconnection has been defined on both side symmetrically, and the
-interconnection setup phase will ultimate proceed on both sides (see
+interconnection setup phase will ultimately proceed on both sides (see
 :ref:`details`).
 
 When more than two OpenStack deployments, or more than two OpenStack regions,
@@ -159,20 +159,20 @@ and to keep interconnections isolated from one another, are not controlled
 by consumers of this API. In this proposal these consumers do not and cannot
 write, or even read, these identifiers.
 
-Note that only the API calls to the 'interconnection' resources at step A
+Note that only the API calls to the 'interconnection' resources at steps A1/A2
 require write access to the "interconnection" resources by tenant users (but
 not to the attributes related to the network mechanism to use).
 
-The calls at steps B, only require read-only access to these resources;
+The calls at steps B1/B2, only require read-only access to these resources;
 this can be achieved by introducing an "interconnection" role with read-only
 access to all "interconnection" resources, and having each OpenStack deployment
 having credentials for a user with this role in other OpenStack deployments.
 
 With the above in mind, Keystone federation is not required for the calls at
-step 1, nor for the calls at step 2. However, using Keystone Federation for
-the user(s) used at step 2 will certainly be useful and avoid requiring the
-management in each Neutron instance of the credentials to use to each other
-OpenStack.
+steps A1/A2, nor for the calls at step B1/B2. However, using Keystone
+Federation for the user(s) used at step B1/B2 will certainly be useful and
+will avoid requiring the management in each Neutron instance of the
+credentials to use to each other OpenStack.
 
 Interconnection mechanisms
 --------------------------
