@@ -3,5 +3,5 @@
 # integrated gate. Any sync must happen manually as recommended by
 # the openstack release team.
 pbr>=2.0.0,!=2.1.0 # Apache-2.0
-testrepository>=0.0.18 # Apache-2.0/BSD
+stestr>=1.0.0 # Apache-2.0
 testtools>=1.4.0 # MIT
