@@ -200,7 +200,7 @@ Release footprint
   Yes.
 
   * https://tarballs.openstack.org/neutron-vpnaas/neutron-vpnaas-11.0.0.tar.gz
-  * https://pypi.python.org/pypi/neutron-vpnaas
+  * https://pypi.org/project/neutron-vpnaas/
 
 .. _R3:
 
