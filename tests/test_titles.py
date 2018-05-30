@@ -18,6 +18,7 @@ import testtools
 
 POSTMORTEM = "postmortem"
 STADIUM = "stadium"
+INDEX = "index.rst"
 
 
 class TestTitles(testtools.TestCase):
@@ -116,7 +117,9 @@ class TestTitles(testtools.TestCase):
 
             files = glob.glob("specs/%s/*" % release)
             for filename in files:
-                if POSTMORTEM in filename or STADIUM in filename:
+                if (POSTMORTEM in filename or
+                        STADIUM in filename or
+                        INDEX in filename):
                     continue
                 self.assertTrue(filename.endswith(".rst"),
                                 "spec's file must uses 'rst' extension.")

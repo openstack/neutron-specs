@@ -529,16 +529,10 @@ References
 
 .. _networking-bgpvpn: https://docs.openstack.org/networking-bgpvpn
 .. _networking-l2gw: https://docs.openstack.org/networking-l2gw
-
-Footnotes
-=========
-
 .. [#f1] possible with floating IPs, VPNaaS, but not with the BGP VPN
    interconnections API extension (using a BGPVPN does not require admin
    right, but creating a new BGPVPN does require admin rights)
-
 .. [#f2] possible with VPNaaS, and BGP VPN interconnections, but not with
    floating IPs
-
 .. [#f3] possible with floating IPs and BGP VPN interconnections, but by
    definition not with VPNaaS
