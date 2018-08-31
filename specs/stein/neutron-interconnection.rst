@@ -163,7 +163,7 @@ Note that only the API calls to the 'interconnection' resources at steps A1/A2
 require write access to the "interconnection" resources by tenant users (but
 not to the attributes related to the network mechanism to use).
 
-The calls at steps B1/B2, only require read-only access to these resources;
+The calls at steps B1/B2/B3, only require read-only access to these resources;
 this can be achieved by introducing an "interconnection" role with read-only
 access to all "interconnection" resources, and having each OpenStack deployment
 having credentials for a user with this role in other OpenStack deployments.
@@ -278,18 +278,13 @@ TO_VALIDATE
   symmetric interconnection hasn't been validated yet
 
 VALIDATED
-  the existence of the symmetric interconnection has been validated
-
-ALLOCATED
-  local interconnection parameters have been defined (remote parameters are
+  the existence of the symmetric interconnection has been validated and local
+  interconnection parameters have been allocated (remote parameters are
   still unknown)
 
-CONFIGURED
-  both local parameters and remote parameters are known, interconnection is
-  being built
-
 ACTIVE
-  interconnection has been setup, it should work
+  both local parameters and remote parameters are known, interconnection has
+  been setup, it should work
 
 TEARDOWN
   local action taken to delete this interconnection, action
@@ -306,8 +301,6 @@ TEARDOWN
        BEFORE_CREATION [shape = beginpoint, label=""]
        TO_VALIDATE
        VALIDATED
-       ALLOCATED
-       CONFIGURED
        ACTIVE
        TEARDOWN
        DELETED [shape = endpoint, label=""]
@@ -315,12 +308,8 @@ TEARDOWN
        BEFORE_CREATION -> TO_VALIDATE [folded]
        TO_VALIDATE -> VALIDATED
        TO_VALIDATE -> TEARDOWN [folded]
-       VALIDATED -> ALLOCATED
+       VALIDATED -> ACTIVE
        VALIDATED -> TEARDOWN [folded]
-       ALLOCATED -> CONFIGURED
-       ALLOCATED -> TEARDOWN [folded]
-       CONFIGURED -> ACTIVE
-       CONFIGURED -> TEARDOWN [folded]
        ACTIVE -> TEARDOWN [folded]
        TEARDOWN -> DELETED [folded]
        ACTIVE -> TO_VALIDATE
@@ -329,66 +318,66 @@ TEARDOWN
 REST API Impact
 ---------------
 
-The proposal is to introduce an API extension ``inter``, with a new
-``interconnection`` resource.
+The proposal is to introduce an API extension ``interconnection``, exposing a
+new ``interconnection`` resource.
 
 Interconnection resource
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-The new ``interconnection`` API resource will be introduce under the
-``inter`` API prefix, and having the following attributes:
+The new ``interconnection`` API resource will be introduced under the
+``interconnection`` API prefix, and having the following attributes:
 
-+------------------+--------+----------------+--------------------------------+
-|Attribute Name    |Type    |Access          | Comment                        |
-+==================+========+================+================================+
-|id                | uuid   | RO             |                                |
-+------------------+--------+----------------+--------------------------------+
-|project_id        | uuid   | RO             |                                |
-+------------------+--------+----------------+--------------------------------+
-|type              | enum   | RO             | ``router``, ``network_l2``,    |
-|                  |        |                | ``network_l3``                 |
-+------------------+--------+----------------+--------------------------------+
-|state             | enum   | RO             | see states in :ref:`lifecycle` |
-|                  |        | will be updated|                                |
-|                  |        | by Neutron     |                                |
-|                  |        | along the life |                                |
-|                  |        | of the resource|                                |
-+------------------+--------+----------------+--------------------------------+
-|name              | string | RW             |                                |
-+------------------+--------+----------------+--------------------------------+
-|local_resource_id | uuid   | RO             | router or network UUID         |
-+------------------+--------+----------------+--------------------------------+
-|remote_resource_id| uuid   | RO             | router or network UUID         |
-+------------------+--------+----------------+--------------------------------+
-|remote_keystone   | string | RO             | AUTH_URL of remote             |
-|                  |        |                | keystone                       |
-+------------------+--------+----------------+--------------------------------+
-|remote_region     | string | RO             | region in remote keystone      |
-+------------------+--------+----------------+--------------------------------+
-|local_parameters  | dict   | RO             |                                |
-+------------------+--------+                |                                |
-|remote_parameters | dict   | will be updated|                                |
-|                  |        | by Neutron     |                                |
-|                  |        | along the life |                                |
-|                  |        | of the resource|                                |
-+------------------+--------+----------------+--------------------------------+
++-------------------------+--------+----------------+--------------------------------+
+|Attribute Name           |Type    |Access          | Comment                        |
++=========================+========+================+================================+
+|id                       | uuid   | RO             |                                |
++-------------------------+--------+----------------+--------------------------------+
+|project_id               | uuid   | RO             |                                |
++-------------------------+--------+----------------+--------------------------------+
+|type                     | enum   | RO             | ``router``, ``network_l2``,    |
+|                         |        |                | ``network_l3``                 |
++-------------------------+--------+----------------+--------------------------------+
+|state                    | enum   | RO             | see states in :ref:`lifecycle` |
+|                         |        | will be updated|                                |
+|                         |        | by Neutron     |                                |
+|                         |        | along the life |                                |
+|                         |        | of the resource|                                |
++-------------------------+--------+----------------+--------------------------------+
+|name                     | string | RW             |                                |
++-------------------------+--------+----------------+--------------------------------+
+|local_resource_id        | uuid   | RO             | router or network UUID         |
++-------------------------+--------+----------------+--------------------------------+
+|remote_resource_id       | uuid   | RO             | router or network UUID         |
++-------------------------+--------+----------------+--------------------------------+
+|remote_keystone          | string | RO             | AUTH_URL of remote             |
+|                         |        |                | keystone                       |
++-------------------------+--------+----------------+--------------------------------+
+|remote_region            | string | RO             | region in remote keystone      |
++-------------------------+--------+----------------+--------------------------------+
+|remote_interconnection_id| uuid   | RO             | uuid of remote interconnection |
++-------------------------+--------+                +--------------------------------+
+|local_parameters         | dict   | will be updated|                                |
++-------------------------+--------+ by Neutron     |                                |
+|remote_parameters        | dict   | along the life |                                |
+|                         |        | of the resource|                                |
++-------------------------+--------+----------------+--------------------------------+
 
 This resource will be used with typical CRUD operations:
 
-* ``POST /v2.0/inter/interconnections``
+* ``POST /v2.0/interconnection/interconnections``
 
-* ``GET /v2.0/inter/interconnections``
+* ``GET /v2.0/interconnection/interconnections``
 
-* ``GET /v2.0/inter/interconnections/<uuid>``
+* ``GET /v2.0/interconnection/interconnections/<uuid>``
 
-* ``PUT /v2.0/inter/interconnections/<uuid>``
+* ``PUT /v2.0/interconnection/interconnections/<uuid>``
 
-* ``DELETE /v2.0/inter/interconnections/<uuid>``
+* ``DELETE /v2.0/interconnection/interconnections/<uuid>``
 
 Additionally, an additional REST operation is introduced to trigger a
 ``refresh`` action on an ``interconnection`` resource:
 
-* ``PUT /v2.0/inter/interconnections/<uuid>/refresh``
+* ``PUT /v2.0/interconnection/interconnections/<uuid>/refresh``
 
 When this action is triggered the neutron instance on which the call is made
 will try to retrieve (``GET``) an ``interconnection`` resource on the remote
@@ -406,97 +395,98 @@ between two Networks.
 
 API Call A1, from tenant user to Neutron A::
 
-    POST /v2.0/inter/interconnections
-         {'interconnection':
-             'type': 'network'
-             'local_resource_id': <uuid of network X>
-             'remote_keystone': "http//<keystone-B>/identity",
+    POST /v2.0/interconnection/interconnections
+         {'interconnection': {
+             'type': 'network_l3',
+             'local_resource_id': <uuid of network X>,
+             'remote_keystone': 'http//<keystone-B>/identity',
              'remote_region': 'RegionOne',
              'remote_resource_id': <uuid of network Y>
-             }
-         }
+          }}
 
     Response: 200 OK
 
     {'interconnection': {
-         'id': <uuid 1>
+         'id': <uuid 1>,
          ...
      }}
 
 API Call B1, from Neutron A to Neutron B::
 
-    GET /v2.0/inter/interconnections?local_resource_id=<uuid of network Y>&remote_resource_id=<uuid of network X>
+    GET /v2.0/interconnection/interconnections?local_resource_id=<uuid of network Y>&remote_resource_id=<uuid of network X>
 
-    Response: 404
+    Response: 404 Not Found
 
 API Call A2, from tenant user to Neutron B::
 
-    POST /v2.0/inter/interconnections
-         {'interconnection':
-             'type': 'network'
-             'local_resource_id': <uuid of network Y>
-             'remote_keystone': "http//<keystone-A>/identity",
+    POST /v2.0/interconnection/interconnections
+         {'interconnection': {
+             'type': 'network_l3',
+             'local_resource_id': <uuid of network Y>,
+             'remote_keystone': 'http//<keystone-A>/identity',
              'remote_region': 'RegionOne',
              'remote_resource_id': <uuid of network X>
-             }
-         }
+          }}
 
     Response: 200 OK
 
     {'interconnection': {
-         'id': <uuid 2>
+         'id': <uuid 2>,
          ...
      }}
 
 API Call B2, from Neutron B to Neutron A::
 
-    GET /v2.0/inter/interconnections/local_resource_id=<uuid of network X>&remote_resource_id=<uuid of network Y>
+    GET /v2.0/interconnection/interconnections/local_resource_id=<uuid of network X>&remote_resource_id=<uuid of network Y>
 
     Response: 200 OK
 
     {'interconnection': {
-         'id': <uuid 1>
-         ...
-         'local_parameters": {}
+         'id': <uuid 1>,
+         ...,
+         'local_parameters': {}
      }}
 
 API Call B3' from Neutron B to Neutron A::
 
-    PUT /v2.0/inter/interconnections/<uuid 1>/refresh
-
-    {'interconnection': {
-         'id': <uuid 2>
-         'local_parameters": {}
-     }}
+    PUT /v2.0/interconnection/interconnections/<uuid 1>/refresh
 
     Response: 200 OK
-
 
 API Call B3'', from Neutron A to Neutron B ::
 
-    PUT /v2.0/inter/interconnections/<uuid 2>/refresh
+    GET /v2.0/interconnection/interconnections/local_resource_id=<uuid of network Y>&remote_resource_id=<uuid of network X>
 
     Response: 200 OK
 
     {'interconnection': {
-         'id': <uuid 2>
-         'local_parameters": {
+         'id': <uuid 2>,
+         ...,
+         'local_parameters': {
              'foo': '42'
          }
      }}
 
-API Call B3''', from Neutron B to Neutron A ::
+API Call B3''', from Neutron A to Neutron B ::
 
-    PUT /v2.0/inter/interconnections/<uuid 1>/refresh
+    PUT /v2.0/interconnection/interconnections/<uuid 2>/refresh
+
+    Response: 200 OK
+
+API Call B3'''', from Neutron B to Neutron A ::
+
+    GET /v2.0/interconnection/interconnections/<uuid 1>
 
     Response: 200 OK
 
     {'interconnection': {
-         'id': <uuid 1>
+         'id': <uuid 1>,
+         ...,
+         'remote_interconnection_id': <uuid 2>,
          'remote_parameters': {
              'foo': '42'
-         }
-         'local_parameters": {
+         },
+         'local_parameters': {
              'bar': '43'
          }
      }}
