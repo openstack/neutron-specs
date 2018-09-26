@@ -47,7 +47,7 @@ the cloud reachable through the remaining healthy link.
 
     group {
       color = lightgreen;
-      label = "OpenStack Deployment";
+      //label = "OpenStack Deployment";
       gateway_router;
       tenant_router1;
       tenant_router2;
