@@ -204,8 +204,8 @@ Figure: resource_request in the port
         "device_id": "5e3898d7-11be-483e-9732-b2f5eccd2b2e",
         "resource_request": {
             "resources": {
-                "NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND": 1000,
-                "NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND": 1000 },
+                "NET_BW_IGR_KILOBIT_PER_SEC": 1000,
+                "NET_BW_EGR_KILOBIT_PER_SEC": 1000 },
             "required": ["CUSTOM_PHYSNET_NET0", "CUSTOM_VNIC_TYPE_NORMAL"]}
     }}
 
@@ -324,15 +324,15 @@ Figure: networking RP model
    |             |       uuid = uuid5(hostname:br0)
    |             |         traits: CUSTOM_PHYSNET_1, CUSTOM_VNIC_TYPE_NORMAL
    |             |         inventory:
-   |             |         {NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-   |             |          NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+   |             |         {NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+   |             |          NET_BW_EGR_KILOBIT_PER_SEC: 10000}
    |             |
    |             +------+Physical network interface RP,
    |                     uuid = uuid5(hostname:br1)
    |                       traits: CUSTOM_PHYSNET_2, CUSTOM_VNIC_TYPE_NORMAL
    |                       inventory:
-   |                       {NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-   |                        NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+   |                       {NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+   |                        NET_BW_EGR_KILOBIT_PER_SEC: 10000}
    |
    +-------+Network agent RP (for LinuxBridge agent), uuid = agent_uuid
    |             +
@@ -341,8 +341,8 @@ Figure: networking RP model
    |                     uuid = uuid5(hostname:virbr0)
    |                       traits: CUSTOM_PHYSNET_1, CUSTOM_VNIC_TYPE_NORMAL
    |                       inventory:
-   |                       {NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-   |                        NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+   |                       {NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+   |                        NET_BW_EGR_KILOBIT_PER_SEC: 10000}
    |
    +-------+Network agent RP (for SRIOV agent), uuid = agent_uuid
                  +
@@ -352,24 +352,24 @@ Figure: networking RP model
                  |         traits: CUSTOM_PHYSNET_2, CUSTOM_VNIC_TYPE_DIRECT
                  |         inventory:
                  |         {VF: 8, # VF resource is out of scope
-                 |          NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-                 |          NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+                 |          NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+                 |          NET_BW_EGR_KILOBIT_PER_SEC: 10000}
                  |
                  +------+Physical network interface RP,
                  |       uuid = uuid5(hostname:eth1)
                  |         traits: CUSTOM_PHYSNET_2, CUSTOM_VNIC_TYPE_DIRECT
                  |         inventory:
                  |         {VF: 8, # VF resource is out of scope
-                 |          NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-                 |          NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+                 |          NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+                 |          NET_BW_EGR_KILOBIT_PER_SEC: 10000}
                  |
                  +------+Physical network interface RP,
                          uuid = uuid5(hostname:eth2)
                            traits: CUSTOM_PHYSNET_3, CUSTOM_VNIC_TYPE_DIRECT
                            inventory:
                            {VF: 8, # VF resource is out of scope
-                            NET_BANDWIDTH_INGRESS_KILOBITS_PER_SECOND: 10000,
-                            NET_BANDWIDTH_EGRESS_KILOBITS_PER_SECOND: 10000}
+                            NET_BW_IGR_KILOBIT_PER_SEC: 10000,
+                            NET_BW_EGR_KILOBIT_PER_SEC: 10000}
 
 Custom traits will be used to indicate which physical network a given
 Physical network interface RP is connected to, as previously described.
