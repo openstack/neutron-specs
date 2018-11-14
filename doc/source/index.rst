@@ -10,6 +10,7 @@ Specifications and RFEs
 .. toctree::
    :maxdepth: 2
 
+   specs/train/index
    specs/stein/index
    specs/rocky/index
    specs/queens/index
