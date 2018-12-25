@@ -185,6 +185,7 @@ feature::
     CREATE TABLE network_segment_ranges (
       id CHAR(36) NOT NULL PRI KEY,
       name VARCHAR(255),
+      default BOOL NOT NULL,
       shared BOOL NOT NULL,
       project_id VARCHAR(255) NOT NULL,
       network_type ENUM('vlan', 'vxlan', 'gre', 'geneve') NOT NULL,
@@ -212,8 +213,9 @@ Mixin classes to add the network segment range management extension should be
 provided. The DB operation logic should be handled by the ML2 type manager and
 the type drivers. For the values present in the existing ML2 configuration
 options [1]_ (e.g. ml2_type_vlan, ml2_type_vxlan etc.), they will be loaded as
-`shared` segment ranges into segment_range DB in order to provide backward
-compatibility for initial deployment when this extension is present.
+`shared` and `default` segment ranges into network_segment_ranges DB in order
+to provide backward compatibility for initial deployment when this extension is
+present.
 
 Resource Extension
 ------------------
@@ -236,6 +238,10 @@ like:
                  'type:string': db_const.NAME_FIELD_SIZE},
                'default': '', 'is_visible': True, 'is_filter': True,
                'is_sort_key': True},
+      'default': {'allow_post': False, 'allow_put': False,
+                  'convert_to': converters.convert_to_boolean,
+                  'default': False,
+                  'is_visible': True},
       'shared': {'allow_post': True, 'allow_put': False,
                  'convert_to': converters.convert_to_boolean,
                  'is_visible': True, 'default': True},
@@ -285,6 +291,11 @@ Resource extension network_segment_ranges:
 | name            | String | No  |  CRU   | ''        | Name of network       |
 |                 |        |     |        |           | segment range         |
 +-----------------+--------+-----+--------+-----------+-----------------------+
+| default         | Bool   | No  |  R     | False     | Default network       |
+|                 |        |     |        |           | segment range that is |
+|                 |        |     |        |           | loaded from the host  |
+|                 |        |     |        |           | ML2 config file [1]_  |
++-----------------+--------+-----+--------+-----------+-----------------------+
 | shared          | Bool   | Yes |  CR    | False     | Shared with other     |
 |                 |        |     |        |           | projects              |
 +-----------------+--------+-----+--------+-----------+-----------------------+
@@ -333,6 +344,7 @@ line with the new resources previously introduced:
         {
           "id": "d23abc8d-2991-4a55-ba98-2aaea84cc72f",
           "name": "network_segment_range_physnet1",
+          "default": False,
           "shared": False,
           "project_id": "45977fa2dbd7482098dd68d0d8970117",
           "network_type": "vlan",
@@ -357,6 +369,7 @@ line with the new resources previously introduced:
       "network_segment_range": {
         "id": "d23abc8d-2991-4a55-ba98-2aaea84cc72f",
         "name": "network_segment_range_physnet1",
+        "default": False,
         "shared": False,
         "project_id": "45977fa2dbd7482098dd68d0d8970117",
         "network_type": "vlan",
@@ -460,9 +473,14 @@ Other Impact
 * ML2 plugin, plugin manager and type drivers will need to be refined and added
   with several new methods correspondingly in order to support this feature.
 
-* The existing ML2 configuration will populate the proposed
-  network_segment_ranges as a shared range. When this extension is loaded, a
-  change is expected in the processing of the ML2 configuration.
+* When this extension is loaded, the Neutron server will populate the proposed
+  network_segment_ranges DB table with the ranges defined within the existing
+  ML2 configuration as `default` and `shared` ranges. These `default` ranges
+  are read-only and an administrator can make per-tenant segment range
+  assignment based on this information. When a Neutron server starts/restarts,
+  the `default` segment ranges will be reloaded and be visible to all servers.
+  Interactions from the REST APIs will always operate based on the segment
+  ranges defined within the database.
 
 * Validation work is needed for quite a few cases, including but not limited
   to:
