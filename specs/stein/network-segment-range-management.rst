@@ -296,7 +296,7 @@ Resource extension network_segment_ranges:
 |                 |        |     |        |           | loaded from the host  |
 |                 |        |     |        |           | ML2 config file [1]_  |
 +-----------------+--------+-----+--------+-----------+-----------------------+
-| shared          | Bool   | Yes |  CR    | False     | Shared with other     |
+| shared          | Bool   | Yes |  CR    | True      | Shared with other     |
 |                 |        |     |        |           | projects              |
 +-----------------+--------+-----+--------+-----------+-----------------------+
 | project_id      | String | No  |  CR    | Current   | Owner of network      |
