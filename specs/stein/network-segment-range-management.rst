@@ -351,8 +351,8 @@ line with the new resources previously introduced:
           "physical_network": "physnet1",
           "minimum": 100,
           "maximum": 105,
-          "used": {100: "07ac1127ee9647d48ce2626867104a13",
-                   101: "d4fa62aa47d340d98d076801aa7e6ec4"},
+          "used": {"100": "07ac1127ee9647d48ce2626867104a13",
+                   "101": "d4fa62aa47d340d98d076801aa7e6ec4"},
           "available": [102, 103, 104, 105],
         }
       ]
@@ -376,8 +376,8 @@ line with the new resources previously introduced:
         "physical_network": "physnet1",
         "minimum": 100,
         "maximum": 105,
-        "used": {100: "07ac1127ee9647d48ce2626867104a13",
-                 101: "d4fa62aa47d340d98d076801aa7e6ec4"},
+        "used": {"100": "07ac1127ee9647d48ce2626867104a13",
+                 "101": "d4fa62aa47d340d98d076801aa7e6ec4"},
         "available": [102, 103, 104, 105],
       }
     }
