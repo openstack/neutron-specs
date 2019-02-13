@@ -60,7 +60,7 @@ Proposed Change
 
 The Neutron Stadium is the list of projects that show up in the following document:
 
-http://governance.openstack.org/reference/projects/neutron.html
+https://governance.openstack.org/tc/reference/projects/neutron.html
 
 The list includes projects that the Neutron PTL and core team are directly
 involved in, and manage on a day to day basis. To do so, the PTL and team
@@ -95,8 +95,8 @@ projects and should not be perceived as particularly stringent:
    and robustness of a project;
  * good release footprint, according to the chosen release model;
  * adherence to deprecation and stable backports policies;
- * demonstrated ability to do `upgrades <http://governance.openstack.org/reference/tags/assert_supports-upgrade.html>`_
-   and/or `rolling upgrades <http://governance.openstack.org/reference/tags/assert_supports-rolling-upgrade.html>`_,
+ * demonstrated ability to do `upgrades <https://governance.openstack.org/tc/reference/tags/assert_supports-upgrade.html>`_
+   and/or `rolling upgrades <https://governance.openstack.org/tc/reference/tags/assert_supports-rolling-upgrade.html>`_,
    where applicable;
  * adoption of neutron-lib (with related hacking rules applied), and proof
    of good decoupling from Neutron core internals; having unit tests executed
@@ -163,7 +163,7 @@ openstack.org namespace, as outlined in the `creator guide <http://docs.openstac
 Furthermore, projects that interact with Neutron purely via its REST API should
 also be incentivized to seek other forms of governance, such as applying as
 top-level OpenStack project and follow the new project requirements as outlined
-by the `OpenStack Governance <http://governance.openstack.org/reference/new-projects-requirements.html>`_,
+by the `OpenStack Governance <https://governance.openstack.org/tc/reference/new-projects-requirements.html>`_,
 rather than going for Stadium inclusion.
 Drivers that leverage proprietary software and/or hardware will also not be
 considered for inclusion into the Neutron Stadium, due to the barrier on
