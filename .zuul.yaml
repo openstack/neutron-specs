@@ -3,13 +3,13 @@
       - openstack-specs-jobs
     check:
       jobs:
-        - openstack-tox-py27:
+        - openstack-tox-py36:
             # Override default list of files since the default
             # ignores .rst files but we need to test .rst files here.
             irrelevant-files:
               - ^releasenotes/.*$
     gate:
       jobs:
-        - openstack-tox-py27:
+        - openstack-tox-py36:
             irrelevant-files:
               - ^releasenotes/.*$
