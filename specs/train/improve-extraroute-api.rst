@@ -58,19 +58,56 @@ Introduce a new API extension: extraroutes-atomic
 
   PUT /v2.0/routers/{router_id}/add_extraroutes
 
-  [ { "destination": "179.24.1.0/24",
-      "nexthop": "172.24.3.99" },
-    ...
-  ]
+  { "router":
+    { "routes":
+      [ { "destination": "179.24.1.0/24",
+          "nexthop": "172.24.3.99" },
+        ...
+      ]
+    }
+  }
+
+::
+
+  200 OK
+
+  { "router":
+    { "id": "1ecae6b8-be64-11e9-98ba-733d5460217b",
+      "name": "router1",
+      "routes":
+      [ { "destination": "179.24.1.0/24",
+          "nexthop": "172.24.3.99" },
+        ...
+      ],
+      ...
+    }
+  }
 
 ::
 
   PUT /v2.0/routers/{router_id}/remove_extraroutes
 
-  [ { "destination": "179.24.1.0/24",
-      "nexthop": "172.24.3.99" },
-    ...
-  ]
+  { "router":
+    { "routes":
+      [ { "destination": "179.24.1.0/24",
+          "nexthop": "172.24.3.99" },
+        ...
+      ]
+    }
+  }
+
+::
+
+  200 OK
+
+  { "router":
+    { "id": "1ecae6b8-be64-11e9-98ba-733d5460217b",
+      "name": "router1",
+      "routes":
+      [ remaining routes ],
+      ...
+    }
+  }
 
 Partial failures are not allowed. If the addition or removal of any routing
 table entry fails then the whole update is reverted.
