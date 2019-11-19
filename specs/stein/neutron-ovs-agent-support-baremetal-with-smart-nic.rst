@@ -130,7 +130,7 @@ Example of smart NIC model::
                                 'vif_type': vif_type})
         self.updated_ports.add(port['id'])
 
-  When Neutron processes the ports the Neuton OVS agent will add the
+  When Neutron processes the ports the Neutron OVS agent will add the
   smart NIC port(s) to the OVSDB by ovs plugin in os-vif.
 
   Because RPC is not reliable we need to extend the full sync to do the following:
