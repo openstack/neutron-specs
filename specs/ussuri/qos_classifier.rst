@@ -208,6 +208,15 @@ classifications can be used, a few points need to be clarified:
   not created or deleted. They need to have been previously
   created using the User-facing Classifications API.
 
+- As Neutron Classifier is unable to force an update action to it's
+  consumers and as users may be unaware of all the consumers of a
+  classification, the classification "definition" and "type" fields and the
+  classification group "classifications", "classification_groups" and
+  "operator" fields cannot be updated after creation.
+  ie.
+  A classification is consumed by both QoS and Security Groups with
+  a user only knowing about QoS consuming the classification.
+
 The initial model of the CCF will include the following Classification Types:
 Ethernet, IPv4, IPv6, TCP and UDP, which when combined are sufficient
 to provide any 5-tuple classification.
