@@ -10,6 +10,7 @@ Specifications and RFEs
 .. toctree::
    :maxdepth: 2
 
+   specs/victoria/index
    specs/ussuri/index
    specs/train/index
    specs/stein/index
