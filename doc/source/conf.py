@@ -37,12 +37,12 @@ extensions = [
              ]
 
 # config for openstackdocstheme
-repository_name = 'openstack/neutron-specs'
-bug_project = 'neutron'
-bug_tag = ''
+openstackdocs_repo_name = 'openstack/neutron-specs'
+openstackdocs_bug_project = 'neutron'
+openstackdocs_bug_tag = ''
 
 # Feed configuration for yasfb
-feed_base_url = 'http://specs.openstack.org/openstack/neutron-specs'
+feed_base_url = 'https://specs.openstack.org/openstack/neutron-specs'
 feed_author = 'OpenStack Neutron Team'
 
 todo_include_todos = True
@@ -97,7 +97,7 @@ add_module_names = False
 show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'native'
 
 # A list of ignored prefixes for module index sorting.
 modindex_common_prefix = ['neutron-specs.']
