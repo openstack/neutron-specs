@@ -56,19 +56,9 @@ based on the PCINUMAAffinityPolicy [5]_ enum defined in Nova. That field could
 have different values: "required", "legacy" and "preferred".
 
 This information will be populated in the "port" dictionary when informing to
-Nova. This parameter will be a trait added in the "resource_request" parameter,
-in the "required" list. This parameter was included in the Nova microversion
-2.72 [6]_. This information will be used during the server scheduling to
-filter the host requirements using the Placement API.
-
-By default, the value of this new parameter will be "None", to keep
-backwards compatibility. In this case, no trait will be added to the
-"resource_request" parameter.
-
-.. code-block:: python
-
-    port_resource['resource_request'] = {
-        'required': [os_traits.COMPUTE_NUMA_POLICY_REQUIRED]}
+Nova. This parameter will be added as a new extension in the port dictionary,
+in a new field called "numa_affinity_policy". By default, the value of this new
+parameter will be "None", to keep backwards compatibility.
 
 
 Data Model Impact
@@ -177,4 +167,3 @@ References
 .. [3] https://specs.openstack.org/openstack/nova-specs/specs/rocky/implemented/numa-aware-vswitches.html
 .. [4] https://specs.openstack.org/openstack/nova-specs/specs/ussuri/implemented/vm-scoped-sriov-numa-affinity.html#alternatives
 .. [5] https://github.com/openstack/nova/blob/d4c857dfcb1ccfa5410de55671e69c722bbc990e/nova/objects/fields.py#L740-L746
-.. [6] https://docs.openstack.org/api-guide/compute/port_with_resource_request.html
