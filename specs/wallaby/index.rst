@@ -1,6 +1,6 @@
-========
-Victoria
-========
+=======
+Wallaby
+=======
 
 .. toctree::
    :glob:
