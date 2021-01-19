@@ -178,8 +178,8 @@ htmlhelp_basename = 'Neutron-Specsdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Neutron-specs.tex', u'Neutron Specs',
-   u'OpenStack Neutron Team', 'manual'),
+  ('index', 'Neutron-specs.tex', 'Neutron Specs',
+   'OpenStack Neutron Team', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -208,8 +208,8 @@ latex_documents = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Neutron-specs', u'Neutron Design Specs',
-   u'OpenStack Neutron Team', 'neutron-specs', 'Design specifications for the Neutron project.',
+  ('index', 'Neutron-specs', 'Neutron Design Specs',
+   'OpenStack Neutron Team', 'neutron-specs', 'Design specifications for the Neutron project.',
    'Miscellaneous'),
 ]
 
@@ -226,10 +226,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'Neutron Specs'
-epub_author = u'OpenStack Neutron Team'
-epub_publisher = u'OpenStack Neutron Team'
-epub_copyright = u'2014, OpenStack Neutron Team'
+epub_title = 'Neutron Specs'
+epub_author = 'OpenStack Neutron Team'
+epub_publisher = 'OpenStack Neutron Team'
+epub_copyright = '2014, OpenStack Neutron Team'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
