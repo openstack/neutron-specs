@@ -137,7 +137,7 @@ to OVS agent configuration::
     # Key:value pairs to specify defaults used while reporting packet rate
     # inventories. Possible keys with their types: allocation_ratio:float,
     # max_unit:int, min_unit:int, reserved:int, step_size:int
-    # packet_processing_inventory_defaults = {
+    # resource_provider_packet_processing_inventory_defaults = {
     #   'allocation_ratio': 1.0, 'min_unit': 1, 'step_size': 1, 'reserved': 0}
 
 
