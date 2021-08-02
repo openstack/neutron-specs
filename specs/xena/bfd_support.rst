@@ -60,7 +60,7 @@ Monitoring scenarios
 
 
 * monitoring 2 different destinations through the same nexthop, the case
-  when bfd3 and bfd4 dst_ip is the same is not covered here.
+  when bfd3 and bfd4 dst_ip is the same:
 
 +------+----------+----------+------+
 | dst3 | nexthop3 | bfd_dst3 | bfd3 |
@@ -114,6 +114,7 @@ New bfd monitor API
                 "min_tx": 100,
                 "multiplier": 3,
                 "dst_ip": "10.0.0.13",
+                "src_ip": "169.254.112.144",
                 "auth_type": "",
                 "auth_keys": {1: "secret_1"},
             }
@@ -170,6 +171,13 @@ API fields and descriptions for bfd_monitor:
 |                   |         |       |      | bfd) this is an arbitrary IP (IPv4 or |
 |                   |         |       |      | Ipv6) that can serve as BFD neighbor. |
 +-------------------+---------+-------+------+---------------------------------------+
+| src_ip            | String  | No    | CR   | IP address used as source for         |
+|                   |         |       |      | transmitted BFD packets. An optional  |
+|                   |         |       |      | field, if not specified, the IP set   |
+|                   |         |       |      | on the interface, like on qg-xyz.     |
+|                   |         |       |      | This can be set on the remote end to  |
+|                   |         |       |      | be configured.                        |
++-------------------+---------+-------+------+---------------------------------------+
 | min_rx            | Integer | No    | CRU  | The shortest interval, in millisecs,  |
 |                   |         |       |      | at which this BFD session offers to   |
 |                   |         |       |      | receive BFD control messages. At      |
@@ -223,7 +231,8 @@ API extension proposal for bfd_monitors:
     BFD_SESSION_STATUS = 'bfd_session_status'
 
     BFD_MODE_ASYNC = 'asynchronous'
-    BFD_MODE_SINGLEHOP = 'singlehop'
+    BFD_MODE_DEMAND = 'demand'
+    BFD_MODE_ONE_ARM = 'one_arm_echo'
 
     RESOURCE_ATTRIBUTE_MAP = {
         BFD_MONITORS: {
@@ -254,6 +263,11 @@ API extension proposal for bfd_monitors:
                        'is_sort_key': True, 'is_filter': True,
                        'is_visible': True, 'default': None,
                        'enforce_policy': True},
+            'src_ip': {'allow_post': True, 'allow_put': False,
+                   'validate': {'type:ip_address_or_none': None},
+                   'is_sort_key': True, 'is_filter': True,
+                   'is_visible': True, 'default': None,
+                   'enforce_policy': True},
             'min_rx': {'allow_post': True, 'allow_put': True,
                        'validate': {'type:non_negative': None},
                        'convert_to': converters.convert_to_int,
@@ -403,7 +417,7 @@ Short description of the status fields:
 Changes to Router extra routes API
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Changes to Add extra routes to router or Update router API::
+* Changes to add or remove extra routes to router or Update router API::
 
         PUT /v2.0/routers/{router_id}
         {
@@ -427,6 +441,20 @@ Changes to Router extra routes API
                 ]
             }
         }
+
+        PUT /v2.0/routers/{router_id}/remove_extraroutes
+        {
+            "router" : {
+                "routes" : [
+                   { "destination" : "10.0.3.0/24", "nexthop" : "10.0.0.13", "bfd_monitor": {bfd_monitor_uuid} }
+                ]
+            }
+        }
+
+.. note::
+
+   The API will allow to remove bfd_monitor association from a route without
+   deleting and recreating the whole nexthop-destination tuple.
 
 * Get routes status::
 
