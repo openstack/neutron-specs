@@ -196,8 +196,9 @@ as the minimum_bandwidth rule::
                 },
                 'direction': {
                     'allow_post': True,
-                    'allow_put': False,
+                    'allow_put': True,
                     'is_visible': True,
+                    'default': constants.EGRESS_DIRECTION,
                     'validate': {
                         'type:values': (
                             constants.ANY_DIRECTION,
@@ -281,7 +282,7 @@ This results in the following new API resources and operations:
       }
     }
 
-* ``GET /v2.0/qos/minimum_packet_rate_rules/{rule_id}``
+* ``GET /v2.0/qos/policies/{policy_id}/minimum_packet_rate_rules/{rule_id}``
 
   Show minimum packet rate rule details
 
@@ -295,7 +296,7 @@ This results in the following new API resources and operations:
       }
     }
 
-* ``PUT /v2.0/qos/minimum_packet_rate_rules/{rule_id}``
+* ``PUT /v2.0/qos/policies/{policy_id}/minimum_packet_rate_rules/{rule_id}``
 
   Update minimum packet rate rule
 
@@ -303,7 +304,8 @@ This results in the following new API resources and operations:
 
     {
       "minimum_packet_rate_rule": {
-          "min_kpps": 2000
+          "min_kpps": 2000,
+          "direction": "any",
       }
     }
 
@@ -317,7 +319,7 @@ This results in the following new API resources and operations:
       }
     }
 
-* ``DELETE /v2.0/qos/packet_rate_limit_rules/{rule_id}``
+* ``DELETE /v2.0/qos/policies/{policy_id}/minimum_packet_rate_rules/{rule_id}``
 
   Delete minimum packet rate rule
 
@@ -329,6 +331,8 @@ This results in the following new API resources and operations:
     future. The old style APIs only kept for backwards compatibility for
     already existing QoS rules. However as this new API will not have an old
     style counterpart the 'alias' prefix is removed from the resource name.
+
+
 
 To persist the new QoS rule type a new DB table
 ``qos_minimum_packet_rate_rules`` is needed::
@@ -345,7 +349,7 @@ To persist the new QoS rule type a new DB table
                                            constants.INGRESS_DIRECTION,
                                            name="directions"),
                       nullable=False,
-                      server_default=None),
+                      server_default=constants.EGRESS_DIRECTION),
             sa.PrimaryKeyConstraint('id'),
             sa.ForeignKeyConstraint(['qos_policy_id'], ['qos_policies.id'],
                                     ondelete='CASCADE')
@@ -555,6 +559,66 @@ request indicated by the minimum_bandwidth QoS rule. This implementation needs
 to be extended to handle changes not just in minimum_bandwidth but also in
 minimum_packet_rate rule.
 
+The current support matrix is:
+
+.. list-table:: Current scenarios
+   :header-rows: 1
+
+   * - Scenario
+     - Result
+   * - Update the port.qos_policy_id from None to valid QoS policy with
+       minimum bandwidth rule
+     - Accepted but the resource allocation is not adjusted as that would
+       require a full scheduling. If the VM later scheduled to another host
+       (i.e. migrated, resize, evacuated) then that scheduling will consider
+       the new resource request.
+   * - Update the port.qos_policy_id from a QoS policy without minimum
+       bandwidth rule to a QoS policy with minimum bandwidth rule
+     - Accepted but the resource allocation is not adjusted. See above.
+   * - Update the port.qos_policy_id from a QoS policy with minimum bandwidth
+       rule to a QoS policy with minimum bandwidth rule but with different
+       min_kbps value or different direction.
+     - Supported. Accepted if the bandwidth allocation on the current resource
+       provider can be updated with the new QoS value and direction.
+   * - Update the port.qos_policy_id from a QoS policy with minimum bandwidth
+       rule to a QoS policy without minimum bandwidth rule.
+     - Supported. The bandwidth resource allocation for this port in placement
+       is deleted.
+
+
+After the minimum packet rate rule is added Neutron will have two QoS policy
+rules that requires placement resources allocation. This adds more possible
+cases to handle. The above scenarios still apply for minimum bandwidth and can
+be applied similarly to QoS policy with a single minimum packet rate rule. The
+more complex cases are described below:
+
+.. list-table:: New scenarios
+   :header-rows: 1
+
+   * - Scenario
+     - Result
+   * - The old QoS policy has both minimum bandwidth and packet rate rules,
+       the new policy also has both rules but with different min_kbps
+       and / or min_kpps values.
+     - Supported. Accepted if the bandwidth allocation on the current resource
+       providers can be updated with the new QoS values.
+       Changing the direction of the minimum bandwidth rule or the direction
+       of the direction aware minimum packet rate rule is also supported.
+       However changing from a direction less minimum packet rate rule to a
+       direction aware packet rate rule, or vice versa, is not supported and
+       rejected.
+   * - The old QoS policy has both minimum bandwidth and packet rate rules,
+       the new policy has less rules. Either just minimum bandwidth or
+       just minimum packet rate or none of them.
+     - Supported. The allocation related to the removed rule(s) are deleted in
+       placement.
+   * - The new QoS policy adds either minimum bandwidth or packet rate rule or
+       both compared to the old policy.
+     - Accepted but the resource allocation is not adjusted as that would
+       require a full scheduling. If the VM later scheduled to another host
+       (i.e. migrated, resize, evacuated) then that scheduling will consider
+       the resource request of the new rule(s).
+
 Upgrade
 -------
 A database schema upgrade is needed to add the new
@@ -568,11 +632,9 @@ will not send it. So Neutron server needs to consider this new key as optional.
 The manipulation of the  new minimum_packet_rate QoS policy rule and changes in
 the ``resource_request`` and ``allocation`` fields of the port requires a new
 API extension. We need to support upgrade scenarios where the Neutron is
-already upgraded to Xena but Nova still on Wallaby version. As the old Nova
-cannot support the new ``resource_request`` format, Neutron needs to make this
-new API extension optional with a new configuration option in the neutron
-server configuration. This configuration should be deprecated already at
-introduction so that we can remove it during the Y release.
+already upgraded to Yoga but Nova still on Xena version. However this does not
+require any additional logic in Neutron as Nova already landed support this API
+extension in Xena.
 
 Testing
 -------
