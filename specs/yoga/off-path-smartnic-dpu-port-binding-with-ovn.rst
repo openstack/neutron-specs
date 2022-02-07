@@ -108,7 +108,7 @@ Some practical challenges are as follows:
   VF PCI address assignment process governed by the PCI SIG SR-IOV
   specification;
 * During port binding, the OVN mechanism driver needs to handle the vnic type
-  VNIC_SMARTNIC which it currently does not.
+  VNIC_REMOTE_MANAGED which it currently does not.
 
 The following diagram illustrates various components that play a role in the
 context of this specification::
@@ -262,13 +262,15 @@ This capability is discovered by Nova from PCI(e) endpoints via devlink -
 when an NIC Switch is visible via a PF, the "switchdev" capability is added to
 both PFs and VFs tracked in Nova. SmartNIC DPUs do not expose the NIC Switch to
 the hypervisor host, therefore, this capability is not discovered. To address
-that, the related Nova specification [7]_ relies on a different port type
-(``VNIC_SMARTNIC`` already present in neutron-lib) for the purposes of working
-with SmartNIC DPUs.
+that, the related Nova specification [7]_ relies on a new port type for the
+purposes of working with SmartNIC DPUs called ``VNIC_REMOTE_MANAGED``. The
+``VNIC_SMARTNIC`` VNIC type already present in neutron-lib has been considered
+but it was found later that the fact that scheduling happens after resource
+request creation makes it to run into a conflict with the Ironic use-case).
 
-The OVN mechanism driver needs to be extended to also handle ``VNIC_SMARTNIC``
-ports. It will allow the port binding code to pick the right code-path and
-trigger the representor port plugging logic in OVN.
+The OVN mechanism driver needs to be extended to also handle
+``VNIC_REMOTE_MANAGED`` ports. It will allow the port binding code to pick the
+right code-path and trigger the representor port plugging logic in OVN.
 
 Implementation
 ==============
