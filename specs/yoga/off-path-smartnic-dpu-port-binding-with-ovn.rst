@@ -20,7 +20,7 @@ code relies on that. The goal of this specification is to introduce
 changes necessary to extend the existing hardware offload code to cope
 with the hostname mismatch and related design challenges while reusing
 the rest of the code. To do that, PCI(e) add-in card tracking is
-introduced for boards with unique serial numbers so that it can be used
+introduced for cards with unique serial numbers so that it can be used
 to determine the correct hostname of a SmartNIC DPU which is responsible
 for a particular VF. Additionally, more information is suggested to be
 passed in the "binding:profile" during a port update to facilitate
@@ -169,7 +169,7 @@ Proposed Change
 Identifying a SmartNIC DPU Host and VF Representor
 --------------------------------------------------
 
-The related Nova specification [7]_ introduces add-in-card (board) serial
+The related Nova specification [7]_ introduces add-in-card serial
 number collection via PCIe VPD and forwarding of that information in port
 updates to Neutron, therefore, it becomes possible to match that against what
 is seen at the SmartNIC DPU host side. Those serial numbers are unique,
@@ -177,7 +177,7 @@ read-only, and assigned at the manufacturing time (per the PCI and PCIe specs).
 The board serial number can be stored in the OVN SB database as an external-id
 for a particular OVN chassis::
 
-  external_ids:ovn-board-serial-number=UNIQUEBOARDSERIAL
+  external_ids:ovn-cms-options='card-serial-number=UNIQUEBOARDSERIAL'
 
 Note that there can be other means of accessing the NIC from the SmartNIC DPU
 host side (e.g. platform devices or other I/O types) so querying the serial
@@ -185,7 +185,7 @@ number can be done either by extracting PCIe VPD via sysfs or by using
 devlink-info API and getting ``board.serial_number`` (which does not depend
 on a particular I/O interconnect type). However, this is a concern for OVN
 itself since Neutron does not have any agents running at the SmartNIC DPU side
-- it only needs to look up a chassis by a ``ovn-board-serial-number``
+- it only needs to look up a chassis by a ``card-serial-number``
 regardless of how it got collected at the SmartNIC DPU host.
 
 The responsibility of placing it there can be given to:
@@ -198,7 +198,7 @@ The responsibility of placing it there can be given to:
 
 Regardless of the chosen method of populating this value, Neutron will then
 be able to lookup which OVN chassis should handle representor plugging and flow
-programming for a particular port update that has a board serial included.
+programming for a particular port update that has a card serial included.
 
 VF logical numbers are relevant in the context of a particular PF. In turn,
 PF logical numbers are tied to a particular controller. Since a NIC Switch is
