@@ -10,6 +10,7 @@ Specifications and RFEs
 .. toctree::
    :maxdepth: 2
 
+   specs/2023.1/index
    specs/zed/index
    specs/yoga/index
    specs/xena/index
