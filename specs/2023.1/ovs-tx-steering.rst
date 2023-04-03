@@ -100,13 +100,14 @@ API Impact
 ----------
 
 Add a new admin_only field to the port resource called ``hints``. This
-field can be present in GET, POST and PUT requests. For its semantics
-please see above.
+field can be present in GET, POST and PUT requests. This field cannot be
+longer than 4095 characters. For its semantics, please see above.
 
 DB Impact
 ---------
 
-Extend the ``ports`` table with column ``hints``.
+Introduce a new table ``porthints`` and autojoin it with the ``ports``
+table.
 
 Client Impact
 -------------
