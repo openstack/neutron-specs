@@ -81,6 +81,7 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_ip_prefix": null,
           "used_in_default_security_group": True
+          "used_in_non_default_security_group": True
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -96,6 +97,7 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_ip_prefix": null,
           "used_in_default_security_group": True
+          "used_in_non_default_security_group": True
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -111,6 +113,7 @@ Details of the API are below:
           "remote_group_id": "PARENT",
           "remote_ip_prefix": null,
           "used_in_default_security_group": True
+          "used_in_non_default_security_group": False
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -126,6 +129,7 @@ Details of the API are below:
           "remote_group_id": "PARENT",
           "remote_ip_prefix": null,
           "used_in_default_security_group": True
+          "used_in_non_default_security_group": False
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -141,6 +145,7 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_ip_prefix": null,
           "used_in_default_security_group": False
+          "used_in_non_default_security_group": True
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -156,6 +161,7 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_ip_prefix": null,
           "used_in_default_security_group": False
+          "used_in_non_default_security_group": True
           "revision_number": 1,
           "created_at": "2022-09-15T19:16:56Z",
           "updated_at": "2022-09-15T19:16:56Z",
@@ -193,6 +199,7 @@ Details of the API are below:
         "remote_group_id": null,
         "remote_ip_prefix": null,
         "used_in_default_security_group": False
+        "used_in_non_default_security_group": True
         "revision_number": 1,
         "created_at": "2022-09-15T19:16:56Z",
         "updated_at": "2022-09-15T19:16:56Z",
@@ -218,6 +225,7 @@ Details of the API are below:
         "remote_group_id": null,
         "remote_ip_prefix": null,
         "used_in_default_security_group": False
+        "used_in_non_default_security_group": True
         "revision_number": 1,
         "created_at": "2022-09-15T19:16:56Z",
         "updated_at": "2022-09-15T19:16:56Z",
@@ -234,49 +242,54 @@ DB Impact
 
 Default security group rule DB table:
 
-+--------------------+---------+------+------+---------------------------------------+
-| Attribute          | Type    | Req  | CRUD | Description                           |
-+====================+=========+======+======+=======================================+
-| id                 | uuid-str| No   | R    | Id of default security group rule.    |
-+--------------------+---------+------+------+---------------------------------------+
-| direction          | String  | Yes  | CR   | Direction in which the security group |
-|                    |         |      |      | rule is applied.                      |
-+--------------------+---------+------+------+---------------------------------------+
-| ethertype          | String  | No   | CR   | Must be IPv4 or IPv6.                 |
-+--------------------+---------+------+------+---------------------------------------+
-| remote_group_id    | String  | No   | CR   | The remote group UUID to associate    |
-|                    |         |      |      | with this security group rule.        |
-|                    |         |      |      | Special value ``PARENT`` can be also  |
-|                    |         |      |      | used and it means to always use       |
-|                    |         |      |      | id of the security group in which     |
-|                    |         |      |      | will be created with such rule.       |
-+--------------------+---------+------+------+---------------------------------------+
-| protocol           | String  | No   | CR   | The IP protocol can be represented by |
-|                    |         |      |      | a string, an integer, or null.        |
-|                    |         |      |      | Valid strings or integers are the     |
-|                    |         |      |      | same as for the                       |
-|                    |         |      |      | ``security group rule``.              |
-+--------------------+---------+------+------+---------------------------------------+
-| port_range_min     | String  | No   | CR   | The minimum port number in the        |
-|                    |         |      |      | range that is matched by the security |
-|                    |         |      |      | group rule.                           |
-+--------------------+---------+------+------+---------------------------------------+
-| port_range_max     | Integer | No   | CR   | The maximum port number in the        |
-|                    |         |      |      | range that is matched by the security |
-|                    |         |      |      | group rule.                           |
-+--------------------+---------+------+------+---------------------------------------+
-| remote_ip_prefix   | Integer | No   | CR   | The remote IP prefix that is matched  |
-|                    |         |      |      | by this security group rule.          |
-+--------------------+---------+------+------+---------------------------------------+
-| standard_attr_id   | Ingeger | Yes  | R    | Id of the associated standard         |
-|                    |         |      |      | attribute record.                     |
-+--------------------+---------+------+------+---------------------------------------+
-| used_in_default_sg | Boolean | No   | CR   | If it is set to ``True`` such rule    |
-|                    |         |      |      | will be used in a template for the    |
-|                    |         |      |      | ``default`` security group which is   |
-|                    |         |      |      | created automatically for every       |
-|                    |         |      |      | project. Default value is ``False``   |
-+--------------------+---------+------+------+---------------------------------------+
++------------------------+---------+------+------+---------------------------------------+
+| Attribute              | Type    | Req  | CRUD | Description                           |
++========================+=========+======+======+=======================================+
+| id                     | uuid-str| No   | R    | Id of default security group rule.    |
++------------------------+---------+------+------+---------------------------------------+
+| direction              | String  | Yes  | CR   | Direction in which the security group |
+|                        |         |      |      | rule is applied.                      |
++------------------------+---------+------+------+---------------------------------------+
+| ethertype              | String  | No   | CR   | Must be IPv4 or IPv6.                 |
++------------------------+---------+------+------+---------------------------------------+
+| remote_group_id        | String  | No   | CR   | The remote group UUID to associate    |
+|                        |         |      |      | with this security group rule.        |
+|                        |         |      |      | Special value ``PARENT`` can be also  |
+|                        |         |      |      | used and it means to always use       |
+|                        |         |      |      | id of the security group in which     |
+|                        |         |      |      | will be created with such rule.       |
++------------------------+---------+------+------+---------------------------------------+
+| protocol               | String  | No   | CR   | The IP protocol can be represented by |
+|                        |         |      |      | a string, an integer, or null.        |
+|                        |         |      |      | Valid strings or integers are the     |
+|                        |         |      |      | same as for the                       |
+|                        |         |      |      | ``security group rule``.              |
++------------------------+---------+------+------+---------------------------------------+
+| port_range_min         | String  | No   | CR   | The minimum port number in the        |
+|                        |         |      |      | range that is matched by the security |
+|                        |         |      |      | group rule.                           |
++------------------------+---------+------+------+---------------------------------------+
+| port_range_max         | Integer | No   | CR   | The maximum port number in the        |
+|                        |         |      |      | range that is matched by the security |
+|                        |         |      |      | group rule.                           |
++------------------------+---------+------+------+---------------------------------------+
+| remote_ip_prefix       | Integer | No   | CR   | The remote IP prefix that is matched  |
+|                        |         |      |      | by this security group rule.          |
++------------------------+---------+------+------+---------------------------------------+
+| standard_attr_id       | Ingeger | Yes  | R    | Id of the associated standard         |
+|                        |         |      |      | attribute record.                     |
++------------------------+---------+------+------+---------------------------------------+
+| used_in_default_sg     | Boolean | No   | CR   | If it is set to ``True`` such rule    |
+|                        |         |      |      | will be used in a template for the    |
+|                        |         |      |      | ``default`` security group which is   |
+|                        |         |      |      | created automatically for every       |
+|                        |         |      |      | project. Default value is ``False``   |
++------------------------+---------+------+------+---------------------------------------+
+| used_in_non_default_sg | Boolean | No   | CR   | If it is set to ``True`` such rule    |
+|                        |         |      |      | will be used in a template for the    |
+|                        |         |      |      | every ``non default`` security group. |
+|                        |         |      |      | Default value is ``False``            |
++------------------------+---------+------+------+---------------------------------------+
 
 Security Impact
 ---------------
