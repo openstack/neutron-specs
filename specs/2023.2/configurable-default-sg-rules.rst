@@ -81,11 +81,8 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": True
-          "used_in_non_default_security_group": True
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": True,
+          "used_in_non_default_security_group": True,
           "description": ""
       },
       {
@@ -98,11 +95,8 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": True
-          "used_in_non_default_security_group": True
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": True,
+          "used_in_non_default_security_group": True,
           "description": ""
       },
       {
@@ -115,11 +109,8 @@ Details of the API are below:
           "remote_group_id": "PARENT",
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": True
-          "used_in_non_default_security_group": False
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": True,
+          "used_in_non_default_security_group": False,
           "description": ""
       },
       {
@@ -132,11 +123,8 @@ Details of the API are below:
           "remote_group_id": "PARENT",
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": True
-          "used_in_non_default_security_group": False
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": True,
+          "used_in_non_default_security_group": False,
           "description": ""
       },
       {
@@ -149,11 +137,8 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": False
-          "used_in_non_default_security_group": True
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": False,
+          "used_in_non_default_security_group": True,
           "description": "Allow SSH connections over IPv6"
       },
       {
@@ -166,11 +151,8 @@ Details of the API are below:
           "remote_group_id": null,
           "remote_address_group_id": null,
           "remote_ip_prefix": null,
-          "used_in_default_security_group": False
-          "used_in_non_default_security_group": True
-          "revision_number": 1,
-          "created_at": "2022-09-15T19:16:56Z",
-          "updated_at": "2022-09-15T19:16:56Z",
+          "used_in_default_security_group": False,
+          "used_in_non_default_security_group": True,
           "description": "Allow SSH connections over IPv4"
       }]
     }
@@ -205,11 +187,8 @@ Details of the API are below:
         "remote_group_id": null,
         "remote_address_group_id": null,
         "remote_ip_prefix": null,
-        "used_in_default_security_group": False
-        "used_in_non_default_security_group": True
-        "revision_number": 1,
-        "created_at": "2022-09-15T19:16:56Z",
-        "updated_at": "2022-09-15T19:16:56Z",
+        "used_in_default_security_group": False,
+        "used_in_non_default_security_group": True,
         "description": ""
       }
     }
@@ -232,11 +211,9 @@ Details of the API are below:
         "remote_group_id": null,
         "remote_address_group_id": null,
         "remote_ip_prefix": null,
-        "used_in_default_security_group": False
-        "used_in_non_default_security_group": True
-        "revision_number": 1,
-        "created_at": "2022-09-15T19:16:56Z",
-        "updated_at": "2022-09-15T19:16:56Z",
+        "used_in_default_security_group": False,
+        "used_in_non_default_security_group": True,
+        "description": ""
       }
     }
 
