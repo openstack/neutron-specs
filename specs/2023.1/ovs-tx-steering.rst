@@ -69,21 +69,21 @@ In the ``openstack`` CLI we propose to expose the above API feature as:
 
 ::
 
-    openstack port create/set --hint HINT-ALIAS[:HINT-VALUE] [--hint ...] ...
+    openstack port create/set --hint HINT-ALIAS=HINT-VALUE [--hint ...] ...
+    openstack port unset --hints ...
 
 For example:
 
 ::
 
-    openstack port create --hint ovs-tx-steering:thread ...
-    openstack port create --hint ovs-tx-steering:hash ...
+    openstack port create --hint ovs-tx-steering=thread ...
+    openstack port create --hint ovs-tx-steering=hash ...
 
-The above CLI syntax allows boolean and key:value type hints.  There is
-an arbitrary but documented mapping between a HINT-ALIAS and the full
-fledged data structure passed in the API.
-
-Alternatively we could pass in a sizable JSON blob, but I believe that
-would lead to a cumbersome CLI experience.
+The above CLI syntax allows key:value type hints, and can be extended
+to allow boolean hints if needed.  There is an arbitrary but documented
+mapping between a HINT-ALIAS=HINT-VALUE and the fully fledged data
+structure passed to the API. The openstack CLI also allows an arbitrary
+JSON value in the --hint parameter which it passes to the API as-is.
 
 Given the ovs-tx-steering hint passed in, ovs-agent can set the
 corresponding OVS interface's other_config (using the python native
