@@ -43,7 +43,7 @@ The plugin will implement Layer 3 communications using a construct called
 a contract that provides communications in the fabric between various
 end point groups (Neutron networks)
 
-Events that trigger the creation of end point groups and subnets (i.e. 
+Events that trigger the creation of end point groups and subnets (i.e.
 create_network and create_subnet) will be handled by the APIC ML2 mechanism
 driver and id’s will be stored in a database accessed by a common client and
 manager class.

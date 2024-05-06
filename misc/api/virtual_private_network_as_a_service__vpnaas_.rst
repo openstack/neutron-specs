@@ -1107,7 +1107,7 @@ This operation returns a response body.
     GET /v2.0/vpn/ipsecpolicies.json
     User-Agent: python-neutronclient
     Accept: application/json
-    
+
 
 **Example List IPSec Policies: Response**
 

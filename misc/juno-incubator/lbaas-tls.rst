@@ -189,7 +189,7 @@ Restrictions
   having TERMINATED_HTTPS as a protocol. In other cases TLS settings
   will be disabled and have None or empty values.
   There should be a meaningfull error message to a user explaining the exact
-  reason of a failure in case of an invalid configuration. 
+  reason of a failure in case of an invalid configuration.
 * Listener protocol is immutable. Changing the protocol will require
   radical re-configuration of provider's back-end system, which seems to be
   not  justified for this use case. Tenant should create new listener.
@@ -457,7 +457,7 @@ Performance Impact
   This will prevent unnecessary resources consumption when, for example,
   members are added to the pool used by listener.
   It means that each Barbican TLS container will be validated only once
-  for a listener while it's still in use by this listener. 
+  for a listener while it's still in use by this listener.
 
 
 Other deployer impact

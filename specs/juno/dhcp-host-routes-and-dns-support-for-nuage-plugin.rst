@@ -86,8 +86,8 @@ Implementation
 The modification are required on the plugin.py
 
 * The new method __create_port_gateway will be created.
-	This method will create a port of type network:dhcp for the current \
-	subnet and tenant
+    This method will create a port of type network:dhcp for the current \
+    subnet and tenant
 * The __validate_create_subnet method will be modified to allow the host_routes key to be a valid options of the subnet dictionary
 * The update_subnet method will be added to the plugin
 * The  _create_nuage_subnet method will be merged into the create_subnet method. This will newly updated method will also create a DHCP port using the method _create_port_gateway described above.
