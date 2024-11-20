@@ -1,0 +1,21 @@
+nwdiag {
+    network external {
+      tor_switch1;
+      tor_switch2;
+    }
+
+    tor_switch1 -- l2_network1;
+    tor_switch2 -- l2_network2;
+
+    group {
+      color = lightgreen;
+      tor_switch1;
+      l2_network1;
+    }
+
+    group {
+      color = yellow;
+      tor_switch2;
+      l2_network2;
+    }
+}

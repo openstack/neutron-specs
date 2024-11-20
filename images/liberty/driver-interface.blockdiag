@@ -1,0 +1,19 @@
+blockdiag admin {
+      group {
+          fontsize = 20;
+          label = "Plugins";
+          orientation = portrait;
+
+          NeutronDbPluginV2 -> Ml2Plugin, LinuxBridgePluginV2,
+                                              "...PluginV2" [dir = back];
+      }
+      NeutronDbPluginV2 -> IPAMDriver [ label = "uses" ];
+      group {
+          fontsize = 20;
+          label = "IPAM Drivers";
+          orientation = portrait;
+
+          IPAMDriver -> NeutronIPAM  [style = dotted, dir = back,
+                                      label = implements, fontsize = 8];
+      }
+}

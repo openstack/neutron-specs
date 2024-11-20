@@ -293,27 +293,7 @@ TEARDOWN
 (DELETED)
   implicit state corresponding to the resource not existing anymore
 
-.. blockdiag::
-
-    blockdiag {
-       default_shape = roundedbox
-
-       BEFORE_CREATION [shape = beginpoint, label=""]
-       TO_VALIDATE
-       VALIDATED
-       ACTIVE
-       TEARDOWN
-       DELETED [shape = endpoint, label=""]
-
-       BEFORE_CREATION -> TO_VALIDATE [folded]
-       TO_VALIDATE -> VALIDATED
-       TO_VALIDATE -> TEARDOWN [folded]
-       VALIDATED -> ACTIVE
-       VALIDATED -> TEARDOWN [folded]
-       ACTIVE -> TEARDOWN [folded]
-       TEARDOWN -> DELETED [folded]
-       ACTIVE -> TO_VALIDATE
-    }
+.. image:: /images/stein/state-machine-summary.png
 
 REST API Impact
 ---------------

@@ -17,20 +17,7 @@ configured IPv6 on northbound networking devices, may wish to
 advertise IPv6 routes by having non-OpenStack hardware transmit
 ICMPv6 Router Advertisement packets.
 
-.. nwdiag::
-
-    nwdiag {
-        inet [ shape = cloud ];
-        router;
-        inet -- router;
-        network public_v6 {
-            address = "fdf5:058c:1a36:0f5a::/64"
-            router [ address = "fe80::21c:73ff:fe03:11b3" ];
-            vm1 [ address = "fdf5:58c:1a36:f5a:211:22ff:fe33:4455" ];
-            vm2 [ address = "fdf5:58c:1a36:f5a:214:22ee:ef22:2142" ];
-        }
-    }
-
+.. image:: /images/juno/provider-network-slaac.png
 
 Proposed change
 ===============

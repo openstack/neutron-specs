@@ -1,0 +1,33 @@
+seqdiag {
+    // Do not show activity line
+    activation = none;
+    edge_length = 600;
+    nova; neutron_server; neutron_l2_agent_source; neutron_l2_agent_target
+
+    === Nova create inactive binding ===
+    nova -> neutron_server [label = "Create inactive binding
+        POST /v2.0/ports/{port_id}/bindings {binding:{
+            host_id:target-host_id}}"];
+    neutron_server -> neutron_server [label = "_create_binding()"];
+    neutron_server -> neutron_server [label =
+        "_bind_port_if_needed(notify=False)"];
+    neutron_server -> neutron_l2_agent_target [label = "bind_port()"];
+
+    === Nova activate inactive binding ===
+    nova -> neutron_server [label = "Set the inactive binding to active
+        PUT /v2.0/ports/{port_id}/bindings/{host_id}/activate"];
+    neutron_server -> neutron_server [label = "_update_binding_status()"];
+    neutron_server -> neutron_l2_agent_source [label = "port_delete()"];
+    neutron_l2_agent_source -> neutron_l2_agent_source [label =
+        "bypass update_device_list()"];
+    neutron_server -> neutron_l2_agent_target [label = "update_port()"];
+    neutron_l2_agent_target -> neutron_server [label = "get_devices_
+        details_list_and_failed_devices()"];
+    neutron_l2_agent_target -> neutron_l2_agent_target [label =
+        "if port['transition'] == 'activate': _send_garp()"];
+
+    === Nova post_live_migration ===
+    nova -> neutron_server [label ="Remove the inactive binding
+        DELETE /v2.0/ports/{port_id}/bindings/{host_id}"];
+    neutron_server -> neutron_server [label = "_delete_binding()"];
+}

@@ -1,0 +1,10 @@
+seqdiag {
+      "Neutron Plugin" -> NeutronDbPluginV2 [label = "create_subnet"];
+      NeutronDbPluginV2 -> "IPAM Driver" [label = "allocate_subnet"];
+      "IPAM Driver" -> "Pluggable IPAM" [label = "Allocate Subnet"];
+      "IPAM Driver" <- "Pluggable IPAM" [label = "subnet"];
+      NeutronDbPluginV2 <- "IPAM Driver" [label = "subnet"];
+      NeutronDbPluginV2 -> "Neutron DB" [label = "subnet"];
+      NeutronDbPluginV2 <- "Neutron DB";
+      "Neutron Plugin" <- NeutronDbPluginV2 [label = "subnet"];
+}

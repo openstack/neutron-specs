@@ -35,35 +35,7 @@ the cloud reachable through the remaining healthy link.
 
 **Sample Topology**
 
-.. nwdiag::
-
-  nwdiag {
-
-    network external {
-      gateway_router[color = red];
-      tenant_router1;
-      tenant_router2;
-    }
-
-    group {
-      color = lightgreen;
-      //label = "OpenStack Deployment";
-      gateway_router;
-      tenant_router1;
-      tenant_router2;
-    }
-
-    network isp_net1 {
-      gateway_router;
-      uplink_router1;
-    }
-
-    network isp_net2 {
-      gateway_router;
-      uplink_router2;
-    }
-
-  }
+.. image:: /images/mitaka/bgp-sample-topology-1.png
 
 Please note that in this diagram, the red gateway router is actually a linux
 machine with a software BGP speaker and a software router. This blueprint
@@ -92,30 +64,7 @@ to advertise the new routable subnets to uplink routers.
 
 **Sample Topology**
 
-.. nwdiag::
-
-  nwdiag {
-    network external {
-      tor_switch1;
-      tor_switch2;
-    }
-
-    tor_switch1 -- l2_network1;
-    tor_switch2 -- l2_network2;
-
-    group {
-      color = lightgreen;
-      tor_switch1;
-      l2_network1;
-    }
-
-    group {
-      color = yellow;
-      tor_switch2;
-      l2_network2;
-    }
-  }
-
+.. image:: /images/mitaka/bgp-sample-topology-2.png
 
 The topology of this use case can be seen as a generalization of the previous
 one, with a multi-homed OpenStack installation and leverage the fact that a

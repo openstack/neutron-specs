@@ -1,0 +1,13 @@
+seqdiag {
+      "Neutron Plugin"  ->  NeutronDbPluginV2 [label = "create_port"];
+      "Neutron Plugin"  ->  NeutronDbPluginV2 [label = "create_port"];
+      NeutronDbPluginV2 -> "IPAM Driver" [label = "get_subnet"];
+      NeutronDbPluginV2 <- "IPAM Driver" [label = "IPAMSubnet"];
+      NeutronDbPluginV2 -> IPAMSubnet [label = "allocate_ip"];
+      IPAMSubnet -> "Pluggable IPAM" [label = "Allocate IP"];
+      IPAMSubnet <- "Pluggable IPAM" [label = "IP"];
+      NeutronDbPluginV2 <- IPAMSubnet [label = "IP"];
+      NeutronDbPluginV2 -> "Neutron DB" [label = "port, IP data"];
+      NeutronDbPluginV2 <- "Neutron DB";
+      "Neutron Plugin" <- NeutronDbPluginV2 [label = "port, IP data"];
+}

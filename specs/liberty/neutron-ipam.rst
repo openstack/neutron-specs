@@ -62,27 +62,7 @@ The Neutron Plugins will call into the driver for IPAM functionality.
 
 The driver interface will be synchronous.
 
-   .. blockdiag::
-
-    blockdiag admin {
-        group {
-            fontsize = 20;
-            label = "Plugins";
-            orientation = portrait;
-
-            NeutronDbPluginV2 -> Ml2Plugin, LinuxBridgePluginV2,
-                                                "...PluginV2" [dir = back];
-        }
-        NeutronDbPluginV2 -> IPAMDriver [ label = "uses" ];
-        group {
-            fontsize = 20;
-            label = "IPAM Drivers";
-            orientation = portrait;
-
-            IPAMDriver -> NeutronIPAM  [style = dotted, dir = back,
-                                        label = implements, fontsize = 8];
-        }
-    }
+.. image:: /images/liberty/driver-interface.png
 
 The IPAM implementation will define abstract Request classes for subnets and
 addresses. These classes enable the caller to request subnet or IP allocations
@@ -105,18 +85,7 @@ IPAM" represents an optional external IPAM system. These diagrams are intended
 as examples; the specific details of each flow will be defined during
 implementation.
 
-   .. seqdiag::
-
-    seqdiag {
-        "Neutron Plugin" -> NeutronDbPluginV2 [label = "create_subnet"];
-        NeutronDbPluginV2 -> "IPAM Driver" [label = "allocate_subnet"];
-        "IPAM Driver" -> "Pluggable IPAM" [label = "Allocate Subnet"];
-        "IPAM Driver" <- "Pluggable IPAM" [label = "subnet"];
-        NeutronDbPluginV2 <- "IPAM Driver" [label = "subnet"];
-        NeutronDbPluginV2 -> "Neutron DB" [label = "subnet"];
-        NeutronDbPluginV2 <- "Neutron DB";
-        "Neutron Plugin" <- NeutronDbPluginV2 [label = "subnet"];
-    }
+.. image:: /images/liberty/interaction-example-1.png
 
 Here is another flow demonstrating the call to create a port. In this case,
 the IPAM driver is called in order to retrieve a subnet, *or* allocate the
@@ -127,21 +96,7 @@ of the driver.
 
 The IPAMSubnet object is used for the IP allocation.
 
-   .. seqdiag::
-
-    seqdiag {
-        "Neutron Plugin"  ->  NeutronDbPluginV2 [label = "create_port"];
-        NeutronDbPluginV2 -> "IPAM Driver" [label = "get_subnet"];
-        NeutronDbPluginV2 <- "IPAM Driver" [label = "IPAMSubnet"];
-        NeutronDbPluginV2 -> IPAMSubnet [label = "allocate_ip"];
-        IPAMSubnet -> "Pluggable IPAM" [label = "Allocate IP"];
-        IPAMSubnet <- "Pluggable IPAM" [label = "IP"];
-        NeutronDbPluginV2 <- IPAMSubnet [label = "IP"];
-        NeutronDbPluginV2 -> "Neutron DB" [label = "port, IP data"];
-        NeutronDbPluginV2 <- "Neutron DB";
-        "Neutron Plugin" <- NeutronDbPluginV2 [label = "port, IP data"];
-    }
-
+.. image:: /images/liberty/interaction-example-2.png
 
 Driver Creation
 ~~~~~~~~~~~~~~~

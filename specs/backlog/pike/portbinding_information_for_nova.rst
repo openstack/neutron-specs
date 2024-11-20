@@ -128,35 +128,7 @@ Nova will utilize the expanded API, and the potential flow is as follows:
 * post_live_migration: Remove the inactive binding on the source
   compute host.
 
-.. seqdiag::
-
-   diagram {
-      // Do not show activity line
-      activation = none;
-      edge_length = 400;
-      Nova; Neutron
-
-      === Nova boot instance ===
-      Nova -> Neutron [label = "Create the port
-          POST /v2.0/ports {host_id:src_host}"];
-
-      === Nova pre_live_migration ===
-      Nova -> Neutron [label = "Create the inactive binding
-          POST /v2.0/ports/{port_id}/bindings {binding:{
-                                               host_id:target-host_id}}"];
-
-      === Nova live_migration_operation ===
-      Nova -> Nova [label ="Update the instance \ndefinition and
-          start the migration"];
-
-      === Nova live_migration_operation - instance active on target===
-      Nova -> Neutron [label ="Set the inactive binding to active
-          PUT /v2.0/ports/{port_id}/bindings/{host_id}/activate"];
-
-      === Nova post_live_migration ===
-      Nova -> Neutron [label ="Remove the inactive binding
-          DELETE /v2.0/ports/{port_id}/bindings/{host_id}"];
-   }
+.. image:: /images/pike/nova-live-migration-flow.png
 
 * If rollback is performed after the instance is active on target: From a
   Neutron standpoint, if the binding is active on the target host, Nova will
@@ -657,41 +629,7 @@ additional plumbing to occur as follows:
   In addition, the transition from active to inactive will be indicated in the
   rpc call, influencing the `update_device_list` to not update the port state.
 
-.. seqdiag::
-
-    diagram {
-        // Do not show activity line
-        activation = none;
-        edge_length = 600;
-        nova; neutron_server; neutron_l2_agent_source; neutron_l2_agent_target
-
-        === Nova create inactive binding ===
-        nova -> neutron_server [label = "Create inactive binding
-            POST /v2.0/ports/{port_id}/bindings {binding:{
-                host_id:target-host_id}}"];
-        neutron_server -> neutron_server [label = "_create_binding()"];
-        neutron_server -> neutron_server [label =
-            "_bind_port_if_needed(notify=False)"];
-        neutron_server -> neutron_l2_agent_target [label = "bind_port()"];
-
-        === Nova activate inactive binding ===
-        nova -> neutron_server [label = "Set the inactive binding to active
-            PUT /v2.0/ports/{port_id}/bindings/{host_id}/activate"];
-        neutron_server -> neutron_server [label = "_update_binding_status()"];
-        neutron_server -> neutron_l2_agent_source [label = "port_delete()"];
-        neutron_l2_agent_source -> neutron_l2_agent_source [label =
-            "bypass update_device_list()"];
-        neutron_server -> neutron_l2_agent_target [label = "update_port()"];
-        neutron_l2_agent_target -> neutron_server [label = "get_devices_
-            details_list_and_failed_devices()"];
-        neutron_l2_agent_target -> neutron_l2_agent_target [label =
-            "if port['transition'] == 'activate': _send_garp()"];
-
-        === Nova post_live_migration ===
-        nova -> neutron_server [label ="Remove the inactive binding
-            DELETE /v2.0/ports/{port_id}/bindings/{host_id}"];
-        neutron_server -> neutron_server [label = "_delete_binding()"];
-    }
+.. image:: /images/pike/rpc-portbinding-flow.png
 
 In the case where push-notifications are implemented for ports under Blueprint
 `[10]`_ the `get_devices_details_list_and_failed_devices` would not be adjusted

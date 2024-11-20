@@ -94,19 +94,7 @@ aspects:
 Migration Timeline
 ------------------
 
-.. blockdiag::
-
-  blockdiag timeline {
-    orientation = portrait;
-    default_group_color = lightgreen;
-
-    '...' -> icehouse_release -> '....' -> db_healing;
-    db_healing -> '.....' -> juno_release -> '......';
-    group {
-      db_healing;
-    }
-  }
-
+.. image:: /images/juno/db-migration-timeline.png
 
 .. _onlinedetails:
 

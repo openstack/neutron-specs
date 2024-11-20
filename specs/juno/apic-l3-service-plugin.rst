@@ -10,13 +10,7 @@ using the Cisco APIC.
 
 Flows
 
-.. blockdiag::
-
-  blockdiag l2_apic {
-    Neutron -> APIC -> Nexus_9k;
-    Nexus_9k -> Compute1;
-    Nexus_9k -> Compute2;
-  }
+.. image:: /images/juno/cisco-apic-l3-flow.png
 
 Problem description
 ===================

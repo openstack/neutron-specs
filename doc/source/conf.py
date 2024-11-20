@@ -28,10 +28,6 @@ import datetime
 extensions = [
               'sphinx.ext.todo',
               'sphinx.ext.viewcode',
-              'sphinxcontrib.blockdiag',
-              'sphinxcontrib.actdiag',
-              'sphinxcontrib.seqdiag',
-              'sphinxcontrib.nwdiag',
               'yasfb',
               'openstackdocstheme'
              ]

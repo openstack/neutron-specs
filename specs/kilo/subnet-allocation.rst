@@ -282,10 +282,10 @@ between 32 and 64.
 
 There are certain parts of the IPv6 address space that are simply not specified
 for any kind of use (i.e. outside 2000::/3, fc00:/7 for ULA, and other specified
-scopes)[#]_.  Some validation is called for.  The following address spaces should
+scopes) [#ipv6-addr]_.  Some validation is called for.  The following address spaces should
 be allowed:
 
-.. [#] http://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
+.. [#ipv6-addr] http://www.iana.org/assignments/ipv6-address-space/ipv6-address-space.xhtml
 
 .. csv-table::
     :header: Addresses, Description
@@ -298,9 +298,9 @@ existing subnet allocations that happen to fall outside of the new ranges.
 
 This bp will start with the same shared model that we have now for networks.
 However, an RBAC mechanism can be added later similar to the one proposed for
-networks [#]_.
+networks [#network-rbac]_.
 
-.. [#] https://review.openstack.org/#/c/132661/
+.. [#network-rbac] https://review.openstack.org/#/c/132661/
 
 Security Impact
 ---------------
@@ -406,10 +406,9 @@ Work Items
 Dependencies
 ============
 
-This blueprint depends on the work in the neutron-ipam [#]_.  That blueprint
-adds some of the frame-work necessary to implement this new feature.
-
-.. [#] https://blueprints.launchpad.net/neutron/+spec/neutron-ipam
+This blueprint depends on the work in the neutron-ipam [#neutron-ipam]_ one.
+That blueprint adds some of the frame-work necessary to implement this
+new feature. For further information, see the Etherpad [#ipam-etherpad]_.
 
 Testing
 =======
@@ -462,4 +461,6 @@ N/A
 References
 ==========
 
-.. [#] https://etherpad.openstack.org/p/neutron-ipam
+.. [#neutron-ipam] https://blueprints.launchpad.net/neutron/+spec/neutron-ipam
+
+.. [#ipam-etherpad] https://etherpad.openstack.org/p/neutron-ipam

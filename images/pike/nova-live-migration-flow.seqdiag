@@ -1,0 +1,27 @@
+seqdiag {
+    // Do not show activity line
+    activation = none;
+    edge_length = 400;
+    Nova; Neutron
+
+    === Nova boot instance ===
+    Nova -> Neutron [label = "Create the port
+        POST /v2.0/ports {host_id:src_host}"];
+
+    === Nova pre_live_migration ===
+    Nova -> Neutron [label = "Create the inactive binding
+        POST /v2.0/ports/{port_id}/bindings {binding:{
+                                             host_id:target-host_id}}"];
+
+    === Nova live_migration_operation ===
+    Nova -> Nova [label ="Update the instance \ndefinition and
+        start the migration"];
+
+    === Nova live_migration_operation - instance active on target===
+    Nova -> Neutron [label ="Set the inactive binding to active
+        PUT /v2.0/ports/{port_id}/bindings/{host_id}/activate"];
+
+    === Nova post_live_migration ===
+    Nova -> Neutron [label ="Remove the inactive binding
+        DELETE /v2.0/ports/{port_id}/bindings/{host_id}"];
+}

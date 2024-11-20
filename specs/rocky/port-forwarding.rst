@@ -560,8 +560,3 @@ References
 
 .. [#foot1] https://docs.docker.com/engine/userguide/networking/default_network/binding/
 .. [#foot2] https://review.openstack.org/#/c/485333/20
-.. [#foot3] https://ask.openstack.org/en/question/75190/neutron-port-forwarding-qrouter-vms/
-.. [#foot4] http://www.gossamer-threads.com/lists/openstack/dev/34307
-.. [#foot5] http://openstack.10931.n7.nabble.com/Neutron-port-forwarding-for-router-td46639.html
-.. [#foot6] http://openstack.10931.n7.nabble.com/Neutron-port-forwarding-from-gateway-to-internal-hosts-td32410.html
-.. [#foot7] https://blueprints.launchpad.net/neutron/+spec/neutron-ovs-dvr

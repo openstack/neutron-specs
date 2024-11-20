@@ -2,14 +2,6 @@
 # with g-r on purpose, as g-r is just for projects affecting the
 # integrated gate. Any sync must happen manually as recommended by
 # the openstack release team.
-sphinx>=2.0.0,!=2.1.0 # BSD
-actdiag
-blockdiag
-nwdiag
+sphinx>=2.2.0 # BSD
 openstackdocstheme>=2.2.1 # Apache-2.0
-seqdiag
-sphinxcontrib-actdiag
-sphinxcontrib-blockdiag # BSD
-sphinxcontrib-nwdiag
-sphinxcontrib-seqdiag # BSD
 yasfb>=0.5.1

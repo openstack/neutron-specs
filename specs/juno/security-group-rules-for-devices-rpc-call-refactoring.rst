@@ -413,8 +413,6 @@ References
 
 .. [#n2nov_scaling] http://javacruft.wordpress.com/2014/06/18/168k-instances/
 
-.. [#iptables] http://www.fpaste.org/104431/40085672/
-
 .. [#sec_fanout] http://lists.openstack.org/pipermail/openstack-dev/2014-June/038374.html
 
 .. [#ipset_spec] https://review.openstack.org/#/c/100761/

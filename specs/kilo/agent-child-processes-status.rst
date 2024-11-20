@@ -329,12 +329,6 @@ References
 .. [#oslo_service_status]  Oslo service manager status notification spec
    http://docs-draft.openstack.org/48/97748/3/check/gate-oslo-specs-docs/ef96358/doc/build/html/specs/juno/service-status-interface.html]
 
-.. [#oslo_sn_review] Oslo spec review
-   https://review.openstack.org/#/c/97748/
-
-.. [#old_agent_service_status] Old agent service status blueprint
-   https://blueprints.launchpad.net/neutron/+spec/agent-service-status
-
 .. [#waitpid] http://linux.die.net/man/2/waitpid
 
 .. [#waitpid_non_child] http://stackoverflow.com/questions/1058047/wait-for-any-process-to-finish

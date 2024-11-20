@@ -52,22 +52,8 @@ an OpenStack native project. We will support the configuration of tooz backend
 drivers in neutron.conf, such as adding [tooz] configuration items.
 
 The new IPAM allocate ip seqdiag.
-   .. seqdiag::
 
-    seqdiag {
-        "Neutron Plugin"  ->  NeutronDbPluginV2 [label = "create_port"];
-        NeutronDbPluginV2 -> "IPAM Driver" [label = "get_subnet"];
-        NeutronDbPluginV2 <- "IPAM Driver" [label = "IPAMSubnet"];
-        NeutronDbPluginV2 -> IPAMSubnet [label = "allocate_ip"];
-        IPAMSubnet -> "Pluggable IPAM" [label = "Allocate IP"];
-        "Pluggable IPAM" -> "Pluggable IPAM" [label = "lock ip by ip+subnet_id"];
-        IPAMSubnet <- "Pluggable IPAM" [label = "IP"];
-        NeutronDbPluginV2 <- IPAMSubnet [label = "IP"];
-        NeutronDbPluginV2 -> "Neutron DB" [label = "port, IP data"];
-        NeutronDbPluginV2 <- "Neutron DB";
-        "Neutron Plugin" <- NeutronDbPluginV2 [label = "port, IP data"];
-        "Neutron Plugin" -> "Neutron Plugin" [label = "release lock"];
-    }
+.. image:: /images/train/ipam-allocate.png
 
 Alternatives
 ------------
