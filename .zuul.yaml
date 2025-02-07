@@ -1,15 +1,4 @@
 - project:
     templates:
       - openstack-specs-jobs
-    check:
-      jobs:
-        - openstack-tox-py38:
-            # Override default list of files since the default
-            # ignores .rst files but we need to test .rst files here.
-            irrelevant-files:
-              - ^releasenotes/.*$
-    gate:
-      jobs:
-        - openstack-tox-py38:
-            irrelevant-files:
-              - ^releasenotes/.*$
+      - openstack-python3-jobs
