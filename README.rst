@@ -1,15 +1,10 @@
-========================
-Team and repository tags
-========================
+================================
+OpenStack Neutron Specifications
+================================
 
 .. image:: https://governance.openstack.org/tc/badges/neutron-specs.svg
-    :target: https://governance.openstack.org/tc/reference/tags/index.html
 
 .. Change things from this point on
-
-==================================
-OpenStack Neutron Specifications
-==================================
 
 This git repository is used to hold approved design specifications for additions
 to the Neutron project. Reviews of the specs are done in gerrit, using a
