@@ -229,9 +229,11 @@ setting exists per project and at most one system-wide setting (where
 Security Impact
 ---------------
 
-* The new API will be restricted to **admin users** by default through Oslo
-  policy rules. Regular users will only be able to read the effective default
-  for their own project.
+* The new API will be restricted through Oslo policy rules. By default,
+  **admin users** can manage both system-wide and per-project default
+  statefulness settings. **Project managers** can manage per-project settings
+  for their own project. Regular users will only be able to read the effective
+  default for their own project.
 
 * This change does **not** affect the enforcement of security group rules
   themselves; it only changes the default value used when the ``stateful``
